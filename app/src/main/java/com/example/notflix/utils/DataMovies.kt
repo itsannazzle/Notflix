@@ -77,7 +77,7 @@ object DataMovies {
         val tvshowEntity = ArrayList<TvShowEntity>()
         tvshowEntity.add(
            TvShowEntity(
-               id_movies = "tv_001",
+                "tv_001",
                poster = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hxJQ3A2wtreuWDnVBbzzXI3YlOE.jpg",
                title = "Start-Up",
                overview = "Young entrepreneurs aspiring to launch virtual dreams into reality compete for success and love in the cutthroat world of Korea's high-tech industry.",
@@ -90,7 +90,7 @@ object DataMovies {
         )
         tvshowEntity.add(
             TvShowEntity(
-                id_movies = "tv_002",
+            "tv_002",
                 poster = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/MoEKaPFHABtA1xKoOteirGaHl1.jpg",
                 title = "Money Heist",
                 overview = "To carry out the biggest heist in history, a mysterious man called The Professor recruits a band of eight robbers who have a single characteristic: none of them has anything to lose. Five months of seclusion - memorizing every step, every detail, every probability - culminate in eleven days locked up in the National Coinage and Stamp Factory of Spain, surrounded by police forces and with dozens of hostages in their power, to find out whether their suicide wager will lead to everything or nothing.",
@@ -103,7 +103,7 @@ object DataMovies {
         )
         tvshowEntity.add(
             TvShowEntity(
-                id_movies = "tv_003",
+                 "tv_003",
                 poster = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
                 title = "Game of Thrones - Season 8",
                 overview = "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
@@ -116,7 +116,7 @@ object DataMovies {
         )
         tvshowEntity.add(
             TvShowEntity(
-                id_movies = "tv_004",
+                 "tv_004",
                 poster = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3NTAbAiao4JLzFQw6YxP1YZppM8.jpg",
                 title = "Elite - Season 3",
                 overview = "When three working class kids enroll in the most exclusive school in Spain, the clash between the wealthy and the poor students leads to tragedy.",
@@ -129,7 +129,7 @@ object DataMovies {
         )
         tvshowEntity.add(
             TvShowEntity(
-                id_movies = "tv_005",
+                 "tv_005",
                 poster = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rqeYMLryjcawh2JeRpCVUDXYM5b.jpg",
                 title = "The Walking Dead",
                 overview = "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
@@ -143,39 +143,37 @@ object DataMovies {
         return tvshowEntity
     }
 
-    fun generateEpisodes(tvShowId : String) : ArrayList<EpisodesEntity>{
+    fun generateEpisodes() : ArrayList<EpisodesEntity>{
         val eps = ArrayList<EpisodesEntity>()
         eps.add(
             EpisodesEntity(
-            tvShowId,
+                thumnail = "https://images.unsplash.com/photo-1527542146552-9e862c46e596?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80",
             "Episode 1 : i dont know",
-            0,
             "Lorem"
         )
         )
 
         eps.add(EpisodesEntity(
-            tvShowId,
+            thumnail = "https://images.unsplash.com/photo-1527542146552-9e862c46e596?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80",
             "Episode 2 : i dont know",
-            1,
             "Lorem"
         ))
         eps.add(EpisodesEntity(
-            tvShowId,
+            thumnail = "https://images.unsplash.com/photo-1527542146552-9e862c46e596?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80",
+
             "Episode 3 : i dont know",
-            2,
             "Lorem"
         ))
         eps.add(EpisodesEntity(
-            tvShowId,
+            thumnail = "https://images.unsplash.com/photo-1527542146552-9e862c46e596?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80",
+
             "Episode 4 : i dont know",
-            3,
             "Lorem"
         ))
         eps.add(EpisodesEntity(
-            tvShowId,
+            thumnail = "https://images.unsplash.com/photo-1527542146552-9e862c46e596?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80",
+
             "Episode 5 : i dont know",
-            4,
             "Lorem"
         ))
 

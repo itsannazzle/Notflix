@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".home.MainActivity">
+    tools:context=".ui.home.MainActivity">
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         app:tabIndicatorColor="@color/purple_200"/>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager"
+        android:id="@+id/homepager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

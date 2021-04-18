@@ -12,7 +12,7 @@
             android:id="@+id/poster_eps"
             android:layout_width="132dp"
             android:layout_height="79dp"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitXY"/>
         <TextView
             android:id="@+id/eps_title"
             android:layout_width="wrap_content"
