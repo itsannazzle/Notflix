@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".movies.DetailMovieFragment">
+
+<FrameLayout
+    android:id="@+id/framelayout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+    <ImageView
+        android:id="@+id/movies_poster"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_name"
+        android:textAllCaps="false"/>
+</FrameLayout>
+
+    <TextView
+        android:id="@+id/movies_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/app_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"/>
+    <TextView
+        android:id="@+id/movies_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/movies_country"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/app_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/movies_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/movies_country"
+        app:layout_constraintStart_toEndOf="@id/movies_title"
+        app:layout_constraintBaseline_toBaselineOf="@id/movies_title"
+        android:text="@string/app_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+    android:id="@+id/movies_desc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/movies_title"
+    app:layout_constraintStart_toStartOf="parent"
+    android:text="@string/app_name"
+    android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/movies_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/movies_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/app_name"
+        android:layout_margin="8dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
