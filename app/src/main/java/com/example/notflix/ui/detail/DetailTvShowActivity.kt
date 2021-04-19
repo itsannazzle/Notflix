@@ -43,6 +43,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         binding.moviesDesc.text = tvShowEntity.overview
         binding.moviesDuration.text = tvShowEntity.duration
         binding.moviesGenre.text = tvShowEntity.genre
+        binding.moviesRating.text = tvShowEntity.rating
         Glide.with(this)
                 .load(tvShowEntity.poster)
                 .into(binding.moviesPoster)

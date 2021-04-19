@@ -40,6 +40,7 @@ class DetailMoviesActivity : AppCompatActivity() {
         binding.moviesDesc.text = movieId.overview
         binding.moviesDuration.text = movieId.duration
         binding.moviesGenre.text = movieId.genre
+        binding.moviesRating.text = movieId.rating
         Glide.with(this)
                 .load(movieId.poster)
                 .into(binding.moviesPoster)

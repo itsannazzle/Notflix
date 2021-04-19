@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Notflix">
-        <activity android:name=".ui.detail.DetailTvShowActivity"></activity>
+        <activity android:name=".ui.home.MainActivity" />
+        <activity android:name=".ui.detail.DetailTvShowActivity" />
         <activity android:name=".ui.detail.DetailMoviesActivity" />
-        <activity android:name=".ui.home.MainActivity">
+        <activity android:name=".ui.home.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

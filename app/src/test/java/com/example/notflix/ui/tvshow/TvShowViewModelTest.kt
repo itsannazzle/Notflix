@@ -14,6 +14,6 @@ class TvShowViewModelTest : TestCase() {
     @Test
     fun testGetTvShow() {
         assertNotNull(viewModel.getTvShow())
-        assertEquals(5,viewModel.getTvShow().size)
+        assertEquals(11,viewModel.getTvShow().size)
     }
 }

@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:backgroundTint="@color/black"
     android:layout_height="80dp"
     android:layout_marginTop="8dp">
 
@@ -11,17 +12,20 @@
         <ImageView
             android:id="@+id/poster_eps"
             android:layout_width="132dp"
+            android:contentDescription="@string/poster"
             android:layout_height="79dp"
             android:scaleType="fitXY"/>
         <TextView
             android:id="@+id/eps_title"
+            style="@style/sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:layout_marginStart="8dp"
-            android:layout_toRightOf="@id/poster_eps"/>
+            android:layout_toEndOf="@id/poster_eps"/>
         <TextView
             android:id="@+id/eps_desc"
+            style="@style/body_copy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
@@ -30,7 +34,7 @@
             android:layout_below="@id/eps_title"
             android:maxLines="2"
             android:ellipsize="end"
-            android:layout_toRightOf="@id/poster_eps"/>
+            android:layout_toEndOf="@id/poster_eps"/>
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>
