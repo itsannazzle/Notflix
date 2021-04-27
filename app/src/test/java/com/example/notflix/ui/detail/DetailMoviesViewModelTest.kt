@@ -12,9 +12,12 @@ import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class DetailMoviesViewModelTest : TestCase() {
     private lateinit var viewModel: DetailMoviesViewModel
     private val dummyMovies = DataMovies.generateDataMovies()[0]
@@ -72,22 +75,17 @@ class DetailMoviesViewModelTest : TestCase() {
         val moviesList = viewModel.showDetailTvShow().value as TvShowEntity
         verify(moviesRepositories).getDetailTv(tvshowId)
         assertNotNull(moviesList)
-        assertEquals(dummyMovies.id_movies, moviesList.id_tvshow)
-        assertEquals(dummyMovies.poster, moviesList.poster)
-        assertEquals(dummyMovies.country, moviesList.country)
-        assertEquals(dummyMovies.duration, moviesList.duration)
-        assertEquals(dummyMovies.genre, moviesList.genre)
-        assertEquals(dummyMovies.title, moviesList.title)
-        assertEquals(dummyMovies.overview,moviesList.overview)
-        assertEquals(dummyMovies.rating,moviesList.rating)
+        assertEquals(dummyTvShow.id_tvshow, moviesList.id_tvshow)
+        assertEquals(dummyTvShow.poster, moviesList.poster)
+        assertEquals(dummyTvShow.country, moviesList.country)
+        assertEquals(dummyTvShow.duration, moviesList.duration)
+        assertEquals(dummyTvShow.genre, moviesList.genre)
+        assertEquals(dummyTvShow.title, moviesList.title)
+        assertEquals(dummyTvShow.overview,moviesList.overview)
+        assertEquals(dummyTvShow.rating,moviesList.rating)
 
         viewModel.showDetailTvShow().observeForever(tvshowObserver)
         verify(tvshowObserver).onChanged(dummyTvShow)
     }
 
-//    @Test
-//    fun testShowEpisodes() {
-//        assertNotNull(viewModel.showEpisodes())
-//        assertEquals(5, viewModel.showEpisodes().size)
-//    }
 }

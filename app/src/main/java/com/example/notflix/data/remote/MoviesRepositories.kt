@@ -88,7 +88,8 @@ class MoviesRepositories private constructor(private val remoteDataSource: Remot
                     for (genre in genres){
                         listGenre.add(genre.name)
                     }
-                    val tvShow = TvShowEntity(id,
+                    val tvShow = TvShowEntity(
+                            id,
                             backdropPath,
                             posterPath,
                             name,

@@ -4,20 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class DetailMoviesResponse(
 
-	@field:SerializedName("original_language")
-	val originalLanguage: String,
 
 	@field:SerializedName("title")
-	val title: String,
+	val title: String? = null,
 
 	@field:SerializedName("backdrop_path")
-	val backdropPath: String,
+	val backdropPath: String? = null,
 
 	@field:SerializedName("genres")
 	val genres: List<GenresItem>,
-
-	@field:SerializedName("popularity")
-	val popularity: Double,
 
 	@field:SerializedName("production_countries")
 	val productionCountries: List<ProductionCountriesItem>,
@@ -25,35 +20,25 @@ data class DetailMoviesResponse(
 	@field:SerializedName("id")
 	val id: Int,
 
-	@field:SerializedName("vote_count")
-	val voteCount: Int,
-
 	@field:SerializedName("overview")
-	val overview: String,
+	val overview: String? = null,
 
 	@field:SerializedName("original_title")
-	val originalTitle: String,
+	val originalTitle: String? = null,
 
 	@field:SerializedName("runtime")
 	val runtime: Int,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String,
-
-	@field:SerializedName("spoken_languages")
-	val spokenLanguages: List<SpokenLanguagesItem>,
-
-	@field:SerializedName("release_date")
-	val releaseDate: String,
+	val posterPath: String? = null,
 
 	@field:SerializedName("vote_average")
 	val voteAverage: Double,
 
 	@field:SerializedName("adult")
-	val adult: Boolean,
+	val adult: Boolean? = null,
 
-	@field:SerializedName("status")
-	val status: String
+
 )
 
 data class GenresItem(
@@ -62,27 +47,17 @@ data class GenresItem(
 	val name: String,
 
 	@field:SerializedName("id")
-	val id: Int
+	val id: Int? = null
 )
 
 data class ProductionCountriesItem(
 
 	@field:SerializedName("iso_3166_1")
-	val iso31661: String,
+	val iso31661: String? =null,
 
 	@field:SerializedName("name")
 	val name: String
 )
 
-data class SpokenLanguagesItem(
 
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("iso_639_1")
-	val iso6391: String,
-
-	@field:SerializedName("english_name")
-	val englishName: String
-)
 

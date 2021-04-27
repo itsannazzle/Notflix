@@ -3,19 +3,11 @@ package com.example.notflix.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.notflix.MockResponseFileReader
 import com.example.notflix.data.remote.MoviesRepositories
-import com.example.notflix.data.remote.config.ApiConfig
-import com.example.notflix.data.remote.config.ApiRequest
 import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.PrevMoviesEntity
-import com.example.notflix.entity.PrevTVEntity
 import com.example.notflix.utils.DataMovies
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,8 +15,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Retrofit
-import java.net.HttpURLConnection
 
 @RunWith(MockitoJUnitRunner::class)
 class MoviesViewModelTest : TestCase() {

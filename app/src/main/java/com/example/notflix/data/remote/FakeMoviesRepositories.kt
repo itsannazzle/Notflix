@@ -9,7 +9,7 @@ import com.example.notflix.data.remote.response.TVResultsItem
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.entity.TvShowEntity
 
-class FakeMoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource) : NotflixDataSource{
+class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource) : NotflixDataSource{
 
     override fun getAllTrendingMovies(): LiveData<List<MoviesEntity>> {
         val trendingMoviesResult = MutableLiveData<List<MoviesEntity>>()

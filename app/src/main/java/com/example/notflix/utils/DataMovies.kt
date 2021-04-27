@@ -1,5 +1,6 @@
 package com.example.notflix.utils
 
+import com.example.notflix.data.remote.response.*
 import com.example.notflix.entity.EpisodesEntity
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.entity.TvShowEntity
@@ -524,6 +525,209 @@ object DataMovies {
                 ))
 
         return tvshowEntity
+    }
+
+    fun generateRemoteDummyMovies() : List<ResultsItem>{
+        val movieResponse = ArrayList<ResultsItem>()
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(ResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+
+        return movieResponse
+    }
+
+    fun generateRemoteDummyTv() : List<TVResultsItem>{
+        val movieResponse = ArrayList<TVResultsItem>()
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                backdropPath =  "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+        movieResponse.add(TVResultsItem(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+        ))
+
+        return movieResponse
+    }
+
+    fun generateDetailMovies() : DetailMoviesResponse{
+        val detailMovies = DetailMoviesResponse(
+                id = 460465,
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
+                backdropPath = "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+                title = "Mortal Kombat",
+                overview = "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                genres = listOf(GenresItem("Drama,Romance,Action")),
+                productionCountries = listOf(ProductionCountriesItem(name = "DE,US")),
+                voteAverage = 8.0,
+                runtime = 139
+        )
+        return detailMovies
+    }
+    fun generateDetailTvShow() : DetailTvResponse{
+        val detailTv = DetailTvResponse(
+                id = 88396,
+                posterPath = "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                backdropPath = "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
+                name = "Mortal Kombat",
+                overview = "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                genres = listOf(TVGenresItem("Drama,Romance,Action")),
+                productionCountries = listOf(TVProductionCountriesItem(name = "DE,US")),
+                voteAverage = 8.0,
+                episodeRunTime = listOf(1,2,3),
+                numberOfEpisodes = 8,
+                numberOfSeasons = 8
+        )
+        return detailTv
     }
 
     fun generateEpisodes() : ArrayList<EpisodesEntity>{
