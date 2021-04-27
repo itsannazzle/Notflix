@@ -1,14 +1,12 @@
 package com.example.notflix.ui.tvshow
 
-import android.os.Binder
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.R
 import com.example.notflix.databinding.FragmentTvShowBinding
 import com.example.notflix.ui.ViewModelFactory
 

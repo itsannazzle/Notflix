@@ -2,15 +2,13 @@ package com.example.notflix.data.remote
 
 import androidx.lifecycle.LiveData
 import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.PrevMoviesEntity
-import com.example.notflix.entity.PrevTVEntity
 import com.example.notflix.entity.TvShowEntity
 
 interface NotflixDataSource {
 
-    fun getAllTrendingMovies() : LiveData<List<PrevMoviesEntity>>
+    fun getAllTrendingMovies() : LiveData<List<MoviesEntity>>
 
-    fun getAllPopularTvShow() : LiveData<List<PrevTVEntity>>
+    fun getAllPopularTvShow() : LiveData<List<TvShowEntity>>
 
     fun getDetailMovie(movie_id : Int) : LiveData<MoviesEntity>
 

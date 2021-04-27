@@ -9,15 +9,8 @@ import com.example.notflix.data.remote.response.TVResultsItem
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.entity.TvShowEntity
 
-class MoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource) : NotflixDataSource{
-    companion object{
-        @Volatile
-        private var instance : MoviesRepositories? = null
-        fun getInstance(remoteDataSource: RemoteDataSource) : MoviesRepositories =
-                instance ?: synchronized(this){
-                    instance ?: MoviesRepositories(remoteDataSource).apply { instance = this }
-                }
-    }
+class FakeMoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource) : NotflixDataSource{
+
     override fun getAllTrendingMovies(): LiveData<List<MoviesEntity>> {
         val trendingMoviesResult = MutableLiveData<List<MoviesEntity>>()
         remoteDataSource.getTrendingMovies(object : RemoteDataSource.TrendingCallback {

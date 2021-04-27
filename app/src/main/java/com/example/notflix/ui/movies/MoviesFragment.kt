@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.databinding.FragmentMoviesFragmentBinding
-import com.example.notflix.entity.PrevMoviesEntity
+import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.detail.DetailMoviesActivity
 
@@ -47,9 +47,9 @@ class MoviesFragment : Fragment() {
                 setHasFixedSize(true)
             }
             moviesAdapter.setOnItemCallback(object : MoviesAdapter.OnItemCallback {
-                override fun onItemClicked(movies: PrevMoviesEntity) {
+                override fun onItemClicked(movies: MoviesEntity) {
                 val intent = Intent(activity, DetailMoviesActivity::class.java)
-                intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,movies.movie_id)
+                intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,movies.id_movies)
                 startActivity(intent)
                 }
             })

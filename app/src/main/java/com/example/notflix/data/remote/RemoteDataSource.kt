@@ -1,5 +1,7 @@
 package com.example.notflix.data.remote
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.example.notflix.data.remote.config.ApiConfig
 import com.example.notflix.data.remote.response.*
@@ -8,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RemoteDataSource {
-   // private val handler = Handler(Looper.getMainLooper()) nanti dulu
+   private val handler = Handler(Looper.getMainLooper())
     companion object{
         @Volatile
         private var instance : RemoteDataSource? = null
@@ -21,7 +23,7 @@ class RemoteDataSource {
     fun getTrendingMovies(callback: TrendingCallback){
         ApiConfig.getApiService().getTrendingMovies().enqueue(object : Callback<TrendingResponse> {
             override fun onResponse(call: Call<TrendingResponse>, response: Response<TrendingResponse>) {
-                callback.onTrendingMovies(response.body()?.results as List<ResultsItem>)
+                handler.post { callback.onTrendingMovies(response.body()?.results as List<ResultsItem>) }
             }
 
             override fun onFailure(call: Call<TrendingResponse>, t: Throwable) {
@@ -38,7 +40,7 @@ class RemoteDataSource {
     fun getPopularTvShow(callback : TvShowCallback){
         ApiConfig.getApiService().getPopularTvShow().enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
-                callback.onPopularTvShow(response.body()?.results as List<TVResultsItem> )
+                handler.post { callback.onPopularTvShow(response.body()?.results as List<TVResultsItem> ) }
             }
 
             override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
@@ -55,7 +57,7 @@ class RemoteDataSource {
     fun getDetailMovie(movie_id : Int, callback : DetailMovieCallback){
         ApiConfig.getApiService().getDetailMovie(movie_id).enqueue(object : Callback<DetailMoviesResponse> {
             override fun onResponse(call: Call<DetailMoviesResponse>, response: Response<DetailMoviesResponse>) {
-                callback.onDetailMovies(response.body() as DetailMoviesResponse)
+               handler.post {  callback.onDetailMovies(response.body() as DetailMoviesResponse) }
             }
 
             override fun onFailure(call: Call<DetailMoviesResponse>, t: Throwable) {
@@ -72,7 +74,7 @@ class RemoteDataSource {
     fun getDetailTvShow(tv_id : Int, callback : DetailTvSHowCallback){
         ApiConfig.getApiService().getDetailTvShow(tv_id).enqueue(object : Callback<DetailTvResponse> {
             override fun onResponse(call: Call<DetailTvResponse>, response: Response<DetailTvResponse>) {
-                callback.onDetailTvShow(response.body() as DetailTvResponse)
+               handler.post {  callback.onDetailTvShow(response.body() as DetailTvResponse) }
             }
 
             override fun onFailure(call: Call<DetailTvResponse>, t: Throwable) {

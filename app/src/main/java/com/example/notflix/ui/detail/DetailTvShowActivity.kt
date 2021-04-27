@@ -1,16 +1,11 @@
 package com.example.notflix.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
-import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.PrevTVEntity
 import com.example.notflix.entity.TvShowEntity
 import com.example.notflix.ui.ViewModelFactory
 
@@ -29,9 +24,9 @@ class DetailTvShowActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val episodesAdapter = EpisodesAdapter()
-        val tvshowId = intent.getParcelableExtra<PrevTVEntity>(EXTRA_TVSHOW)
+        val tvshowId = intent.getParcelableExtra<TvShowEntity>(EXTRA_TVSHOW)
         if (tvshowId != null){
-                viewModel.getSelectedTvShow(tvshowId.tv_id)
+                viewModel.getSelectedTvShow(tvshowId.id_tvshow)
                 viewModel.showDetailTvShow().observe(this,{
                     tvShow -> showDetailShow(tvShow)
                 })
