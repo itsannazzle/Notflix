@@ -6,8 +6,10 @@ import com.example.notflix.data.remote.response.DetailMoviesResponse
 import com.example.notflix.data.remote.response.DetailTvResponse
 import com.example.notflix.data.remote.response.ResultsItem
 import com.example.notflix.data.remote.response.TVResultsItem
+import com.example.notflix.entity.EpisodesEntity
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.utils.DataMovies
 
 class MoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource) : NotflixDataSource{
     companion object{
@@ -59,13 +61,21 @@ class MoviesRepositories private constructor(private val remoteDataSource: Remot
         remoteDataSource.getDetailMovie(movie_id, object : RemoteDataSource.DetailMovieCallback {
             override fun onDetailMovies(detailMoviesResponse: DetailMoviesResponse) {
                 with(detailMoviesResponse){
+                    val listGenre = ArrayList<String>()
+                    val listCountry = ArrayList<String>()
+                    for (genre in genres){
+                        listGenre.add(genre.name)
+                    }
+                    for (country in productionCountries){
+                        listCountry.add(country.name)
+                    }
                     val movie = MoviesEntity(
                             id_movies = id,
                             backdropPath,
                             poster = posterPath,
                             title = title,
-                            genre = genres.forEach { it.name }.toString(),
-                            country = productionCountries.forEach { it.name }.toString(),
+                            genre = listGenre.toString(),
+                            country = listCountry.toString(),
                             rating = voteAverage,
                             overview = overview,
                             duration = runtime
@@ -85,26 +95,37 @@ class MoviesRepositories private constructor(private val remoteDataSource: Remot
             override fun onDetailTvShow(detailTvResponse: DetailTvResponse) {
                 with(detailTvResponse){
                     val listGenre = ArrayList<String>()
+                    val listCountry = ArrayList<String>()
                     for (genre in genres){
                         listGenre.add(genre.name)
                     }
-                    val tvShow = TvShowEntity(
-                            id,
-                            backdropPath,
-                            posterPath,
-                            name,
-                            listGenre.toString(),
-                            productionCountries.forEach { it.name }.toString(),
-                            voteAverage,
-                            overview,
-                            episodeRunTime.get(0),
-                            numberOfEpisodes
-                    )
-                    detailTvShowResult.postValue(tvShow)
+                    for (country in productionCountries){
+                        listCountry.add(country.name)
+                    }
+                    if (episodeRunTime.isNotEmpty()){
+                        val tvShow = TvShowEntity(
+                                id,
+                                backdropPath,
+                                posterPath,
+                                name,
+                                listGenre.toString(),
+                                listCountry.toString(),
+                                voteAverage,
+                                overview,
+                                episodeRunTime[0],
+                                numberOfEpisodes
+                        )
+                        detailTvShowResult.postValue(tvShow)
+                    }
                 }
-
             }
         })
         return detailTvShowResult
+    }
+
+    override fun getEpisodes(): LiveData<List<EpisodesEntity>> {
+        val showEp = MutableLiveData<List<EpisodesEntity>>()
+        showEp.postValue(DataMovies.generateEpisodes())
+        return showEp
     }
 }

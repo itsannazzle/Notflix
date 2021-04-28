@@ -3,6 +3,7 @@ package com.example.notflix.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.notflix.data.remote.MoviesRepositories
+import com.example.notflix.entity.EpisodesEntity
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.entity.TvShowEntity
 
@@ -24,7 +25,9 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
 
     fun showDetailTvShow() : LiveData<TvShowEntity> = moviesRepositories.getDetailTv(tvshowId)
 
-   // fun showEpisodes() : List<EpisodesEntity> = DataMovies.generateEpisodes()
+    fun showEpisodes() : LiveData<List<EpisodesEntity>> = moviesRepositories.getEpisodes()
+
+    fun showTrendingMovies() : LiveData<List<MoviesEntity>> = moviesRepositories.getAllTrendingMovies()
 
 
 }

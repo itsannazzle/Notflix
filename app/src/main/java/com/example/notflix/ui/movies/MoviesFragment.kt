@@ -19,7 +19,7 @@ class MoviesFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         binding = FragmentMoviesFragmentBinding.inflate(inflater, container, false)
         return binding.root

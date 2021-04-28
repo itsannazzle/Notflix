@@ -1,8 +1,10 @@
 package com.example.notflix.ui.detail
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
@@ -23,18 +25,20 @@ class DetailTvShowActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        binding.progressCircular.visibility = View.VISIBLE
         val episodesAdapter = EpisodesAdapter()
         val tvshowId = intent.getParcelableExtra<TvShowEntity>(EXTRA_TVSHOW)
         if (tvshowId != null){
                 viewModel.getSelectedTvShow(tvshowId.id_tvshow)
                 viewModel.showDetailTvShow().observe(this,{
                     tvShow -> showDetailShow(tvShow)
+                    binding.progressCircular.visibility = View.GONE
                 })
-//            episodesAdapter.setEpisodes(viewModel.showEpisodes())
-//            with(binding.rvEps){
-//                layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
-//                adapter = episodesAdapter
-//            }
+            viewModel.showEpisodes().observe(this,{
+                eps -> episodesAdapter.setEpisodes(eps)
+                binding.rvEps.adapter = episodesAdapter
+                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
+            })
         }
 
     }
@@ -43,7 +47,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         binding.moviesTitle.text = tvShowEntity.title
         binding.moviesCountry.text = tvShowEntity.country
         binding.moviesDesc.text = tvShowEntity.overview
-        binding.moviesDuration.text = tvShowEntity.duration.toString()
+        binding.moviesDuration.text = StringBuilder("${tvShowEntity.duration}m")
         binding.moviesGenre.text = tvShowEntity.genre
         binding.moviesRating.text = tvShowEntity.rating.toString()
         Glide.with(this)

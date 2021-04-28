@@ -3,9 +3,11 @@ package com.example.notflix.data.remote
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.notflix.utils.DataMovies
 import com.example.notflix.utils.LiveDataTest
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,20 +25,12 @@ class MoviesRepositoriesTest : TestCase() {
     private val moviesResponse = DataMovies.generateRemoteDummyMovies()
     private val movieId = moviesResponse[0].id
 
-    private val detailmoviesResponse = DataMovies.generateDetailMovies()
-    private val detailtvResponse = DataMovies.generateDetailTvShow()
-
-
-
     private val tvResponse = DataMovies.generateRemoteDummyTv()
     private val tvshowId = tvResponse[0].id
 
+    private val detailmoviesResponse = DataMovies.generateDetailMovies()
+    private val detailtvResponse = DataMovies.generateDetailTvShow()
 
-
-    @Before
-    fun setup() {
-
-    }
 
     @Test
     fun testGetAllTrendingMovies() {
@@ -48,7 +42,7 @@ class MoviesRepositoriesTest : TestCase() {
         val moviesEntity = LiveDataTest.getValue(fakeMoviesRepositories.getAllTrendingMovies())
         verify(remote).getTrendingMovies(any())
         assertNotNull(moviesEntity)
-        assertEquals(moviesResponse.size.toLong(),moviesEntity.size.toLong())
+        assertEquals(moviesResponse.size,moviesEntity.size)
     }
 
     @Test

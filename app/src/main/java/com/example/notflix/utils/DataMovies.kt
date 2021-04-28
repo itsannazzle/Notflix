@@ -713,6 +713,7 @@ object DataMovies {
         )
         return detailMovies
     }
+
     fun generateDetailTvShow() : DetailTvResponse{
         val detailTv = DetailTvResponse(
                 id = 88396,

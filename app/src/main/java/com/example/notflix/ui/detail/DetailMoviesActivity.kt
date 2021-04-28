@@ -1,6 +1,7 @@
 package com.example.notflix.ui.detail
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +11,6 @@ import com.example.notflix.databinding.ActivityDetailBinding
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.movies.MoviesAdapter
-import com.example.notflix.ui.movies.MoviesViewModel
 
 class DetailMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -26,9 +26,9 @@ class DetailMoviesActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        moviesAdapter = MoviesAdapter()
 
-
-
+        binding.progressCircular.visibility = View.VISIBLE
         val intent = intent.extras
         if (intent != null){
             val movieId = intent.getInt(EXTRA_MOVIEID)
@@ -36,16 +36,22 @@ class DetailMoviesActivity : AppCompatActivity() {
         }
         viewModel.showDetailMovie().observe(this, {
             movies -> showDetail(movies)
-
         })
-        //showRecomendation()
+
+        viewModel.showTrendingMovies().observe(this,{
+            trending -> moviesAdapter.addMovies(trending)
+            binding.movieRec.adapter = moviesAdapter
+            binding.progressCircular.visibility = View.GONE
+            binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+        })
+
     }
 
     private fun showDetail(movieId : MoviesEntity){
         binding.moviesTitle.text = movieId.title
         binding.moviesCountry.text = movieId.country
         binding.moviesDesc.text = movieId.overview
-        binding.moviesDuration.text = movieId.duration.toString()
+        binding.moviesDuration.text = StringBuilder("${movieId.duration}m")
         binding.moviesGenre.text = movieId.genre
         binding.moviesRating.text = movieId.rating.toString()
         Glide.with(this)
@@ -55,7 +61,11 @@ class DetailMoviesActivity : AppCompatActivity() {
 
 //    private fun showRecomendation(){
 //        moviesAdapter = MoviesAdapter()
-//        moviesAdapter.addMovies(moviesViewModel.getMovies())
+//        binding.progressCircular.visibility = View.VISIBLE
+//       viewModel.showTrendingMovies().observe(this,{
+//           rec -> moviesAdapter.addMovies(rec)
+//           binding.progressCircular.visibility = View.GONE
+//       })
 //        with(binding.movieRec){
 //            adapter = moviesAdapter
 //            layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)

@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 interface ApiRequest {
 
-    @GET("trending/all/day")
+    @GET("trending/movie/day")
     fun getTrendingMovies(@Query("api_key") api_key : String=BuildConfig.API_KEY) : Call<TrendingResponse>
 
     @GET("tv/popular")

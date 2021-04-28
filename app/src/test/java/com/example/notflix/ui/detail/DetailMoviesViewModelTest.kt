@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.notflix.data.remote.MoviesRepositories
+import com.example.notflix.entity.EpisodesEntity
 import com.example.notflix.entity.MoviesEntity
 import com.example.notflix.entity.TvShowEntity
 import com.example.notflix.utils.DataMovies
@@ -30,6 +31,9 @@ class DetailMoviesViewModelTest : TestCase() {
 
     @Mock
     private lateinit var moviesObserver: Observer<MoviesEntity>
+
+    @Mock
+    private lateinit var trendingobserver : Observer<List<MoviesEntity>>
 
     @Mock
     private lateinit var tvshowObserver: Observer<TvShowEntity>
@@ -86,6 +90,37 @@ class DetailMoviesViewModelTest : TestCase() {
 
         viewModel.showDetailTvShow().observeForever(tvshowObserver)
         verify(tvshowObserver).onChanged(dummyTvShow)
+    }
+
+    @Test
+    fun testShowTrendingMovies(){
+        val dummyMovies = DataMovies.generateDataMovies()
+        val actualMovies = MutableLiveData<List<MoviesEntity>>()
+        actualMovies.value = dummyMovies
+
+        Mockito.`when`(moviesRepositories.getAllTrendingMovies()).thenReturn(actualMovies)
+        val moviesEntity = viewModel.showTrendingMovies().value
+
+        verify(moviesRepositories).getAllTrendingMovies()
+        assertNotNull(moviesEntity)
+        assertEquals(20,moviesEntity?.size)
+
+        viewModel.showTrendingMovies().observeForever(trendingobserver)
+        verify(trendingobserver).onChanged(dummyMovies)
+    }
+
+    @Test
+    fun testShowEpisodes(){
+        val dummyEps = DataMovies.generateEpisodes()
+        val actualEps = MutableLiveData<List<EpisodesEntity>>()
+        actualEps.value = dummyEps
+        Mockito.`when`(moviesRepositories.getEpisodes()).thenReturn(actualEps)
+        val epsEntity = viewModel.showEpisodes().value
+
+        verify(moviesRepositories).getEpisodes()
+        assertNotNull(epsEntity)
+        assertEquals(5, epsEntity?.size)
+
     }
 
 }

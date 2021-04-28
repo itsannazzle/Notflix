@@ -1,9 +1,8 @@
 package com.example.notflix.ui.home
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.notflix.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.notflix.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
