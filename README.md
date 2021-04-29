@@ -1,2 +1,2 @@
 # Notflix
-Just like netflix, but not netflix
+Just like netflix, but not flix
