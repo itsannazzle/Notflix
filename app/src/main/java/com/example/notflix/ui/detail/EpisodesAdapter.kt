@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.notflix.databinding.ItemEpisodesBinding
-import com.example.notflix.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
 
 class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpsViewHolder>() {
     private val listEpisodes = ArrayList<EpisodesEntity>()

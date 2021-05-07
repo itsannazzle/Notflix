@@ -3,6 +3,8 @@ package com.example.notflix.data.remote
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.notflix.data.remote.config.ApiConfig
 import com.example.notflix.data.remote.response.*
 import com.example.notflix.utils.IdlingResource
@@ -21,11 +23,13 @@ class RemoteDataSource {
             }
     }
 
-    fun getTrendingMovies(callback: TrendingCallback){
+    fun getTrendingMovies() : LiveData<ApiResponse<List<TrendingResponse>>>{
+        val result = MutableLiveData<ApiResponse<List<TrendingResponse>>>()
         IdlingResource.increment()
         ApiConfig.getApiService().getTrendingMovies().enqueue(object : Callback<TrendingResponse> {
             override fun onResponse(call: Call<TrendingResponse>, response: Response<TrendingResponse>) {
-                handler.post { callback.onTrendingMovies(response.body()?.results as List<ResultsItem>)
+                handler.post {
+                    result.value = ApiResponse.success(response.body() as List<TrendingResponse>)
                 if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                     IdlingResource.decrement()
                 }
@@ -37,17 +41,18 @@ class RemoteDataSource {
             }
 
         })
+
+        return result
     }
 
-    interface TrendingCallback {
-        fun onTrendingMovies(trendingResponse: List<ResultsItem>)
-    }
 
-    fun getPopularTvShow(callback : TvShowCallback){
+    fun getPopularTvShow() : LiveData<ApiResponse<List<TVResultsItem>>> {
+        var result = MutableLiveData<ApiResponse<List<TVResultsItem>>>()
         IdlingResource.increment()
         ApiConfig.getApiService().getPopularTvShow().enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
-                handler.post { callback.onPopularTvShow(response.body()?.results as List<TVResultsItem> )
+                handler.post {
+                    result.value = ApiResponse.success(response.body() as List<TVResultsItem>)
                 if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                     IdlingResource.decrement()
                 }
@@ -59,17 +64,16 @@ class RemoteDataSource {
             }
 
         })
+        return result
     }
 
-    interface TvShowCallback {
-        fun onPopularTvShow(tvShowResponse: List<TVResultsItem>)
-    }
 
-    fun getDetailMovie(movie_id : Int, callback : DetailMovieCallback){
+    fun getDetailMovie(movie_id : Int) : LiveData<ApiResponse<DetailMoviesResponse>>{
+        val result = MutableLiveData<ApiResponse<DetailMoviesResponse>>()
         IdlingResource.increment()
         ApiConfig.getApiService().getDetailMovie(movie_id).enqueue(object : Callback<DetailMoviesResponse> {
             override fun onResponse(call: Call<DetailMoviesResponse>, response: Response<DetailMoviesResponse>) {
-               handler.post {  callback.onDetailMovies(response.body() as DetailMoviesResponse)
+               handler.post {  result.value = ApiResponse.success(response.body() as DetailMoviesResponse)
                if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                    IdlingResource.decrement()
                }
@@ -81,17 +85,17 @@ class RemoteDataSource {
             }
 
         })
+
+        return result
     }
 
-    interface DetailMovieCallback {
-        fun onDetailMovies(detailMoviesResponse: DetailMoviesResponse)
-    }
 
-    fun getDetailTvShow(tv_id : Int, callback : DetailTvSHowCallback){
+    fun getDetailTvShow(tv_id : Int) : LiveData<ApiResponse<DetailTvResponse>> {
+        val result = MutableLiveData<ApiResponse<DetailTvResponse>>()
         IdlingResource.increment()
         ApiConfig.getApiService().getDetailTvShow(tv_id).enqueue(object : Callback<DetailTvResponse> {
             override fun onResponse(call: Call<DetailTvResponse>, response: Response<DetailTvResponse>) {
-               handler.post {  callback.onDetailTvShow(response.body() as DetailTvResponse)
+               handler.post {  result.value = ApiResponse.success(response.body() as DetailTvResponse)
                if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                    IdlingResource.decrement()
                }}
@@ -102,12 +106,8 @@ class RemoteDataSource {
             }
 
         })
+
+        return result
     }
-
-    interface DetailTvSHowCallback {
-        fun onDetailTvShow(detailTvResponse: DetailTvResponse)
-    }
-
-
 
 }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.ui.ViewModelFactory
 
 class DetailTvShowActivity : AppCompatActivity() {

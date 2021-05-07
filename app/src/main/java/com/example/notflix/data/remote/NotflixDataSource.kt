@@ -1,9 +1,9 @@
 package com.example.notflix.data.remote
 
 import androidx.lifecycle.LiveData
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 
 interface NotflixDataSource {
 

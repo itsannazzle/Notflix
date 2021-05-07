@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.notflix.data.remote.MoviesRepositories
-import com.example.notflix.entity.MoviesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.utils.DataMovies
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase

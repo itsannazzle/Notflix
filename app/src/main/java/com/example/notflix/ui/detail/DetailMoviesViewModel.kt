@@ -3,9 +3,9 @@ package com.example.notflix.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.notflix.data.remote.MoviesRepositories
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 
 class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
 import com.example.notflix.databinding.ActivityDetailBinding
-import com.example.notflix.entity.MoviesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.movies.MoviesAdapter
 

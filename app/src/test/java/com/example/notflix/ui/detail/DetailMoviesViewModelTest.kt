@@ -4,9 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.notflix.data.remote.MoviesRepositories
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.utils.DataMovies
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
@@ -34,6 +34,9 @@ class DetailMoviesViewModelTest : TestCase() {
 
     @Mock
     private lateinit var trendingobserver : Observer<List<MoviesEntity>>
+
+    @Mock
+    private lateinit var episodesObserver : Observer<List<EpisodesEntity>>
 
     @Mock
     private lateinit var tvshowObserver: Observer<TvShowEntity>
@@ -120,6 +123,9 @@ class DetailMoviesViewModelTest : TestCase() {
         verify(moviesRepositories).getEpisodes()
         assertNotNull(epsEntity)
         assertEquals(5, epsEntity?.size)
+
+        viewModel.showEpisodes().observeForever(episodesObserver)
+        verify(episodesObserver).onChanged(dummyEps)
 
     }
 

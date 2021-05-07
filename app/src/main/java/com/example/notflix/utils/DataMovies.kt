@@ -1,9 +1,9 @@
 package com.example.notflix.utils
 
 import com.example.notflix.data.remote.response.*
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 
 object DataMovies {
     fun generateDataMovies() : ArrayList<MoviesEntity> {

@@ -1,17 +1,19 @@
-package com.example.notflix.data.remote
+package com.example.notflix.ui.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.notflix.data.remote.NotflixDataSource
+import com.example.notflix.data.remote.RemoteDataSource
 import com.example.notflix.data.remote.response.DetailMoviesResponse
 import com.example.notflix.data.remote.response.DetailTvResponse
 import com.example.notflix.data.remote.response.ResultsItem
 import com.example.notflix.data.remote.response.TVResultsItem
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.utils.DataMovies
 
-class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource) : NotflixDataSource{
+class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource) : NotflixDataSource {
 
     override fun getAllTrendingMovies(): LiveData<List<MoviesEntity>> {
         val trendingMoviesResult = MutableLiveData<List<MoviesEntity>>()

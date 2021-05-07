@@ -1,4 +1,4 @@
-package com.example.notflix.entity
+package com.example.notflix.data.local.entity
 
 class EpisodesEntity(
     val thumnail : String,

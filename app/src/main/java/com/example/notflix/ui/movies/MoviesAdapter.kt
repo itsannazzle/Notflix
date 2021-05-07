@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
 import com.example.notflix.databinding.ItemPosterBinding
-import com.example.notflix.entity.MoviesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
 
 class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
     private var moviesEntity = ArrayList<MoviesEntity>()

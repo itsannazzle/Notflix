@@ -1,6 +1,7 @@
 package com.example.notflix.data.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.notflix.ui.utils.FakeMoviesRepositories
 import com.example.notflix.utils.DataMovies
 import com.example.notflix.utils.LiveDataTest
 import com.nhaarman.mockitokotlin2.any

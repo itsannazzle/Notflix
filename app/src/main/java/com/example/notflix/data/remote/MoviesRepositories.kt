@@ -6,9 +6,9 @@ import com.example.notflix.data.remote.response.DetailMoviesResponse
 import com.example.notflix.data.remote.response.DetailTvResponse
 import com.example.notflix.data.remote.response.ResultsItem
 import com.example.notflix.data.remote.response.TVResultsItem
-import com.example.notflix.entity.EpisodesEntity
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.EpisodesEntity
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.utils.DataMovies
 
 class MoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource) : NotflixDataSource{

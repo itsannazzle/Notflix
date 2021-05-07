@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
 import com.example.notflix.databinding.ItemPosterBinding
-import com.example.notflix.entity.TvShowEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.ui.detail.DetailTvShowActivity
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {

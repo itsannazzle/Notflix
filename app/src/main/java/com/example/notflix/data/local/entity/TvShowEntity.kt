@@ -1,10 +1,16 @@
-package com.example.notflix.entity
+package com.example.notflix.data.local.entity
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+@Entity(tableName = "tvShowTable")
 @Parcelize
 class TvShowEntity(
+        @PrimaryKey
+        @NonNull
         var id_tvshow: Int =0,
         var backDrop : String? = null,
         var poster: String? = null,
