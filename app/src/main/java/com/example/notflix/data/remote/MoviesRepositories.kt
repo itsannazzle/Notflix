@@ -103,13 +103,13 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
             }
 
             override fun onFetchFailed() {
-                Log.i("MoviesRepository","Fetch popula tvshow data failed")
+                Log.i("MoviesRepository","Fetch popular tvshow data failed")
             }
         }.asLiveData()
     }
 
     override fun getDetailMovie(movie_id: Int): LiveData<ResourceData<MoviesEntity>> {
-        return object : NetworkBoundResource<List<ResultsItem>, MoviesEntity>() {
+        return object : NetworkBoundResource<DetailMoviesResponse, MoviesEntity>() {
 
             override fun loadFromDB(): LiveData<MoviesEntity> {
                 return localDataSource.getSelectedMovie(movie_id)
@@ -119,43 +119,89 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
                 return data == null
             }
 
-            override fun saveCallResult(response: List<ResultsItem>) {
+            override fun saveCallResult(response: DetailMoviesResponse) {
                 val detailMoveie = ArrayList<MoviesEntity>()
                 val listGenre = ArrayList<String>()
-                    val listCountry = ArrayList<String>()
-                for (respon in response){
-                    with(respon){
-                        if (genreIds != null) {
-                            for (genre in genreIds){
-                                listGenre.add(genre.)
+                val listCountry = ArrayList<String>()
+                    with(response){
+                        for (genre in genres){
+                                listGenre.add(genre.name)
                             }
-                        }
                         for (country in productionCountries){
                             listCountry.add(country.name)
                         }
                         val movie = MoviesEntity(
-                                id,posterPath,posterPath,title,genreIds,originCountry,voteAverage,overview,
+                                id,
+                                posterPath,
+                                posterPath,
+                                title,
+                                listGenre.toString(),
+                                listCountry.toString(),
+                                voteAverage,
+                                overview,
+                                runtime
                         )
-                        movieList.add(movie)
+                        detailMoveie.add(movie)
                     }
-                }
+
                 GlobalScope.launch(Dispatchers.IO){
-                    localDataSource.insertMovie(movieList)
+                    localDataSource.insertMovie(detailMoveie)
                 }
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<DetailMoviesResponse>>> {
-                TODO("Not yet implemented")
+            override fun createCall(): LiveData<ApiResponse<DetailMoviesResponse>> {
+                return remoteDataSource.getDetailMovie(movie_id)
             }
 
             override fun onFetchFailed() {
-                TODO("Not yet implemented")
+                Log.i("MoviesRepository","Fetch detail movie data failed")
             }
         }.asLiveData()
     }
 
     override fun getDetailTv(tv_id: Int): LiveData<ResourceData<TvShowEntity>> {
-        TODO("Not yet implemented")
+        return object : NetworkBoundResource<DetailTvResponse, TvShowEntity>() {
+            override fun loadFromDB(): LiveData<TvShowEntity> {
+                return localDataSource.getSelectedTvShow(tv_id)
+            }
+
+            override fun shouldFetch(data: TvShowEntity?): Boolean {
+                return data == null
+            }
+
+            override fun saveCallResult(response: DetailTvResponse) {
+                with(response){
+                    val listGenre = ArrayList<String>()
+                    val listCountry = ArrayList<String>()
+                    for (genre in genres){
+                        listGenre.add(genre.name)
+                    }
+                    for (country in productionCountries){
+                        listCountry.add(country.name)
+                    }
+                    val tvShow = TvShowEntity(
+                            id,
+                            backdropPath,
+                            posterPath,
+                            name,
+                            listGenre.toString(),
+                            listCountry.toString(),
+                            voteAverage,
+                            overview,
+                            episodeRunTime.lastIndex,
+                            numberOfEpisodes
+                    )
+                }
+            }
+
+            override fun createCall(): LiveData<ApiResponse<DetailTvResponse>> {
+                return remoteDataSource.getDetailTvShow(tv_id)
+            }
+
+            override fun onFetchFailed() {
+                Log.i("MoviesRepository","Fetch detail tvshow data failed")
+            }
+        }.asLiveData()
     }
 //    override fun getAllTrendingMovies(): LiveData<List<MoviesEntity>> {
 //        val trendingMoviesResult = MutableLiveData<List<MoviesEntity>>()

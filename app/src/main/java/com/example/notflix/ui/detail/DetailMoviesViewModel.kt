@@ -2,10 +2,12 @@ package com.example.notflix.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 import com.example.notflix.data.remote.MoviesRepositories
 import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
+import com.example.notflix.values.ResourceData
 
 class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {
 
@@ -21,13 +23,13 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
         this.tvshowId = tvshowId
     }
 
-    fun showDetailMovie() : LiveData<MoviesEntity> = moviesRepositories.getDetailMovie(movieId)
+    fun showDetailMovie() : LiveData<ResourceData<MoviesEntity>> = moviesRepositories.getDetailMovie(movieId)
 
-    fun showDetailTvShow() : LiveData<TvShowEntity> = moviesRepositories.getDetailTv(tvshowId)
+    fun showDetailTvShow() : LiveData<ResourceData<TvShowEntity>> = moviesRepositories.getDetailTv(tvshowId)
 
-    fun showEpisodes() : LiveData<List<EpisodesEntity>> = moviesRepositories.getEpisodes()
+    //fun showEpisodes() : LiveData<ResourceData<PagedList<EpisodesEntity>>> = moviesRepositories.getEpisodes()
 
-    fun showTrendingMovies() : LiveData<List<MoviesEntity>> = moviesRepositories.getAllTrendingMovies()
+    fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
 
 
 }
