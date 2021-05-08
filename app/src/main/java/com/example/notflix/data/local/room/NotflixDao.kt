@@ -13,10 +13,10 @@ interface NotflixDao {
     fun getAllMovies() : DataSource.Factory<Int,MoviesEntity>
 
     @Query("select * from moviesTable where id_movies = :movieId")
-    fun getSelectedMovie(movieId : MoviesEntity) : LiveData<MoviesEntity>
+    fun getSelectedMovie(movieId : Int) : LiveData<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(movieId: List<MoviesEntity>)
+    fun insertMovies(movie: List<MoviesEntity>)
 
     @Delete
     fun deleteMovie(movieId: List<MoviesEntity>)
@@ -25,10 +25,10 @@ interface NotflixDao {
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity>
 
     @Query("select * from tvShowTable where id_tvshow = :tvshowId")
-    fun getSelectedTvShow(tvshowId: TvShowEntity) : LiveData<TvShowEntity>
+    fun getSelectedTvShow(tvshowId: Int) : LiveData<TvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTvShow(tvshowId: List<TvShowEntity>)
+    fun insertTvShow(tvshow: List<TvShowEntity>)
 
     @Delete
     fun deleteTvShow(tvshowId: List<TvShowEntity>)

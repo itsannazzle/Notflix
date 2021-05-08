@@ -23,13 +23,13 @@ class RemoteDataSource {
             }
     }
 
-    fun getTrendingMovies() : LiveData<ApiResponse<List<TrendingResponse>>>{
-        val result = MutableLiveData<ApiResponse<List<TrendingResponse>>>()
+    fun getTrendingMovies() : LiveData<ApiResponse<List<ResultsItem>>>{
+        val result = MutableLiveData<ApiResponse<List<ResultsItem>>>()
         IdlingResource.increment()
         ApiConfig.getApiService().getTrendingMovies().enqueue(object : Callback<TrendingResponse> {
             override fun onResponse(call: Call<TrendingResponse>, response: Response<TrendingResponse>) {
                 handler.post {
-                    result.value = ApiResponse.success(response.body() as List<TrendingResponse>)
+                    result.value = ApiResponse.success(response.body() as List<ResultsItem>)
                 if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                     IdlingResource.decrement()
                 }

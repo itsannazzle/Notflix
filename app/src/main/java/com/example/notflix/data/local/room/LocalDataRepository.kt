@@ -18,15 +18,15 @@ class LocalDataRepository(private val dao: NotflixDao) {
 
     fun getSelectedMovie(movieId: MoviesEntity) : LiveData<MoviesEntity> = dao.getSelectedMovie(movieId)
 
-    suspend fun insertMovie(movieId: List<MoviesEntity>) = dao.insertMovies(movieId)
+    suspend fun insertMovie(movie: List<MoviesEntity>) = dao.insertMovies(movie)
 
-    suspend fun deleteMovie(movieId: List<MoviesEntity>) = dao.deleteMovie(movieId)
+    suspend fun deleteMovie(movie: List<MoviesEntity>) = dao.deleteMovie(movie)
 
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity> = dao.getAllTvShow()
 
     fun getSelectedTvShow(tvShowId: TvShowEntity) : LiveData<TvShowEntity> = dao.getSelectedTvShow(tvShowId)
 
-    suspend fun insertTvShow(tvShowId: List<TvShowEntity>) = dao.insertTvShow(tvShowId)
+    suspend fun insertTvShow(tvShow: List<TvShowEntity>) = dao.insertTvShow(tvShow)
 
-    suspend fun deleteTvShow(tvShowId: List<TvShowEntity>) = dao.insertTvShow(tvShowId)
+    suspend fun deleteTvShow(tvShow: List<TvShowEntity>) = dao.insertTvShow(tvShow)
 }
