@@ -63,9 +63,9 @@ class MoviesAdapter : PagedListAdapter<MoviesEntity, MoviesAdapter.MoviesViewHol
         getItem(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount(): Int {
-        return moviesEntity.size
-    }
+//    override fun getItemCount(): Int {
+//        return moviesEntity.size
+//    }
 
 
 }

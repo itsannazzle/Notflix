@@ -28,13 +28,19 @@ class RemoteDataSource {
         IdlingResource.increment()
         ApiConfig.getApiService().getTrendingMovies().enqueue(object : Callback<TrendingResponse> {
             override fun onResponse(call: Call<TrendingResponse>, response: Response<TrendingResponse>) {
-                handler.post {
-                    result.value = response.body()?.let { ApiResponse.success(it.results) }
-                    Log.d("Respon", response.code().toString())
-                if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
+                if (response.isSuccessful){
+                    handler.post {
+                        result.value = response.body()?.let { ApiResponse.success(it.results) }
+                        Log.d("Respon", response.code().toString())
+                        if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
+                            IdlingResource.decrement()
+                        }
+                    }
+                } else {
                     IdlingResource.decrement()
+                    ApiResponse.error(response.errorBody().toString(),null)
                 }
-                }
+
             }
 
             override fun onFailure(call: Call<TrendingResponse>, t: Throwable) {

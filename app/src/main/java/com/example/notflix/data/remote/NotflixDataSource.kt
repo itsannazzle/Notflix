@@ -19,7 +19,4 @@ interface NotflixDataSource {
 
     fun getEpisodes() : LiveData<List<EpisodesEntity>>
 
-
-
-
 }

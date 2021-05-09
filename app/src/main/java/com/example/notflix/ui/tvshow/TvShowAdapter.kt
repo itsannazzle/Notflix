@@ -65,9 +65,9 @@ class TvShowAdapter : PagedListAdapter<TvShowEntity,TvShowAdapter.TvShowViewHold
         }
     }
 
-    override fun getItemCount(): Int {
-        return tvEntity.size
-    }
+//    override fun getItemCount(): Int {
+//        return tvEntity.size
+//    }
 
 
 }

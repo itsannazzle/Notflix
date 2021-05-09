@@ -35,8 +35,8 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             override fun loadFromDB(): LiveData<PagedList<MoviesEntity>> {
                 val config =PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
-                        .setInitialLoadSizeHint(3)
-                        .setPageSize(3)
+                        .setInitialLoadSizeHint(7)
+                        .setPageSize(7)
                         .build()
                 return LivePagedListBuilder(localDataSource.getAllMovies(),config).build()
             }

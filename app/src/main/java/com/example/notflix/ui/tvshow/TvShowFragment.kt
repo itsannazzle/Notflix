@@ -1,18 +1,16 @@
 package com.example.notflix.ui.tvshow
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.FragmentTvShowBinding
-import com.example.notflix.ui.UseableAdapter
 import com.example.notflix.ui.ViewModelFactory
-import com.example.notflix.ui.detail.DetailTvShowActivity
+import com.example.notflix.values.Status
 
 class TvShowFragment : Fragment() {
     private lateinit var binding: FragmentTvShowBinding
@@ -40,11 +38,18 @@ class TvShowFragment : Fragment() {
         binding.progressCircular.visibility = View.VISIBLE
         viewModel.showTvShow().observe(viewLifecycleOwner,{
             tvShow ->
-            binding.progressCircular.visibility = View.GONE
-            tvShowAdapter.submitList(tvShow.data)
-            tvShowAdapter.notifyDataSetChanged()
-            binding.rvTvshow.adapter = tvShowAdapter
-            binding.rvTvshow.setHasFixedSize(true)
+            when(tvShow.status){
+                Status.SUCCESS -> {
+                    binding.progressCircular.visibility = View.GONE
+                    tvShowAdapter.submitList(tvShow.data)
+                    tvShowAdapter.notifyDataSetChanged()
+                    binding.rvTvshow.adapter = tvShowAdapter
+                    binding.rvTvshow.setHasFixedSize(true)
+                }
+                Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
+                Status.ERROR -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+            }
+
         })
         with(binding.rvTvshow){
             adapter = tvShowAdapter

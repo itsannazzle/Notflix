@@ -1,6 +1,6 @@
 package com.example.notflix.data.local
 
-import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
@@ -16,9 +16,9 @@ class LocalDataSource private constructor(private val dao: NotflixDao) {
 
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity> = dao.getAllTvShow()
 
-    fun getSelectedMovie(movieId : Int) = dao.getSelectedMovie(movieId)
+    fun getSelectedMovie(movieId : Int) : LiveData<MoviesEntity> = dao.getSelectedMovie(movieId)
 
-    fun getSelectedTvShow(tvshowId : Int) = dao.getSelectedTvShow(tvshowId)
+    fun getSelectedTvShow(tvshowId : Int) : LiveData<TvShowEntity> = dao.getSelectedTvShow(tvshowId)
 
     fun insertMovie(movie: List<MoviesEntity>) = dao.insertMovies(movie)
 
