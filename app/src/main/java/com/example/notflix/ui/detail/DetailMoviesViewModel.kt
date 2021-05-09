@@ -13,6 +13,9 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
 
     private var movieId : Int = 0
     private var tvshowId : Int = 0
+    private var state = false
+
+    private val moviesEntity = MoviesEntity()
 
 
     fun getSelectedMovie(movieId : Int){
@@ -31,5 +34,10 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
 
     fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
 
+    fun isFavorite(heartState : Boolean){
+        if (heartState){
+            moviesRepositories.insertFavMovie(moviesEntity)
+        }
+    }
 
 }

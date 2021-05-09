@@ -29,7 +29,8 @@ class RemoteDataSource {
         ApiConfig.getApiService().getTrendingMovies().enqueue(object : Callback<TrendingResponse> {
             override fun onResponse(call: Call<TrendingResponse>, response: Response<TrendingResponse>) {
                 handler.post {
-                    result.value = ApiResponse.success(response.body() as List<ResultsItem>)
+                    result.value = response.body()?.let { ApiResponse.success(it.results) }
+                    Log.d("Respon", response.code().toString())
                 if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                     IdlingResource.decrement()
                 }
@@ -47,12 +48,13 @@ class RemoteDataSource {
 
 
     fun getPopularTvShow() : LiveData<ApiResponse<List<TVResultsItem>>> {
-        var result = MutableLiveData<ApiResponse<List<TVResultsItem>>>()
+        val result = MutableLiveData<ApiResponse<List<TVResultsItem>>>()
         IdlingResource.increment()
         ApiConfig.getApiService().getPopularTvShow().enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
                 handler.post {
-                    result.value = ApiResponse.success(response.body() as List<TVResultsItem>)
+                    result.value = response.body()?.let { ApiResponse.success(it.results) }
+                    Log.d("Respon", response.code().toString())
                 if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                     IdlingResource.decrement()
                 }
@@ -74,6 +76,7 @@ class RemoteDataSource {
         ApiConfig.getApiService().getDetailMovie(movie_id).enqueue(object : Callback<DetailMoviesResponse> {
             override fun onResponse(call: Call<DetailMoviesResponse>, response: Response<DetailMoviesResponse>) {
                handler.post {  result.value = ApiResponse.success(response.body() as DetailMoviesResponse)
+                   Log.d("Respon", response.code().toString())
                if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                    IdlingResource.decrement()
                }
@@ -96,6 +99,7 @@ class RemoteDataSource {
         ApiConfig.getApiService().getDetailTvShow(tv_id).enqueue(object : Callback<DetailTvResponse> {
             override fun onResponse(call: Call<DetailTvResponse>, response: Response<DetailTvResponse>) {
                handler.post {  result.value = ApiResponse.success(response.body() as DetailTvResponse)
+                   Log.d("Respon", response.code().toString())
                if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
                    IdlingResource.decrement()
                }}

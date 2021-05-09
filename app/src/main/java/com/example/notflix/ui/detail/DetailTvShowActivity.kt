@@ -31,14 +31,14 @@ class DetailTvShowActivity : AppCompatActivity() {
         if (tvshowId != null){
                 viewModel.getSelectedTvShow(tvshowId.id_tvshow)
                 viewModel.showDetailTvShow().observe(this,{
-                    tvShow -> showDetailShow(tvShow)
+                    tvShow -> tvShow.data?.let { showDetailShow(it) }
                     binding.progressCircular.visibility = View.GONE
                 })
-            viewModel.showEpisodes().observe(this,{
-                eps -> episodesAdapter.setEpisodes(eps)
-                binding.rvEps.adapter = episodesAdapter
-                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
-            })
+//            viewModel.showEpisodes().observe(this,{
+//                eps -> episodesAdapter.setEpisodes(eps)
+//                binding.rvEps.adapter = episodesAdapter
+//                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
+//            })
         }
 
     }

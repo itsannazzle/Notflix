@@ -1,8 +1,11 @@
 package com.example.notflix.ui.tvshow
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
@@ -10,9 +13,22 @@ import com.example.notflix.databinding.ItemPosterBinding
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.ui.detail.DetailTvShowActivity
 
-class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
+class TvShowAdapter : PagedListAdapter<TvShowEntity,TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
     private var tvEntity = ArrayList<TvShowEntity>()
 
+    companion object{
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.id_tvshow == newItem.id_tvshow
+            }
+
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
 
     fun addTvShow(movies: List<TvShowEntity>){
@@ -40,7 +56,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        holder.bind(tvEntity[position])
+        getItem(position)?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context,DetailTvShowActivity::class.java)
             intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW,tvEntity[position])

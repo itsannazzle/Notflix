@@ -11,6 +11,7 @@ import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.data.remote.response.*
+import com.example.notflix.utils.AppExecutor
 import com.example.notflix.utils.DataMovies
 import com.example.notflix.values.ResourceData
 import kotlinx.coroutines.Dispatchers
@@ -18,18 +19,19 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource,
-private val localDataSource: LocalDataSource) : NotflixDataSource{
+private val localDataSource: LocalDataSource,
+private val appExecutor: AppExecutor) : NotflixDataSource{
     companion object{
         @Volatile
         private var instance : MoviesRepositories? = null
-        fun getInstance(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource) : MoviesRepositories =
+        fun getInstance(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource,appExecutor: AppExecutor) : MoviesRepositories =
                 instance ?: synchronized(this){
-                    instance ?: MoviesRepositories(remoteDataSource,localDataSource).apply { instance = this }
+                    instance ?: MoviesRepositories(remoteDataSource,localDataSource,appExecutor).apply { instance = this }
                 }
     }
 
     override fun getAllTrendingMovies(): LiveData<ResourceData<PagedList<MoviesEntity>>> {
-        return object : NetworkBoundResource<List<ResultsItem>, PagedList<MoviesEntity>>() {
+        return object : NetworkBoundResource<List<ResultsItem>, PagedList<MoviesEntity>>(appExecutor) {
             override fun loadFromDB(): LiveData<PagedList<MoviesEntity>> {
                 val config =PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
@@ -69,7 +71,7 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
     }
 
     override fun getAllPopularTvShow(): LiveData<ResourceData<PagedList<TvShowEntity>>> {
-        return object : NetworkBoundResource<List<TVResultsItem>, PagedList<TvShowEntity>>() {
+        return object : NetworkBoundResource<List<TVResultsItem>, PagedList<TvShowEntity>>(appExecutor) {
             override fun loadFromDB(): LiveData<PagedList<TvShowEntity>> {
                 val config =PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
@@ -109,7 +111,7 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
     }
 
     override fun getDetailMovie(movie_id: Int): LiveData<ResourceData<MoviesEntity>> {
-        return object : NetworkBoundResource<DetailMoviesResponse, MoviesEntity>() {
+        return object : NetworkBoundResource<DetailMoviesResponse, MoviesEntity>(appExecutor) {
 
             override fun loadFromDB(): LiveData<MoviesEntity> {
                 return localDataSource.getSelectedMovie(movie_id)
@@ -160,7 +162,7 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
     }
 
     override fun getDetailTv(tv_id: Int): LiveData<ResourceData<TvShowEntity>> {
-        return object : NetworkBoundResource<DetailTvResponse, TvShowEntity>() {
+        return object : NetworkBoundResource<DetailTvResponse, TvShowEntity>(appExecutor) {
             override fun loadFromDB(): LiveData<TvShowEntity> {
                 return localDataSource.getSelectedTvShow(tv_id)
             }
@@ -202,6 +204,18 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
                 Log.i("MoviesRepository","Fetch detail tvshow data failed")
             }
         }.asLiveData()
+    }
+
+    fun insertFavMovie(movie_id: MoviesEntity){
+        GlobalScope.launch(Dispatchers.IO){
+            localDataSource.favoriteMovie(movie_id)
+        }
+    }
+
+    fun insertFavTv(tv_id: TvShowEntity){
+        GlobalScope.launch(Dispatchers.IO){
+            localDataSource.favoriteTv(tv_id)
+        }
     }
 //    override fun getAllTrendingMovies(): LiveData<List<MoviesEntity>> {
 //        val trendingMoviesResult = MutableLiveData<List<MoviesEntity>>()
@@ -311,4 +325,6 @@ private val localDataSource: LocalDataSource) : NotflixDataSource{
         showEp.postValue(DataMovies.generateEpisodes())
         return showEp
     }
+
+
 }

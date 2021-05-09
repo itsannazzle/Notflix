@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
+import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
@@ -18,6 +19,7 @@ class DetailMoviesActivity : AppCompatActivity() {
     private val viewModel : DetailMoviesViewModel by viewModels{
         ViewModelFactory.getInstance(this)
     }
+    private val state = false
     companion object{
         const val EXTRA_MOVIEID = "MOVIE_ID"
     }
@@ -35,15 +37,21 @@ class DetailMoviesActivity : AppCompatActivity() {
             viewModel.getSelectedMovie(movieId)
         }
         viewModel.showDetailMovie().observe(this, {
-            movies -> showDetail(movies)
+            movies ->
+            movies.data?.let { showDetail(it) }
         })
 
         viewModel.showTrendingMovies().observe(this,{
-            trending -> moviesAdapter.addMovies(trending)
+            trending -> moviesAdapter.submitList(trending.data)
             binding.movieRec.adapter = moviesAdapter
             binding.progressCircular.visibility = View.GONE
             binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
         })
+
+        isFavorited(state)
+        binding.heart.setOnClickListener {
+            viewModel.isFavorite(state)
+        }
 
     }
 
@@ -58,6 +66,18 @@ class DetailMoviesActivity : AppCompatActivity() {
                 .load(BuildConfig.POSTER_URL + movieId.backDrop)
                 .into(binding.moviesPoster)
     }
+
+    private fun isFavorited(state : Boolean){
+        if (state){
+            binding.heart.setImageResource(R.drawable.ic_heart_filled)
+        } else {
+            binding.heart.setImageResource(R.drawable.ic_heart)
+        }
+
+
+    }
+
+
 
 //    private fun showRecomendation(){
 //        moviesAdapter = MoviesAdapter()

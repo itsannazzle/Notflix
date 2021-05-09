@@ -19,7 +19,7 @@ interface NotflixDao {
     fun insertMovies(movie: List<MoviesEntity>)
 
     @Delete
-    fun deleteMovie(movieId: List<MoviesEntity>)
+    fun deleteMovie(movie: List<MoviesEntity>)
 
     @Query("select * from tvShowTable")
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity>
@@ -31,5 +31,18 @@ interface NotflixDao {
     fun insertTvShow(tvshow: List<TvShowEntity>)
 
     @Delete
-    fun deleteTvShow(tvshowId: List<TvShowEntity>)
+    fun deleteTvShow(tvshow: List<TvShowEntity>)
+
+    @Insert
+    fun insertFavotiteMovie(movieId: MoviesEntity)
+
+    @Insert
+    fun insertFavoriteTv(tvshowId: TvShowEntity)
+
+    @Delete
+    fun deleteFavoriteMovie(movieId: MoviesEntity)
+
+    @Delete
+    fun deleteFavoriteTv(tvshowId: TvShowEntity)
+
 }

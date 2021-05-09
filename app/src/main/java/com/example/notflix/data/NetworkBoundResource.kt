@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.example.notflix.data.remote.ApiResponse
 import com.example.notflix.data.remote.StatusResponse
+import com.example.notflix.utils.AppExecutor
 import com.example.notflix.values.ResourceData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-abstract class NetworkBoundResource<RequestType,ResultType> {
+abstract class NetworkBoundResource<RequestType,ResultType>(private val appExecutor: AppExecutor){
 
     private val result = MediatorLiveData<ResourceData<ResultType>>()
 
@@ -40,13 +41,15 @@ abstract class NetworkBoundResource<RequestType,ResultType> {
             result.removeSource(dataSource)
             result.removeSource(apiResponse)
             when(dataFromApi.responseStatus){
-                StatusResponse.SUCCESS -> GlobalScope.launch(Dispatchers.IO){
+                StatusResponse.SUCCESS -> appExecutor.diskIO().execute{
                     saveCallResult(dataFromApi.responseBody)
-                    result.addSource(loadFromDB()){
-                        newData -> result.value = ResourceData.success(newData)
+                    appExecutor.mainThread().execute{
+                        result.addSource(loadFromDB()){
+                            newData -> result.value = ResourceData.success(newData)
+                        }
                     }
                 }
-                StatusResponse.EMPTY -> GlobalScope.launch(Dispatchers.IO){
+                StatusResponse.EMPTY -> appExecutor.mainThread().execute{
                     result.addSource(loadFromDB()){
                         newData -> result.value = ResourceData.success(newData)
                     }

@@ -28,6 +28,14 @@ class LocalDataSource private constructor(private val dao: NotflixDao) {
 
     fun deleteTvShow(tvshow: List<TvShowEntity>) = dao.deleteTvShow(tvshow)
 
+    fun favoriteMovie(movieId: MoviesEntity) = dao.insertFavotiteMovie(movieId)
+
+    fun favoriteTv(tvshowId: TvShowEntity) = dao.insertFavoriteTv(tvshowId)
+
+    fun deleteFavMovie(movieId: MoviesEntity) = dao.deleteFavoriteMovie(movieId)
+
+    fun deleteFavTv(tvshowId: TvShowEntity) = dao.deleteFavoriteTv(tvshowId)
+
 
 
 }

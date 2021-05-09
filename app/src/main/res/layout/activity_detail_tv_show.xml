@@ -38,6 +38,8 @@
             android:text="@string/continue_watching"
             android:textAllCaps="false"/>
     </FrameLayout>
+
+
         <ImageView
             android:id="@+id/heart"
             android:layout_width="wrap_content"
@@ -48,7 +50,6 @@
             app:layout_constraintTop_toBottomOf="@id/framelayout"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_heart"/>
-
 
         <TextView
             style="@style/body_copy"

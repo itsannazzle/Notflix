@@ -34,7 +34,7 @@ class MoviesFragment : Fragment() {
             viewModel.showTrendingMovies().observe(viewLifecycleOwner,{
                 trending ->
                 binding.progressCircular.visibility = View.GONE
-                moviesAdapter.addMovies(trending)
+                moviesAdapter.submitList(trending.data)
                 moviesAdapter.notifyDataSetChanged()
                 binding.rvMovies.setHasFixedSize(true)
                 binding.rvMovies.adapter = moviesAdapter

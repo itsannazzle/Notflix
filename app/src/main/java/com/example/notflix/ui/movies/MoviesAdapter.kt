@@ -1,15 +1,32 @@
 package com.example.notflix.ui.movies
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
+import com.bumptech.glide.Glide
 import com.example.notflix.databinding.ItemPosterBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter : PagedListAdapter<MoviesEntity, MoviesAdapter.MoviesViewHolder>(DIFF_CALLBACK) {
     private var moviesEntity = ArrayList<MoviesEntity>()
+
+    companion object{
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MoviesEntity>() {
+            override fun areItemsTheSame(oldItem: MoviesEntity, newItem: MoviesEntity): Boolean {
+                return oldItem.id_movies == newItem.id_movies
+            }
+
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: MoviesEntity, newItem: MoviesEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
     private var onItemCallback : OnItemCallback? = null
 
@@ -43,7 +60,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.bind(moviesEntity[position])
+        getItem(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {

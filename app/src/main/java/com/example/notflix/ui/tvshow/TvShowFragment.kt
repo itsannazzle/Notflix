@@ -1,5 +1,6 @@
 package com.example.notflix.ui.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.FragmentTvShowBinding
+import com.example.notflix.ui.UseableAdapter
 import com.example.notflix.ui.ViewModelFactory
+import com.example.notflix.ui.detail.DetailTvShowActivity
 
 class TvShowFragment : Fragment() {
     private lateinit var binding: FragmentTvShowBinding
@@ -28,12 +32,16 @@ class TvShowFragment : Fragment() {
     }
 
     private fun showTvShow(){
+//        val action = Intent(activity,DetailTvShowActivity::class.java)
+//        action.putExtra(DetailTvShowActivity.EXTRA_TVSHOW, tvshow.id_tvshow)
+//        startActivity(action)
+
         tvShowAdapter = TvShowAdapter()
         binding.progressCircular.visibility = View.VISIBLE
         viewModel.showTvShow().observe(viewLifecycleOwner,{
             tvShow ->
             binding.progressCircular.visibility = View.GONE
-            tvShowAdapter.addTvShow(tvShow)
+            tvShowAdapter.submitList(tvShow.data)
             tvShowAdapter.notifyDataSetChanged()
             binding.rvTvshow.adapter = tvShowAdapter
             binding.rvTvshow.setHasFixedSize(true)
