@@ -3,25 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".FavoriteFragment">
+
+    <TextView
+        style="@style/title"
+        android:id="@+id/titlemovie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_favorite"/>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab"
+        android:id="@+id/tab_favorite"
         style="@style/sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
-        app:tabTextAppearance="@style/body_copy"
         app:tabTextColor="@color/white"
         app:tabSelectedTextColor="@color/red"
         app:tabIndicatorColor="@color/red"/>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/homepager"
+        android:id="@+id/homepager_favorite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
 
 </LinearLayout>

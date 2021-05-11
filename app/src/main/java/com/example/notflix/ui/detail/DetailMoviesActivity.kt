@@ -2,6 +2,7 @@ package com.example.notflix.ui.detail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.notflix.databinding.ActivityDetailBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.movies.MoviesAdapter
+import com.example.notflix.values.Status
 
 class DetailMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -38,14 +40,34 @@ class DetailMoviesActivity : AppCompatActivity() {
         }
         viewModel.showDetailMovie().observe(this, {
             movies ->
-            movies.data?.let { showDetail(it) }
+            when(movies.status){
+                Status.SUCCESS -> {
+                    movies.data?.let { showDetail(it) }
+                }
+                Status.ERROR -> {
+                    binding.progressCircular.visibility = View.GONE
+                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
+            }
         })
 
         viewModel.showTrendingMovies().observe(this,{
-            trending -> moviesAdapter.submitList(trending.data)
-            binding.movieRec.adapter = moviesAdapter
-            binding.progressCircular.visibility = View.GONE
-            binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+            trending ->
+            when(trending.status){
+                Status.SUCCESS -> {
+                    moviesAdapter.submitList(trending.data)
+                    binding.movieRec.adapter = moviesAdapter
+                    binding.progressCircular.visibility = View.GONE
+                    binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+                }
+                Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
+                Status.ERROR -> {
+                    binding.progressCircular.visibility = View.GONE
+                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         })
 
         isFavorited(state)

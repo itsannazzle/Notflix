@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_baseline_ondemand_video_24"
         app:showAsAction="always"
         android:title="@string/coming_soon" />
-    <item android:id="@+id/nav_watch_list"
+    <item android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_heart"
         app:showAsAction="always"
         android:title="@string/watch_list" />

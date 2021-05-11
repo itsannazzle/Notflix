@@ -39,8 +39,16 @@ class TvShowAdapter : PagedListAdapter<TvShowEntity,TvShowAdapter.TvShowViewHold
 
     inner class TvShowViewHolder(private val binding: ItemPosterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tvshow : TvShowEntity){
+            with(binding){
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context,DetailTvShowActivity::class.java)
+                    intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW,tvEntity[position])
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    itemView.context.startActivity(intent)
+                }
+            }
             Glide.with(itemView.context)
-                    .load(BuildConfig.POSTER_URL + tvshow.poster)
+                    .load(BuildConfig.POSTER_URL+tvshow.poster)
                     .into(binding.previewPoster)
         }
     }
@@ -57,12 +65,7 @@ class TvShowAdapter : PagedListAdapter<TvShowEntity,TvShowAdapter.TvShowViewHold
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context,DetailTvShowActivity::class.java)
-            intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW,tvEntity[position])
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            holder.itemView.context.startActivity(intent)
-        }
+
     }
 
 //    override fun getItemCount(): Int {

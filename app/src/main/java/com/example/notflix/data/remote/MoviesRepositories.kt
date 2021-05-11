@@ -50,7 +50,7 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                 for (respon in response){
                     with(respon){
                         val movie = MoviesEntity(
-                                id,posterPath
+                                id,poster = posterPath, title = title, overview = overview, backDrop = backdropPath, rating = voteAverage!!
                         )
                         movieList.add(movie)
                     }
@@ -87,10 +87,11 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
 
             override fun saveCallResult(response: List<TVResultsItem>) {
                 val tvshowList = ArrayList<TvShowEntity>()
+
                 for (respon in response){
                     with(respon){
                         val tvshow = TvShowEntity(
-                                id,posterPath
+                                id,poster = posterPath, title = name, overview = overview, backDrop = backdropPath, rating = voteAverage!!
                         )
                         tvshowList.add(tvshow)
                     }
@@ -122,7 +123,7 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             }
 
             override fun saveCallResult(response: DetailMoviesResponse) {
-                val detailMoveie = ArrayList<MoviesEntity>()
+                val movieList = ArrayList<MoviesEntity>()
                 val listGenre = ArrayList<String>()
                 val listCountry = ArrayList<String>()
                     with(response){
@@ -135,7 +136,7 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                         val movie = MoviesEntity(
                                 id,
                                 posterPath,
-                                posterPath,
+                                backdropPath,
                                 title,
                                 listGenre.toString(),
                                 listCountry.toString(),
@@ -143,12 +144,14 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                                 overview,
                                 runtime
                         )
-                        detailMoveie.add(movie)
+                        GlobalScope.launch(Dispatchers.IO){
+                            localDataSource.updateMovie(response.id,listGenre.toString(),listCountry.toString(),response.runtime)
+                        }
+                        movieList.add(movie)
+
                     }
 
-                GlobalScope.launch(Dispatchers.IO){
-                    localDataSource.insertMovie(detailMoveie)
-                }
+
             }
 
             override fun createCall(): LiveData<ApiResponse<DetailMoviesResponse>> {
@@ -216,6 +219,10 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
         GlobalScope.launch(Dispatchers.IO){
             localDataSource.favoriteTv(tv_id)
         }
+    }
+
+    fun checkFavorite(movie_id: Int) : Boolean{
+        return localDataSource.checkFavorite(movie_id)
     }
 //    override fun getAllTrendingMovies(): LiveData<List<MoviesEntity>> {
 //        val trendingMoviesResult = MutableLiveData<List<MoviesEntity>>()

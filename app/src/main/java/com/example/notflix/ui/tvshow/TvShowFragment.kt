@@ -30,9 +30,6 @@ class TvShowFragment : Fragment() {
     }
 
     private fun showTvShow(){
-//        val action = Intent(activity,DetailTvShowActivity::class.java)
-//        action.putExtra(DetailTvShowActivity.EXTRA_TVSHOW, tvshow.id_tvshow)
-//        startActivity(action)
 
         tvShowAdapter = TvShowAdapter()
         binding.progressCircular.visibility = View.VISIBLE
@@ -56,8 +53,5 @@ class TvShowFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(),2)
         }
     }
-
-
-
 
 }

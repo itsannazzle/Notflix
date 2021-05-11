@@ -2,6 +2,7 @@ package com.example.notflix.ui.detail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.example.notflix.BuildConfig
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.ui.ViewModelFactory
+import com.example.notflix.values.Status
 
 class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailTvShowBinding
@@ -31,8 +33,18 @@ class DetailTvShowActivity : AppCompatActivity() {
         if (tvshowId != null){
                 viewModel.getSelectedTvShow(tvshowId.id_tvshow)
                 viewModel.showDetailTvShow().observe(this,{
-                    tvShow -> tvShow.data?.let { showDetailShow(it) }
-                    binding.progressCircular.visibility = View.GONE
+                    tvShow ->
+                    when(tvShow.status){
+                        Status.SUCCESS -> {
+                            tvShow.data?.let { showDetailShow(it) }
+                            binding.progressCircular.visibility = View.GONE
+                        }
+                        Status.ERROR -> {
+                            binding.progressCircular.visibility = View.GONE
+                            Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                        Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
+                    }
                 })
 //            viewModel.showEpisodes().observe(this,{
 //                eps -> episodesAdapter.setEpisodes(eps)
