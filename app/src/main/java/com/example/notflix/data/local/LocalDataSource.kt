@@ -22,7 +22,14 @@ class LocalDataSource private constructor(private val dao: NotflixDao) {
 
     fun insertMovie(movie: List<MoviesEntity>) = dao.insertMovies(movie)
 
-    fun updateMovie(movieId: Int,genre : String,country : String, duration : Int) = dao.updateMovie(movieId,genre, country, duration)
+    fun updateMovie(movieId: Int,genre : String,country : String, duration : Int) {
+        dao.updateMovie(movieId, genre, country, duration)
+    }
+
+    fun updateTvShow(tvshowId: Int,genre : String,country : String, duration : Int) {
+        dao.updateTvShow(tvshowId, genre, country, duration)
+    }
+
 
     fun insertTvShow(tvshow: List<TvShowEntity>) = dao.insertTvShow(tvshow)
 

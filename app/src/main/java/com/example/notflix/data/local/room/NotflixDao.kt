@@ -21,6 +21,9 @@ interface NotflixDao {
     @Query("update moviesTable set genre =:genre, country =:country, duration =:duration where id_movies =:movieId")
     fun updateMovie(movieId: Int, genre : String,country : String, duration : Int)
 
+    @Query("update tvShowTable set genre =:genre, country =:country, duration =:duration where id_tvshow =:tvId")
+    fun updateTvShow(tvId: Int, genre : String,country : String, duration : Int)
+
     @Delete
     fun deleteMovie(movie: List<MoviesEntity>)
 

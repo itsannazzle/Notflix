@@ -38,9 +38,7 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    private fun checkFavorite(){
-        viewModel.checkFavorite()
-    }
+
 
 
 }

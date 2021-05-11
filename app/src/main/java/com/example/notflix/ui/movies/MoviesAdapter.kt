@@ -38,11 +38,6 @@ class MoviesAdapter : PagedListAdapter<MoviesEntity, MoviesAdapter.MoviesViewHol
         this.onItemCallback = onItemCallback
     }
 
-    fun addMovies(movies: List<MoviesEntity>){
-        moviesEntity.clear()
-        moviesEntity.addAll(movies)
-
-    }
 
     inner class MoviesViewHolder(private val binding: ItemPosterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movies : MoviesEntity){
@@ -63,9 +58,6 @@ class MoviesAdapter : PagedListAdapter<MoviesEntity, MoviesAdapter.MoviesViewHol
         getItem(position)?.let { holder.bind(it) }
     }
 
-//    override fun getItemCount(): Int {
-//        return moviesEntity.size
-//    }
 
 
 }

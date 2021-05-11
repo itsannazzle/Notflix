@@ -29,10 +29,12 @@ class DetailTvShowActivity : AppCompatActivity() {
 
         binding.progressCircular.visibility = View.VISIBLE
         val episodesAdapter = EpisodesAdapter()
-        val tvshowId = intent.getParcelableExtra<TvShowEntity>(EXTRA_TVSHOW)
-        if (tvshowId != null){
-                viewModel.getSelectedTvShow(tvshowId.id_tvshow)
-                viewModel.showDetailTvShow().observe(this,{
+        val intent = intent.extras
+        if (intent != null){
+            val tvshowId = intent.getInt(EXTRA_TVSHOW)
+            viewModel.getSelectedTvShow(tvshowId)
+        }
+        viewModel.showDetailTvShow().observe(this,{
                     tvShow ->
                     when(tvShow.status){
                         Status.SUCCESS -> {
@@ -51,7 +53,6 @@ class DetailTvShowActivity : AppCompatActivity() {
 //                binding.rvEps.adapter = episodesAdapter
 //                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
 //            })
-        }
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.notflix.ui.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.FragmentTvShowBinding
 import com.example.notflix.ui.ViewModelFactory
+import com.example.notflix.ui.detail.DetailTvShowActivity
 import com.example.notflix.values.Status
 
 class TvShowFragment : Fragment() {
@@ -52,6 +56,14 @@ class TvShowFragment : Fragment() {
             adapter = tvShowAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
         }
+
+        tvShowAdapter.setOnItemCallback(object : TvShowAdapter.OnItemCallback {
+            override fun onItemClicked(tvshow: TvShowEntity) {
+                val intent = Intent(activity,DetailTvShowActivity::class.java)
+                intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW, tvshow.id_tvshow)
+                startActivity(intent)
+            }
+        })
     }
 
 }

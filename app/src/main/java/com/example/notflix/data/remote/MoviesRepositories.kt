@@ -119,7 +119,7 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return data == null
+                return true
             }
 
             override fun saveCallResult(response: DetailMoviesResponse) {
@@ -144,13 +144,12 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                                 overview,
                                 runtime
                         )
-                        GlobalScope.launch(Dispatchers.IO){
-                            localDataSource.updateMovie(response.id,listGenre.toString(),listCountry.toString(),response.runtime)
-                        }
                         movieList.add(movie)
 
                     }
-
+                GlobalScope.launch(Dispatchers.IO){
+                    localDataSource.updateMovie(movie_id,listGenre.toString(),listCountry.toString(),response.runtime)
+                }
 
             }
 
@@ -171,10 +170,11 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             }
 
             override fun shouldFetch(data: TvShowEntity?): Boolean {
-                return data == null
+                return true
             }
 
             override fun saveCallResult(response: DetailTvResponse) {
+                val listTvShow = ArrayList<TvShowEntity>()
                 with(response){
                     val listGenre = ArrayList<String>()
                     val listCountry = ArrayList<String>()
@@ -196,6 +196,10 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                             episodeRunTime.lastIndex,
                             numberOfEpisodes
                     )
+                    listTvShow.add(tvShow)
+                    GlobalScope.launch {
+                        localDataSource.updateTvShow(tv_id,listGenre.toString(),listCountry.toString(),response.episodeRunTime[0])
+                    }
                 }
             }
 
