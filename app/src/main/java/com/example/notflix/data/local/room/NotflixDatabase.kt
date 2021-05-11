@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 
-@Database(entities = [MoviesEntity::class, TvShowEntity::class], version = 1, exportSchema = false)
+@Database(entities = [MoviesEntity::class, TvShowEntity::class], version = 2, exportSchema = false)
 abstract class NotflixDatabase : RoomDatabase() {
     abstract fun notflixDao() : NotflixDao
     companion object{

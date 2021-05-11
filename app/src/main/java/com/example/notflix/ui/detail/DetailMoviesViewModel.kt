@@ -1,23 +1,18 @@
 package com.example.notflix.ui.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.example.notflix.data.remote.MoviesRepositories
 import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.values.ResourceData
+import kotlinx.coroutines.launch
 
 class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {
 
     private var movieId = MutableLiveData<Int>()
     private var tvshowId = MutableLiveData<Int>()
-    private var state = false
-
-    private val moviesEntity = MoviesEntity()
 
 
     fun getSelectedMovie(movieId : Int){
@@ -28,11 +23,11 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
         this.tvshowId.value = tvshowId
     }
 
-    fun showDetailMovie() : LiveData<ResourceData<MoviesEntity>> = Transformations.switchMap(movieId){
+    var detailMovie : LiveData<ResourceData<MoviesEntity>> = Transformations.switchMap(movieId){
         mDetailMovie -> moviesRepositories.getDetailMovie(mDetailMovie)
     }
 
-    fun showDetailTvShow() : LiveData<ResourceData<TvShowEntity>> = Transformations.switchMap(tvshowId){
+    var detailTvShow : LiveData<ResourceData<TvShowEntity>> = Transformations.switchMap(tvshowId){
       mTvShowId -> moviesRepositories.getDetailTv(mTvShowId)
     }
 
@@ -40,10 +35,27 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
 
     fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
 
-    fun isFavorite(heartState : Boolean){
-        if (heartState){
-            moviesRepositories.insertFavMovie(moviesEntity)
+    fun isFavoriteMovie(){
+        val isFav =detailMovie.value
+        if (isFav != null){
+            val favorite =isFav.data
+            if (favorite != null){
+                val moviesEntity = isFav.data
+                val favState = !favorite.favorite
+                moviesRepositories.insertFavMovie(moviesEntity,favState)
+            }
         }
     }
 
+    fun isFavoriteTv(){
+        val isFav = detailTvShow.value
+        if (isFav != null){
+            val favorite =isFav.data
+            if (favorite != null){
+                val tvShowEntity = isFav.data
+                val favState = !favorite.favorite
+                moviesRepositories.insertFavTv(tvShowEntity,favState)
+            }
+        }
+    }
 }

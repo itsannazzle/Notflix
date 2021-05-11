@@ -19,4 +19,8 @@ interface NotflixDataSource {
 
     fun getEpisodes() : LiveData<List<EpisodesEntity>>
 
+    fun getAllFavMovie() : LiveData<PagedList<MoviesEntity>>
+
+    fun getAllFavTv() : LiveData<PagedList<TvShowEntity>>
+
 }

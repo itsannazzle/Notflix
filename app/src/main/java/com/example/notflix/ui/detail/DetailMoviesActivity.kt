@@ -21,7 +21,7 @@ class DetailMoviesActivity : AppCompatActivity() {
     private val viewModel : DetailMoviesViewModel by viewModels{
         ViewModelFactory.getInstance(this)
     }
-    private val state = false
+    private var state = false
     companion object{
         const val EXTRA_MOVIEID = "MOVIE_ID"
     }
@@ -38,11 +38,14 @@ class DetailMoviesActivity : AppCompatActivity() {
             val movieId = intent.getInt(EXTRA_MOVIEID)
             viewModel.getSelectedMovie(movieId)
         }
-        viewModel.showDetailMovie().observe(this, {
+        viewModel.detailMovie.observe(this, {
             movies ->
             when(movies.status){
                 Status.SUCCESS -> {
-                    movies.data?.let { showDetail(it) }
+                        movies.data?.let { showDetail(it)
+                        state = movies.data.favorite
+                        isFavorited(state)
+                    }
                 }
                 Status.ERROR -> {
                     binding.progressCircular.visibility = View.GONE
@@ -57,9 +60,7 @@ class DetailMoviesActivity : AppCompatActivity() {
             when(trending.status){
                 Status.SUCCESS -> {
                     moviesAdapter.submitList(trending.data)
-                    binding.movieRec.adapter = moviesAdapter
-                    binding.progressCircular.visibility = View.GONE
-                    binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+                    showRecomendation()
                 }
                 Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
                 Status.ERROR -> {
@@ -70,9 +71,9 @@ class DetailMoviesActivity : AppCompatActivity() {
 
         })
 
-        isFavorited(state)
+
         binding.heart.setOnClickListener {
-            viewModel.isFavorite(state)
+            viewModel.isFavoriteMovie()
         }
 
     }
@@ -95,22 +96,14 @@ class DetailMoviesActivity : AppCompatActivity() {
         } else {
             binding.heart.setImageResource(R.drawable.ic_heart)
         }
-
-
     }
 
-
-
-//    private fun showRecomendation(){
-//        moviesAdapter = MoviesAdapter()
-//        binding.progressCircular.visibility = View.VISIBLE
-//       viewModel.showTrendingMovies().observe(this,{
-//           rec -> moviesAdapter.addMovies(rec)
-//           binding.progressCircular.visibility = View.GONE
-//       })
-//        with(binding.movieRec){
-//            adapter = moviesAdapter
-//            layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
-//        }
-//    }
+    private fun showRecomendation(){
+        moviesAdapter = MoviesAdapter()
+        binding.progressCircular.visibility = View.VISIBLE
+        with(binding.movieRec){
+            adapter = moviesAdapter
+            layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+        }
+    }
 }

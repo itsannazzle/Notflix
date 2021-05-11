@@ -39,14 +39,21 @@ interface NotflixDao {
     @Delete
     fun deleteTvShow(tvshow: List<TvShowEntity>)
 
-    @Insert
-    fun insertFavotiteMovie(movieId: MoviesEntity)
+    @Update()
+    suspend fun insertFavotiteMovie(movie: MoviesEntity)
 
-    @Insert
-    fun insertFavoriteTv(tvshowId: TvShowEntity)
+    @Update
+    suspend fun insertFavoriteTv(tvshow: TvShowEntity)
 
-    @Query("select * from moviesTable where id_movies= :movieId")
-    fun checkFavorite(movieId: Int) : Boolean
+    @Query("select count(id_movies) and count(favorite) from moviesTable where id_movies= :idMovie")
+    suspend fun checkFavorite(idMovie: Int) : Int
+
+
+    @Query("select * from moviesTable where favorite= :favotiteMovie")
+    fun getAllFavoriteMovie(favotiteMovie : Boolean = true) : DataSource.Factory<Int,MoviesEntity>
+
+    @Query("select * from tvshowtable where favorite= :favotiteTv")
+    fun getAllFavoriteTv(favotiteTv : Boolean = true) : DataSource.Factory<Int,TvShowEntity>
 
     @Delete
     fun deleteFavoriteMovie(movieId: MoviesEntity)

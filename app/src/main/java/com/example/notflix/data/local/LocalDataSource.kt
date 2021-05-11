@@ -37,15 +37,25 @@ class LocalDataSource private constructor(private val dao: NotflixDao) {
 
     fun deleteTvShow(tvshow: List<TvShowEntity>) = dao.deleteTvShow(tvshow)
 
-    fun favoriteMovie(movieId: MoviesEntity) = dao.insertFavotiteMovie(movieId)
+    suspend fun favoriteMovie(movie: MoviesEntity,isFavorite : Boolean) {
+        movie.favorite = isFavorite
+        dao.insertFavotiteMovie(movie)
+    }
 
-    fun favoriteTv(tvshowId: TvShowEntity) = dao.insertFavoriteTv(tvshowId)
+    suspend fun favoriteTv(tvshow: TvShowEntity, isFavorite: Boolean) {
+        tvshow.favorite = isFavorite
+        dao.insertFavoriteTv(tvshow)
+    }
+
+    fun getAllFavMovie() : DataSource.Factory<Int, MoviesEntity> = dao.getAllFavoriteMovie()
+
+    fun getAllFavTv() : DataSource.Factory<Int, TvShowEntity> = dao.getAllFavoriteTv()
 
     fun deleteFavMovie(movieId: MoviesEntity) = dao.deleteFavoriteMovie(movieId)
 
     fun deleteFavTv(tvshowId: TvShowEntity) = dao.deleteFavoriteTv(tvshowId)
 
-    fun checkFavorite(movieId: Int) : Boolean = dao.checkFavorite(movieId)
+    suspend fun checkFavorite(movieId: Int) : Int = dao.checkFavorite(movieId)
 
 
 

@@ -20,5 +20,6 @@ class TvShowEntity(
         var rating: Double =0.0,
         var overview: String? = null,
         var duration: Int = 0,
-        val total_eps: Int =0
+        val total_eps: Int =0,
+        var favorite : Boolean = false
         ) : Parcelable

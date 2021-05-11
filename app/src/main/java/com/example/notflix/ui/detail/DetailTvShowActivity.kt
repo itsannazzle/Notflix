@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
+import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.ui.ViewModelFactory
@@ -18,6 +18,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     private val viewModel : DetailMoviesViewModel by viewModels{
         ViewModelFactory.getInstance(this)
     }
+    private var state = false
     companion object{
         const val EXTRA_TVSHOW = "TV"
     }
@@ -34,12 +35,14 @@ class DetailTvShowActivity : AppCompatActivity() {
             val tvshowId = intent.getInt(EXTRA_TVSHOW)
             viewModel.getSelectedTvShow(tvshowId)
         }
-        viewModel.showDetailTvShow().observe(this,{
+        viewModel.detailTvShow.observe(this,{
                     tvShow ->
                     when(tvShow.status){
                         Status.SUCCESS -> {
                             tvShow.data?.let { showDetailShow(it) }
                             binding.progressCircular.visibility = View.GONE
+                            state = tvShow.data?.favorite ?: false
+                            isFavorited(state)
                         }
                         Status.ERROR -> {
                             binding.progressCircular.visibility = View.GONE
@@ -48,6 +51,10 @@ class DetailTvShowActivity : AppCompatActivity() {
                         Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
                     }
                 })
+
+        binding.heart.setOnClickListener {
+            viewModel.isFavoriteTv()
+        }
 //            viewModel.showEpisodes().observe(this,{
 //                eps -> episodesAdapter.setEpisodes(eps)
 //                binding.rvEps.adapter = episodesAdapter
@@ -68,5 +75,11 @@ class DetailTvShowActivity : AppCompatActivity() {
                 .into(binding.moviesPoster)
     }
 
-
+    private fun isFavorited(state : Boolean){
+        if (state){
+            binding.heart.setImageResource(R.drawable.ic_heart_filled)
+        } else {
+            binding.heart.setImageResource(R.drawable.ic_heart)
+        }
+    }
 }

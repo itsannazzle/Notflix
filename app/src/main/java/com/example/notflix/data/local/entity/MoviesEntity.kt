@@ -21,4 +21,5 @@ class MoviesEntity(
     var rating : Double = 0.0,
     var overview : String? = null,
     var duration: Int = 0,
+    var favorite :Boolean = false
 ) : Parcelable
