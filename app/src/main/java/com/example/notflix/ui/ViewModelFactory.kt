@@ -3,7 +3,8 @@ package com.example.notflix.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.notflix.data.remote.MoviesRepositories
+import com.example.notflix.data.MoviesRepositories
+import com.example.notflix.di.Injection
 import com.example.notflix.ui.detail.DetailMoviesViewModel
 import com.example.notflix.ui.favorite.FavoriteViewModel
 import com.example.notflix.ui.movies.MoviesViewModel

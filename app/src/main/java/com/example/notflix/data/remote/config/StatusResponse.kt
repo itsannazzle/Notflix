@@ -1,4 +1,4 @@
-package com.example.notflix.data.remote
+package com.example.notflix.data.remote.config
 
 enum class StatusResponse {
     SUCCESS,

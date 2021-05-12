@@ -10,15 +10,16 @@ object DataMovies {
         val moviesEntity = ArrayList<MoviesEntity>()
         moviesEntity.add(
             MoviesEntity(
-                id_movies = 460465,
-                poster = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
-                backDrop = "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                title = "Mortal Kombat",
-                overview = "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
-                genre = "Drama,Romance,Music",
-                country = "US",
-                rating = 8.0,
-                duration = 139
+                    id_movies = 460465,
+                    poster = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
+                    backDrop = "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+                    title = "Mortal Kombat",
+                    overview = "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                    genre = "Drama,Romance,Music",
+                    country = "US",
+                    rating = 8.0,
+                    favorite = false,
+                    duration = 139
         ))
         moviesEntity.add(
             MoviesEntity(
@@ -30,6 +31,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -42,6 +44,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -54,6 +57,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -66,6 +70,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -78,6 +83,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -90,6 +96,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -102,6 +109,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -114,6 +122,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -126,6 +135,7 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
+                    favorite = false,
                     duration = 139
             ))
         moviesEntity.add(
@@ -138,6 +148,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -150,6 +161,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -162,6 +174,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -174,6 +187,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -186,6 +200,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -198,6 +213,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -210,6 +226,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -222,6 +239,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -234,6 +252,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
         moviesEntity.add(
@@ -246,6 +265,7 @@ object DataMovies {
                         genre = "Drama,Romance,Music",
                         country = "US",
                         rating = 8.0,
+                        favorite = false,
                         duration = 139
                 ))
 
@@ -266,6 +286,7 @@ object DataMovies {
                    country = "KR",
                    rating = 7.9,
                    duration = 44,
+                   favorite = false,
                    total_eps = 8
            )
         )
@@ -280,6 +301,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             )
         )
@@ -294,6 +316,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             )
         )
@@ -308,6 +331,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             )
         )
@@ -322,6 +346,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             ))
         tvshowEntity.add(
@@ -335,6 +360,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             ))
         tvshowEntity.add(
@@ -348,6 +374,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             ))
         tvshowEntity.add(
@@ -361,6 +388,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             ))
         tvshowEntity.add(
@@ -374,6 +402,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             ))
         tvshowEntity.add(
@@ -387,6 +416,7 @@ object DataMovies {
                     country = "KR",
                     rating = 7.9,
                     duration = 44,
+                    favorite = false,
                     total_eps = 8
             ))
         tvshowEntity.add(
@@ -400,6 +430,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 )
         )
@@ -414,6 +445,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 )
         )
@@ -428,6 +460,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 )
         )
@@ -442,6 +475,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 )
         )
@@ -456,6 +490,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 ))
         tvshowEntity.add(
@@ -469,6 +504,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 ))
         tvshowEntity.add(
@@ -482,6 +518,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 ))
         tvshowEntity.add(
@@ -495,6 +532,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 ))
         tvshowEntity.add(
@@ -508,6 +546,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 ))
         tvshowEntity.add(
@@ -521,6 +560,7 @@ object DataMovies {
                         country = "KR",
                         rating = 7.9,
                         duration = 44,
+                        favorite = false,
                         total_eps = 8
                 ))
 
@@ -767,4 +807,10 @@ object DataMovies {
 
         return eps
     }
+
+//    fun generateFavoriteMovie(moviesEntity: MoviesEntity, favorite : Boolean) : MoviesEntity{
+//        moviesEntity.favorite = favorite
+//        return MoviesEntity(moviesEntity,favorite)
+//    }
+
 }

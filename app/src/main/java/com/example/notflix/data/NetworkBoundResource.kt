@@ -2,8 +2,8 @@ package com.example.notflix.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.notflix.data.remote.ApiResponse
-import com.example.notflix.data.remote.StatusResponse
+import com.example.notflix.data.remote.config.ApiResponse
+import com.example.notflix.data.remote.config.StatusResponse
 import com.example.notflix.utils.AppExecutor
 import com.example.notflix.values.ResourceData
 

@@ -1,4 +1,4 @@
-package com.example.notflix.data.remote
+package com.example.notflix.utils
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.notflix.data.NetworkBoundResource
+import com.example.notflix.data.NotflixDataSource
 import com.example.notflix.data.local.LocalDataSource
 import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
+import com.example.notflix.data.remote.config.ApiResponse
+import com.example.notflix.data.remote.RemoteDataSource
 import com.example.notflix.data.remote.response.*
 import com.example.notflix.utils.AppExecutor
 import com.example.notflix.utils.DataMovies
@@ -18,17 +21,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MoviesRepositories private constructor(private val remoteDataSource: RemoteDataSource,
-private val localDataSource: LocalDataSource,
-private val appExecutor: AppExecutor) : NotflixDataSource{
-    companion object{
-        @Volatile
-        private var instance : MoviesRepositories? = null
-        fun getInstance(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource,appExecutor: AppExecutor) : MoviesRepositories =
-                instance ?: synchronized(this){
-                    instance ?: MoviesRepositories(remoteDataSource,localDataSource,appExecutor).apply { instance = this }
-                }
-    }
+class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource,
+                                                 private val localDataSource: LocalDataSource,
+                                                 private val appExecutor: AppExecutor) : NotflixDataSource {
+
 
     override fun getAllTrendingMovies(): LiveData<ResourceData<PagedList<MoviesEntity>>> {
         return object : NetworkBoundResource<List<ResultsItem>, PagedList<MoviesEntity>>(appExecutor) {

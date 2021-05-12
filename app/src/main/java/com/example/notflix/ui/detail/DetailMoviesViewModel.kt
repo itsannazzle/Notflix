@@ -8,7 +8,7 @@ import androidx.paging.PagedList
 import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
-import com.example.notflix.data.remote.MoviesRepositories
+import com.example.notflix.data.MoviesRepositories
 import com.example.notflix.values.ResourceData
 
 class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {

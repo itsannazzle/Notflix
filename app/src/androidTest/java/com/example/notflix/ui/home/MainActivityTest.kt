@@ -99,6 +99,21 @@ class MainActivityTest : TestCase(){
         onView(withId(R.id.rv_eps)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
     }
 
+    @Test
+    fun displayFavoriteMovieScreenTest(){
+        onView(ViewMatchers.withText("Watch List")).perform(ViewActions.click())
+        onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_fav_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
+    }
+
+    @Test
+    fun displayFavoriteTvScreenTest(){
+        onView(ViewMatchers.withText("Watch List")).perform(ViewActions.click())
+        onView(ViewMatchers.withText("Tv Show")).perform(ViewActions.click())
+        onView(withId(R.id.rv_fav_tv)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_fav_tv)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShow.size))
+    }
+
     @After
     fun teardown(){
         IdlingRegistry.getInstance().unregister(IdlingResource.getEspressoIdlingResource())

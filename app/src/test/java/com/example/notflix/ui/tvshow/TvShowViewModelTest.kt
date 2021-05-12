@@ -3,9 +3,11 @@ package com.example.notflix.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.notflix.data.remote.MoviesRepositories
+import androidx.paging.PagedList
+import com.example.notflix.data.MoviesRepositories
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.utils.DataMovies
+import com.example.notflix.values.ResourceData
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
 import org.junit.Before
@@ -27,8 +29,10 @@ class TvShowViewModelTest : TestCase() {
     private lateinit var moviesRepositories: MoviesRepositories
 
     @Mock
-    private lateinit var observer : Observer<List<TvShowEntity>>
+    private lateinit var observer : Observer<ResourceData<PagedList<TvShowEntity>>>
 
+    @Mock
+    private lateinit var pagedList : PagedList<TvShowEntity>
 
     @Before
     public override fun setUp() {
@@ -38,12 +42,13 @@ class TvShowViewModelTest : TestCase() {
 
     @Test
     fun testGetMovies() {
-        val dummyMovies = DataMovies.generateDataTvShow()
-        val actualMovies = MutableLiveData<List<TvShowEntity>>()
+        val dummyMovies = ResourceData.success(pagedList)
+        Mockito.`when`(dummyMovies.data?.size).thenReturn(20)
+        val actualMovies = MutableLiveData<ResourceData<PagedList<TvShowEntity>>>()
         actualMovies.value = dummyMovies
 
         Mockito.`when`(moviesRepositories.getAllPopularTvShow()).thenReturn(actualMovies)
-        val moviesEntity = viewModel.showTvShow().value
+        val moviesEntity = viewModel.showTvShow().value?.data
 
         verify(moviesRepositories).getAllPopularTvShow()
         assertNotNull(moviesEntity)

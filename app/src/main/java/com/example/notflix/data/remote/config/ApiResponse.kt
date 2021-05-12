@@ -1,4 +1,4 @@
-package com.example.notflix.data.remote
+package com.example.notflix.data.remote.config
 
 class ApiResponse<T>(val responseStatus : StatusResponse, val responseBody : T, val responseMessage : String?) {
     companion object{

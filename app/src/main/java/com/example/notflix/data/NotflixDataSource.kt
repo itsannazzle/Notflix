@@ -1,4 +1,4 @@
-package com.example.notflix.data.remote
+package com.example.notflix.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
