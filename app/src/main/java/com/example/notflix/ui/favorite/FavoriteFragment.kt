@@ -32,7 +32,7 @@ class FavoriteFragment : Fragment() {
         val favSecAdapter = FavoriteSectionAdapter(childFragmentManager,lifecycle)
         binding.homepagerFavorite.adapter = favSecAdapter
         TabLayoutMediator(binding.tabFavorite,binding.homepagerFavorite){ tab, position ->
-            tab.text = resources.getString(FavoriteFragment.TAB_TITLE[position])
+            tab.text = resources.getString(TAB_TITLE[position])
         }.attach()
 
         return binding.root

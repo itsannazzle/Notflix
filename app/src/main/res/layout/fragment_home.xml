@@ -9,11 +9,10 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab"
-        style="@style/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
-        app:tabTextAppearance="@style/body_copy"
+        app:tabTextAppearance="@style/sub_title"
         app:tabTextColor="@color/white"
         app:tabSelectedTextColor="@color/red"
         app:tabIndicatorColor="@color/red"/>

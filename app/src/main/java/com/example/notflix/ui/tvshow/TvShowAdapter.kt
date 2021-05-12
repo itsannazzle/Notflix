@@ -1,7 +1,6 @@
 package com.example.notflix.ui.tvshow
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -9,14 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.notflix.BuildConfig
-import com.example.notflix.data.local.entity.MoviesEntity
-import com.example.notflix.databinding.ItemPosterBinding
 import com.example.notflix.data.local.entity.TvShowEntity
-import com.example.notflix.ui.detail.DetailTvShowActivity
-import com.example.notflix.ui.movies.MoviesAdapter
+import com.example.notflix.databinding.ItemPosterBinding
 
 class TvShowAdapter : PagedListAdapter<TvShowEntity,TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
-    private var tvEntity = ArrayList<TvShowEntity>()
+
 
     companion object{
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
@@ -34,7 +30,7 @@ class TvShowAdapter : PagedListAdapter<TvShowEntity,TvShowAdapter.TvShowViewHold
     private var onItemCallback : OnItemCallback? = null
 
     interface OnItemCallback {
-        fun onItemClicked(movies: TvShowEntity)
+        fun onItemClicked(tvShowEntity: TvShowEntity)
     }
     fun setOnItemCallback(onItemCallback: OnItemCallback){
         this.onItemCallback = onItemCallback

@@ -12,7 +12,6 @@ import com.example.notflix.databinding.ItemPosterBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 
 class MoviesAdapter : PagedListAdapter<MoviesEntity, MoviesAdapter.MoviesViewHolder>(DIFF_CALLBACK) {
-    private var moviesEntity = ArrayList<MoviesEntity>()
 
     companion object{
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MoviesEntity>() {

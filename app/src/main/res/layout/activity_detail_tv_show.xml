@@ -42,6 +42,7 @@
 
         <ImageView
             android:id="@+id/heart"
+            android:contentDescription="@string/your_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -64,6 +65,7 @@
 
         <ImageView
             android:id="@+id/watch"
+            android:contentDescription="@string/watch_on_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -87,6 +89,7 @@
 
         <ImageView
             android:id="@+id/info"
+            android:contentDescription="@string/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

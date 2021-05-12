@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.FragmentTvShowBinding
 import com.example.notflix.ui.ViewModelFactory
@@ -58,9 +57,9 @@ class TvShowFragment : Fragment() {
         }
 
         tvShowAdapter.setOnItemCallback(object : TvShowAdapter.OnItemCallback {
-            override fun onItemClicked(tvshow: TvShowEntity) {
+            override fun onItemClicked(tvShowEntity: TvShowEntity) {
                 val intent = Intent(activity,DetailTvShowActivity::class.java)
-                intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW, tvshow.id_tvshow)
+                intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW, tvShowEntity.id_tvshow)
                 startActivity(intent)
             }
         })

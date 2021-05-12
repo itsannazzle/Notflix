@@ -119,7 +119,12 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             }
 
             override fun shouldFetch(data: MoviesEntity?): Boolean {
-                return true
+                if (data != null) {
+                    when{
+                        data.genre.isNullOrEmpty() && data.country.isNullOrEmpty() -> return true
+                    }
+                }
+                return false
             }
 
             override fun saveCallResult(response: DetailMoviesResponse) {
@@ -170,7 +175,12 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             }
 
             override fun shouldFetch(data: TvShowEntity?): Boolean {
-                return true
+                if (data != null) {
+                    when{
+                        data.genre.isNullOrEmpty() && data.country.isNullOrEmpty() -> return true
+                    }
+                }
+                return false
             }
 
             override fun saveCallResult(response: DetailTvResponse) {

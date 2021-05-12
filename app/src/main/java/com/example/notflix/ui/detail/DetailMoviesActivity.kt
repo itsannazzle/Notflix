@@ -60,7 +60,9 @@ class DetailMoviesActivity : AppCompatActivity() {
             when(trending.status){
                 Status.SUCCESS -> {
                     moviesAdapter.submitList(trending.data)
-                    showRecomendation()
+                    binding.movieRec.adapter = moviesAdapter
+                    binding.progressCircular.visibility = View.GONE
+                    binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
                 }
                 Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
                 Status.ERROR -> {

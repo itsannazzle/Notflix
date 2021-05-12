@@ -6,7 +6,7 @@
     android:background="@color/black"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FavoriteFragment">
+    tools:context=".ui.favorite.FavoriteFragment">
 
     <TextView
         style="@style/title"
@@ -21,10 +21,10 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_favorite"
-        style="@style/sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
+        app:tabTextAppearance="@style/sub_title"
         app:tabTextColor="@color/white"
         app:tabSelectedTextColor="@color/red"
         app:tabIndicatorColor="@color/red"/>
