@@ -1,5 +1,6 @@
 package com.example.notflix.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,12 +14,12 @@ import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
-import com.example.notflix.ui.movies.MoviesAdapter
+import com.example.notflix.ui.favorite.UseableAdapter
 import com.example.notflix.values.Status
 
 class DetailMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var adapter: UseableAdapter<MoviesEntity>
     private val viewModel : DetailMoviesViewModel by viewModels{
         ViewModelFactory.getInstance(this)
     }
@@ -31,7 +32,6 @@ class DetailMoviesActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        moviesAdapter = MoviesAdapter()
 
         binding.progressCircular.visibility = View.VISIBLE
         val intent = intent.extras
@@ -56,14 +56,15 @@ class DetailMoviesActivity : AppCompatActivity() {
             }
         })
 
+        showTrending()
         viewModel.showTrendingMovies().observe(this,{
             trending ->
             when(trending.status){
                 Status.SUCCESS -> {
-                    moviesAdapter.submitList(trending.data)
-                    binding.movieRec.adapter = moviesAdapter
+                    adapter.submitList(trending.data)
+                    adapter.notifyDataSetChanged()
+                    binding.movieRec.adapter = adapter
                     binding.progressCircular.visibility = View.GONE
-                    binding.movieRec.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
                 }
                 Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
                 Status.ERROR -> {
@@ -98,6 +99,18 @@ class DetailMoviesActivity : AppCompatActivity() {
             binding.heart.setImageResource(R.drawable.ic_heart_filled)
         } else {
             binding.heart.setImageResource(R.drawable.ic_heart)
+        }
+    }
+
+    private fun showTrending(){
+        adapter = UseableAdapter{
+            val intent = Intent(this, DetailMoviesActivity::class.java)
+            intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,it.id_movies)
+            startActivity(intent)
+        }
+        with(binding.movieRec){
+            layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+            setHasFixedSize(true)
         }
     }
 

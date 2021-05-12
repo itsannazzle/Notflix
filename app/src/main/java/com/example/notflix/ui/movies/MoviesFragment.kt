@@ -13,10 +13,12 @@ import com.example.notflix.databinding.FragmentMoviesFragmentBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.detail.DetailMoviesActivity
+import com.example.notflix.ui.favorite.UseableAdapter
 import com.example.notflix.values.Status
 
 class MoviesFragment : Fragment() {
     private lateinit var binding: FragmentMoviesFragmentBinding
+    private lateinit var adapter : UseableAdapter<MoviesEntity>
     private val viewModel : MoviesViewModel by activityViewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
@@ -24,44 +26,37 @@ class MoviesFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
         binding = FragmentMoviesFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         if (activity != null){
             binding.progressCircular.visibility = View.VISIBLE
-            val moviesAdapter = MoviesAdapter()
-
             viewModel.showTrendingMovies().observe(viewLifecycleOwner,{
                 trending ->
                 when(trending.status){
                     Status.SUCCESS -> {
                         binding.progressCircular.visibility = View.GONE
-                        moviesAdapter.submitList(trending.data)
-                        moviesAdapter.notifyDataSetChanged()
+                        adapter.submitList(trending.data)
+                        adapter.notifyDataSetChanged()
+                        binding.rvMovies.adapter = adapter
+                        binding.rvMovies.layoutManager = GridLayoutManager(requireContext(),2)
                         binding.rvMovies.setHasFixedSize(true)
-                        binding.rvMovies.adapter = moviesAdapter
                     }
                     Status.ERROR -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
                 }
-
-            })
-
-            //moviesAdapter.addMovies(viewModel.getMovies())
-            with(binding.rvMovies){
-                layoutManager = GridLayoutManager(requireContext(),2)
-                adapter = moviesAdapter
-                setHasFixedSize(true)
-            }
-            moviesAdapter.setOnItemCallback(object : MoviesAdapter.OnItemCallback {
-                override fun onItemClicked(movies: MoviesEntity) {
-                val intent = Intent(activity, DetailMoviesActivity::class.java)
-                intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,movies.id_movies)
-                startActivity(intent)
-                }
             })
         }
+
+        showTrending()
+
+        return binding.root
+    }
+
+    private fun showTrending(){
+        adapter = UseableAdapter{
+            val intent = Intent(activity, DetailMoviesActivity::class.java)
+            intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,it.id_movies)
+            startActivity(intent)
+        }
+
     }
 }

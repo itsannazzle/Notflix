@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.FragmentFavTvShowBinding
-import com.example.notflix.ui.UseableAdapter
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.detail.DetailTvShowActivity
 
@@ -29,14 +28,14 @@ class FavTvShowFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentFavTvShowBinding.inflate(inflater, container, false)
 
-        showFavTv()
-
         viewModel.showFavTv().observe(viewLifecycleOwner,{
             favTvShow ->
             adapter.submitList(favTvShow)
             adapter.notifyDataSetChanged()
             binding.rvFavTv.adapter = adapter
         })
+
+        showFavTv()
 
         return binding.root
     }

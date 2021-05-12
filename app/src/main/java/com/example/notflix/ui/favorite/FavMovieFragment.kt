@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.databinding.FragmentFavMovieBinding
-import com.example.notflix.ui.UseableAdapter
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.detail.DetailMoviesActivity
 
@@ -30,14 +29,13 @@ class FavMovieFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentFavMovieBinding.inflate (inflater, container, false)
 
-        showFavMovie()
-
         viewModel.showFavMovie().observe(viewLifecycleOwner,{
             favMovie ->
             adapter.submitList(favMovie)
             binding.rvFavMovie.adapter = adapter
         })
 
+        showFavMovie()
         return binding.root
     }
 

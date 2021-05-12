@@ -1,4 +1,4 @@
-package com.example.notflix.ui
+package com.example.notflix.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.ItemPosterBinding
 
-class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedListAdapter<T,UseableAdapter<T>.UseableViewHolder>(DiffCallback<T>()) {
+class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedListAdapter<T, UseableAdapter<T>.UseableViewHolder>(DiffCallback<T>()) {
 
     inner class UseableViewHolder(private val binding: ItemPosterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(watch: T?, onClickListener: (T) -> Unit){
