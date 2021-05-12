@@ -16,7 +16,10 @@ interface NotflixDao {
     fun getSelectedMovie(movieId : Int) : LiveData<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(movie: List<MoviesEntity>)
+    suspend fun insertMovies(movie: List<MoviesEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTvShow(tvshow: List<TvShowEntity>)
 
     @Query("update moviesTable set genre =:genre, country =:country, duration =:duration where id_movies =:movieId")
     fun updateMovie(movieId: Int, genre : String,country : String, duration : Int)
@@ -24,30 +27,20 @@ interface NotflixDao {
     @Query("update tvShowTable set genre =:genre, country =:country, duration =:duration where id_tvshow =:tvId")
     fun updateTvShow(tvId: Int, genre : String,country : String, duration : Int)
 
-    @Delete
-    fun deleteMovie(movie: List<MoviesEntity>)
-
     @Query("select * from tvShowTable")
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity>
 
     @Query("select * from tvShowTable where id_tvshow = :tvshowId")
     fun getSelectedTvShow(tvshowId: Int) : LiveData<TvShowEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTvShow(tvshow: List<TvShowEntity>)
-
-    @Delete
-    fun deleteTvShow(tvshow: List<TvShowEntity>)
-
-    @Update()
+    @Update
     suspend fun insertFavotiteMovie(movie: MoviesEntity)
 
     @Update
     suspend fun insertFavoriteTv(tvshow: TvShowEntity)
 
     @Query("select count(id_movies) and count(favorite) from moviesTable where id_movies= :idMovie")
-    suspend fun checkFavorite(idMovie: Int) : Int
-
+    fun checkFavorite(idMovie: Int) : Int
 
     @Query("select * from moviesTable where favorite= :favotiteMovie")
     fun getAllFavoriteMovie(favotiteMovie : Boolean = true) : DataSource.Factory<Int,MoviesEntity>
@@ -56,9 +49,9 @@ interface NotflixDao {
     fun getAllFavoriteTv(favotiteTv : Boolean = true) : DataSource.Factory<Int,TvShowEntity>
 
     @Delete
-    fun deleteFavoriteMovie(movieId: MoviesEntity)
+    suspend fun deleteFavoriteMovie(movieId: MoviesEntity)
 
     @Delete
-    fun deleteFavoriteTv(tvshowId: TvShowEntity)
+    suspend fun deleteFavoriteTv(tvshowId: TvShowEntity)
 
 }

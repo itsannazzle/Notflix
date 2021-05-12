@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailBinding
@@ -73,7 +74,6 @@ class DetailMoviesActivity : AppCompatActivity() {
 
         })
 
-
         binding.heart.setOnClickListener {
             viewModel.isFavoriteMovie()
         }
@@ -89,6 +89,7 @@ class DetailMoviesActivity : AppCompatActivity() {
         binding.moviesRating.text = movieId.rating.toString()
         Glide.with(this)
                 .load(BuildConfig.POSTER_URL + movieId.backDrop)
+                .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                 .into(binding.moviesPoster)
     }
 
@@ -100,12 +101,4 @@ class DetailMoviesActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRecomendation(){
-        moviesAdapter = MoviesAdapter()
-        binding.progressCircular.visibility = View.VISIBLE
-        with(binding.movieRec){
-            adapter = moviesAdapter
-            layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
-        }
-    }
 }

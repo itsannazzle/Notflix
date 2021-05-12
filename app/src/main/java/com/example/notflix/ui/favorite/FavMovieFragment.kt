@@ -21,7 +21,6 @@ class FavMovieFragment : Fragment() {
     private val viewModel : FavoriteViewModel by activityViewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
-    private val moviesEntity = MoviesEntity()
 
 
     override fun onCreateView(
@@ -30,26 +29,25 @@ class FavMovieFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFavMovieBinding.inflate (inflater, container, false)
-        showFavMovie(moviesEntity)
+
+        showFavMovie()
+
         viewModel.showFavMovie().observe(viewLifecycleOwner,{
             favMovie ->
             adapter.submitList(favMovie)
-            adapter.notifyDataSetChanged()
             binding.rvFavMovie.adapter = adapter
-
         })
 
         return binding.root
     }
 
-    private fun showFavMovie(favMovie : MoviesEntity){
+    private fun showFavMovie(){
         adapter = UseableAdapter {
             val intent = Intent(activity,DetailMoviesActivity::class.java)
-            intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,favMovie.id_movies)
+            intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,it.id_movies)
             startActivity(intent)
         }
         with(binding.rvFavMovie){
-            adapter = adapter
             adapter?.notifyDataSetChanged()
             layoutManager = GridLayoutManager(requireContext(),2)
             setHasFixedSize(true)

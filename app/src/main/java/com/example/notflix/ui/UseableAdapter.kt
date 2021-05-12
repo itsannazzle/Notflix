@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
+import com.example.notflix.R
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.ItemPosterBinding
@@ -22,6 +24,7 @@ class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedList
             with(binding){
                 Glide.with(itemView.context)
                     .load(BuildConfig.POSTER_URL + poster)
+                        .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                     .into(previewPoster)
             }
             itemView.setOnClickListener {

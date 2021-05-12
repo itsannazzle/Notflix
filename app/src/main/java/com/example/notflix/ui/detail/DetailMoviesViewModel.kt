@@ -1,13 +1,15 @@
 package com.example.notflix.ui.detail
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.example.notflix.data.remote.MoviesRepositories
 import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
+import com.example.notflix.data.remote.MoviesRepositories
 import com.example.notflix.values.ResourceData
-import kotlinx.coroutines.launch
 
 class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {
 
@@ -31,7 +33,7 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
       mTvShowId -> moviesRepositories.getDetailTv(mTvShowId)
     }
 
-    //fun showEpisodes() : LiveData<ResourceData<PagedList<EpisodesEntity>>> = moviesRepositories.getEpisodes()
+    fun showEpisodes() : LiveData<List<EpisodesEntity>> = moviesRepositories.getEpisodes()
 
     fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
 

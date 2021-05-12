@@ -6,9 +6,6 @@ import com.example.notflix.data.remote.ApiResponse
 import com.example.notflix.data.remote.StatusResponse
 import com.example.notflix.utils.AppExecutor
 import com.example.notflix.values.ResourceData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 abstract class NetworkBoundResource<RequestType,ResultType>(private val appExecutor: AppExecutor){
 

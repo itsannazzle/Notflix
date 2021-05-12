@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
@@ -55,11 +57,11 @@ class DetailTvShowActivity : AppCompatActivity() {
         binding.heart.setOnClickListener {
             viewModel.isFavoriteTv()
         }
-//            viewModel.showEpisodes().observe(this,{
-//                eps -> episodesAdapter.setEpisodes(eps)
-//                binding.rvEps.adapter = episodesAdapter
-//                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
-//            })
+            viewModel.showEpisodes().observe(this,{
+                eps -> episodesAdapter.setEpisodes(eps)
+                binding.rvEps.adapter = episodesAdapter
+                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
+            })
 
     }
 
@@ -72,6 +74,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         binding.moviesRating.text = tvShowEntity.rating.toString()
         Glide.with(this)
                 .load(BuildConfig.POSTER_URL + tvShowEntity.backDrop)
+                .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                 .into(binding.moviesPoster)
     }
 

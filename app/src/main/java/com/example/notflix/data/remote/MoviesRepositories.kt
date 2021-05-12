@@ -50,7 +50,12 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                 for (respon in response){
                     with(respon){
                         val movie = MoviesEntity(
-                                id,poster = posterPath, title = title, overview = overview, backDrop = backdropPath, rating = voteAverage!!
+                                id,
+                                poster = posterPath,
+                                title = title,
+                                overview = overview,
+                                backDrop = backdropPath,
+                                rating = voteAverage!!
                         )
                         movieList.add(movie)
                     }
@@ -75,8 +80,8 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             override fun loadFromDB(): LiveData<PagedList<TvShowEntity>> {
                 val config =PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
-                        .setInitialLoadSizeHint(3)
-                        .setPageSize(3)
+                        .setInitialLoadSizeHint(7)
+                        .setPageSize(7)
                         .build()
                 return LivePagedListBuilder(localDataSource.getAllTvShow(),config).build()
             }
@@ -91,7 +96,12 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
                 for (respon in response){
                     with(respon){
                         val tvshow = TvShowEntity(
-                                id,poster = posterPath, title = name, overview = overview, backDrop = backdropPath, rating = voteAverage!!
+                                id,
+                                poster = posterPath,
+                                title = name,
+                                overview = overview,
+                                backDrop = backdropPath,
+                                rating = voteAverage!!
                         )
                         tvshowList.add(tvshow)
                     }
@@ -113,7 +123,6 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
 
     override fun getDetailMovie(movie_id: Int): LiveData<ResourceData<MoviesEntity>> {
         return object : NetworkBoundResource<DetailMoviesResponse, MoviesEntity>(appExecutor) {
-
             override fun loadFromDB(): LiveData<MoviesEntity> {
                 return localDataSource.getSelectedMovie(movie_id)
             }
@@ -234,7 +243,6 @@ private val appExecutor: AppExecutor) : NotflixDataSource{
             localDataSource.favoriteTv(tv,isFavorite)
         }
     }
-
 
     override fun getAllFavMovie(): LiveData<PagedList<MoviesEntity>> {
         val config =PagedList.Config.Builder()

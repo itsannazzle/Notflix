@@ -9,8 +9,6 @@ import com.example.notflix.values.ResourceData
 
 class MoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {
 
-    //fun getMovies() : List<MoviesEntity> = DataMovies.generateDataMovies()
-
     fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
 
 }

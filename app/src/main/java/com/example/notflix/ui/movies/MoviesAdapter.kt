@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notflix.BuildConfig
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.notflix.R
 import com.example.notflix.databinding.ItemPosterBinding
 import com.example.notflix.data.local.entity.MoviesEntity
 
@@ -42,6 +44,7 @@ class MoviesAdapter : PagedListAdapter<MoviesEntity, MoviesAdapter.MoviesViewHol
         fun bind(movies : MoviesEntity){
             Glide.with(itemView.context)
                     .load(BuildConfig.POSTER_URL + movies.poster)
+                    .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                     .into(binding.previewPoster)
             itemView.setOnClickListener {
                 onItemCallback?.onItemClicked(movies)
