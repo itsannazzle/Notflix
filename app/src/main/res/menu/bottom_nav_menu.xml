@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/homeFragment"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_home_24"
-        app:showAsAction="ifRoom"
+        android:enabled="true"
         android:title="@string/home" />
-    <item android:id="@+id/nav_search"
+    <item
+        android:id="@+id/searchFragment"
+        android:enabled="true"
         android:icon="@drawable/ic_baseline_search_24"
-        app:showAsAction="ifRoom"
         android:title="@string/search" />
-    <item android:id="@+id/nav_coming_soon"
+    <item
+        android:id="@+id/comingSoonFragment"
+        android:enabled="true"
         android:icon="@drawable/ic_baseline_ondemand_video_24"
-        app:showAsAction="ifRoom"
         android:title="@string/coming_soon" />
-    <item android:id="@+id/favoriteFragment"
+    <item
+        android:id="@+id/favoriteFragment"
+        android:enabled="true"
         android:icon="@drawable/ic_heart"
-        app:showAsAction="always"
         android:title="@string/watch_list" />
-    <item android:id="@+id/nav_more"
+    <item
+        android:id="@+id/moreFragment"
+        android:enabled="true"
         android:icon="@drawable/ic_outline_reorder_24"
-        app:showAsAction="always"
         android:title="@string/more" />
 </menu>

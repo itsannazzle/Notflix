@@ -8,12 +8,14 @@ import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.utils.*
 import com.example.notflix.values.ResourceData
+import com.nhaarman.mockitokotlin2.doNothing
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
@@ -90,21 +92,31 @@ class MoviesRepositoriesTest : TestCase() {
 
     @Test
     fun testInsertFavMovie(){
-        val dummyEntity = DataMovies.generateDataMovies()[0]
-        val state = !dummyEntity.favorite
-        fakeMoviesRepositories.insertFavMovie(dummyEntity, state)
+        val dummyEntity = MutableLiveData<MoviesEntity>()
+        val state = dummyEntity.value?.favorite
         runBlocking {
-            verify(local).favoriteMovie(dummyEntity,state)
+            if (state != null) {
+                fakeMoviesRepositories.insertFavMovie(DataMovies.generateDataMovies()[0],state)
+            }
+            if (state != null) {
+                verify(local).favoriteMovie(DataMovies.generateDataMovies()[0],state)
+            }
+
         }
     }
 
     @Test
     fun testInsertFavTv(){
-        val dummyEntity = DataMovies.generateDataTvShow()[0]
-        val state = dummyEntity.favorite
-        fakeMoviesRepositories.insertFavTv(dummyEntity, state)
+        val dummyEntity = MutableLiveData<TvShowEntity>()
+        val state = dummyEntity.value?.favorite
+
         runBlocking {
-            verify(local).favoriteTv(dummyEntity,state)
+            if (state != null) {
+                fakeMoviesRepositories.insertFavTv(DataMovies.generateDataTvShow()[0],state)
+            }
+            if (state != null) {
+                verify(local).favoriteTv(DataMovies.generateDataTvShow()[0],state)
+            }
         }
     }
 

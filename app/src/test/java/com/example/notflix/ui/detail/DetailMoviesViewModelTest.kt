@@ -96,10 +96,18 @@ class DetailMoviesViewModelTest : TestCase() {
 
 //    @Test
 //    fun testIsFavoriteMovie(){
-//        val favoriteMovie = ResourceData.success(DataMovies.generateDataMovies()[0])
-//        val favorite = MutableLiveData<ResourceData<MoviesEntity>>()
-//        favorite.value = favoriteMovie
-//
-//        Mockito.`when`(moviesRepositories.getAllFavMovie()).thenReturn(favorite)
+//        val dummyMovie = DataMovies.generateDataMovies()
+//        val dummyEntity = MutableLiveData<ResourceData<MoviesEntity>>()
+//         dummyEntity.value = dummyMovie
+//        Mockito.`when`(state?.let {
+//            moviesRepositories.insertFavMovie(DataMovies.generateDataMovies()[0],
+//                it
+//            )
+//        }).thenReturn(dummyEntity)
 //    }
+
+    @Test
+    fun testIsFavoriteTv(){
+
+    }
 }

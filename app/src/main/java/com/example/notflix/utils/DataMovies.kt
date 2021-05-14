@@ -18,7 +18,6 @@ object DataMovies {
                     genre = "Drama,Romance,Music",
                     country = "US",
                     rating = 8.0,
-                    favorite = false,
                     duration = 139
         ))
         moviesEntity.add(
@@ -571,7 +570,8 @@ object DataMovies {
         val movieResponse = ArrayList<ResultsItem>()
         movieResponse.add(ResultsItem(
                 id = 460465,
-                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg"
+                posterPath = "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
+
         ))
         movieResponse.add(ResultsItem(
                 id = 460465,
@@ -808,9 +808,6 @@ object DataMovies {
         return eps
     }
 
-//    fun generateFavoriteMovie(moviesEntity: MoviesEntity, favorite : Boolean) : MoviesEntity{
-//        moviesEntity.favorite = favorite
-//        return MoviesEntity(moviesEntity,favorite)
-//    }
+
 
 }

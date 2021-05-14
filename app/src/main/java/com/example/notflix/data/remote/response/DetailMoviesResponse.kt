@@ -39,6 +39,7 @@ data class DetailMoviesResponse(
 	val adult: Boolean? = null,
 
 
+
 )
 
 data class GenresItem(

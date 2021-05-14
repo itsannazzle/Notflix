@@ -23,8 +23,9 @@ class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedList
             }
             with(binding){
                 Glide.with(itemView.context)
-                    .load(BuildConfig.POSTER_URL + poster)
-                        .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
+                    .load(BuildConfig.POSTER_URL+poster)
+//                    .error(R.drawable.ic_baseline_info_24)
+//                    .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                     .into(previewPoster)
             }
             itemView.setOnClickListener {
