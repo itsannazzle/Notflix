@@ -12,7 +12,7 @@ class SplashScreen : AppCompatActivity() {
 
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        supportActionBar?.hide()
         binding.splash.animate().setDuration(1500).alpha(1f).withEndAction {
             startActivity(Intent(this, MainActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)

@@ -32,7 +32,7 @@ class DetailMoviesViewModelTest : TestCase() {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var moviesObserver: Observer<MoviesEntity>
+    private lateinit var moviesObserver: Observer<ResourceData<MoviesEntity>>
 
     @Mock
     private lateinit var trendingobserver : Observer<ResourceData<PagedList<MoviesEntity>>>
@@ -44,7 +44,7 @@ class DetailMoviesViewModelTest : TestCase() {
     private lateinit var episodesObserver : Observer<List<EpisodesEntity>>
 
     @Mock
-    private lateinit var tvshowObserver: Observer<TvShowEntity>
+    private lateinit var tvshowObserver: Observer<ResourceData<TvShowEntity>>
 
     @Mock
     private lateinit var moviesRepositories: MoviesRepositories
@@ -94,20 +94,25 @@ class DetailMoviesViewModelTest : TestCase() {
 
     }
 
-//    @Test
-//    fun testIsFavoriteMovie(){
-//        val dummyMovie = DataMovies.generateDataMovies()
-//        val dummyEntity = MutableLiveData<ResourceData<MoviesEntity>>()
-//         dummyEntity.value = dummyMovie
-//        Mockito.`when`(state?.let {
-//            moviesRepositories.insertFavMovie(DataMovies.generateDataMovies()[0],
-//                it
-//            )
-//        }).thenReturn(dummyEntity)
-//    }
+    @Test
+    fun testIsFavoriteMovie(){
+        val dummyMovie = ResourceData.success(DataMovies.generateDataMovies()[0])
+        val dummyEntity = MutableLiveData<ResourceData<MoviesEntity>>()
+         dummyEntity.value = dummyMovie
+        Mockito.`when`(moviesRepositories.getDetailMovie(moviesId)).thenReturn(dummyEntity)
+        viewModel.detailMovie = moviesRepositories.getDetailMovie(moviesId)
+        viewModel.detailMovie.observeForever(moviesObserver)
+        verify(moviesObserver).onChanged(dummyMovie)
+    }
 
     @Test
     fun testIsFavoriteTv(){
-
+        val dummyTv = ResourceData.success(DataMovies.generateDataTvShow()[0])
+        val dummyEntity = MutableLiveData<ResourceData<TvShowEntity>>()
+        dummyEntity.value = dummyTv
+        Mockito.`when`(moviesRepositories.getDetailTv(tvshowId)).thenReturn(dummyEntity)
+        viewModel.detailTvShow = moviesRepositories.getDetailTv(tvshowId)
+        viewModel.detailTvShow.observeForever(tvshowObserver)
+        verify(tvshowObserver).onChanged(dummyTv)
     }
 }

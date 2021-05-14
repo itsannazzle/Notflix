@@ -19,10 +19,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
         val navController = findNavController(R.id.nav_host_fragment)
-//        val appBarConfiguration = AppBarConfiguration.Builder(R.id.homeFragment,
-//            R.id.favoriteFragment,R.id.searchFragment,R.id.comingSoonFragment,R.id.moreFragment).build()
-//        setupActionBarWithNavController(navController,appBarConfiguration)
         binding.bottomNav.setupWithNavController(navController)
 
     }
