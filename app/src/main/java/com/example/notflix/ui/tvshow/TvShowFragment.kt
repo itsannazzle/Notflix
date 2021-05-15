@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.FragmentTvShowBinding
 import com.example.notflix.ui.ViewModelFactory
-import com.example.notflix.ui.detail.DetailMoviesActivity
 import com.example.notflix.ui.detail.DetailTvShowActivity
 import com.example.notflix.ui.favorite.UseableAdapter
 import com.example.notflix.values.Status

@@ -1,11 +1,8 @@
 package com.example.notflix.ui.home
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityMainBinding

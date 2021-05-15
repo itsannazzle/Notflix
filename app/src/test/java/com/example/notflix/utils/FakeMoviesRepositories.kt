@@ -11,11 +11,12 @@ import com.example.notflix.data.local.LocalDataSource
 import com.example.notflix.data.local.entity.EpisodesEntity
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
-import com.example.notflix.data.remote.config.ApiResponse
 import com.example.notflix.data.remote.RemoteDataSource
-import com.example.notflix.data.remote.response.*
-import com.example.notflix.utils.AppExecutor
-import com.example.notflix.utils.DataMovies
+import com.example.notflix.data.remote.config.ApiResponse
+import com.example.notflix.data.remote.response.DetailMoviesResponse
+import com.example.notflix.data.remote.response.DetailTvResponse
+import com.example.notflix.data.remote.response.ResultsItem
+import com.example.notflix.data.remote.response.TVResultsItem
 import com.example.notflix.values.ResourceData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
