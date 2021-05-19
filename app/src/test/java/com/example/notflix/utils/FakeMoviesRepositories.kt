@@ -234,9 +234,7 @@ class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource,
     }
 
     fun insertFavTv(tv: TvShowEntity, isFavorite: Boolean){
-        GlobalScope.launch(Dispatchers.IO){
             localDataSource.favoriteTv(tv,isFavorite)
-        }
     }
 
     override fun getAllFavMovie(): LiveData<PagedList<MoviesEntity>> {

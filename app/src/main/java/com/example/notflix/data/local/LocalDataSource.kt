@@ -5,6 +5,8 @@ import androidx.paging.DataSource
 import com.example.notflix.data.local.entity.MoviesEntity
 import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.data.local.room.NotflixDao
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LocalDataSource private constructor(private val dao: NotflixDao) {
     companion object{
@@ -35,12 +37,17 @@ class LocalDataSource private constructor(private val dao: NotflixDao) {
 
     fun favoriteMovie(movie: MoviesEntity,isFavorite : Boolean) {
         movie.favorite = isFavorite
-        dao.insertFavotiteMovie(movie)
+        GlobalScope.launch {
+            dao.insertFavotiteMovie(movie)
+        }
+
     }
 
     fun favoriteTv(tvshow: TvShowEntity, isFavorite: Boolean) {
         tvshow.favorite = isFavorite
-        dao.insertFavoriteTv(tvshow)
+       GlobalScope.launch {
+           dao.insertFavoriteTv(tvshow)
+       }
     }
 
     fun getAllFavMovie() : DataSource.Factory<Int, MoviesEntity> = dao.getAllFavoriteMovie()

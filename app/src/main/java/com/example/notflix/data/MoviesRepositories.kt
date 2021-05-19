@@ -234,15 +234,11 @@ class MoviesRepositories private constructor(private val remoteDataSource: Remot
     }
 
     fun insertFavMovie(movie: MoviesEntity, isFavorite : Boolean){
-        GlobalScope.launch(Dispatchers.IO){
             localDataSource.favoriteMovie(movie, isFavorite)
-        }
     }
 
     fun insertFavTv(tv: TvShowEntity, isFavorite: Boolean){
-        GlobalScope.launch(Dispatchers.IO){
             localDataSource.favoriteTv(tv,isFavorite)
-        }
     }
 
     override fun getAllFavMovie(): LiveData<PagedList<MoviesEntity>> {
