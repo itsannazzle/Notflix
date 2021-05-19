@@ -98,9 +98,13 @@ class DetailMoviesViewModelTest : TestCase() {
     fun testIsFavoriteMovie(){
         val dummyMovie = ResourceData.success(DataMovies.generateDataMovies()[0])
         val dummyEntity = MutableLiveData<ResourceData<MoviesEntity>>()
-         dummyEntity.value = dummyMovie
+        dummyEntity.value = dummyMovie
         Mockito.`when`(moviesRepositories.getDetailMovie(moviesId)).thenReturn(dummyEntity)
         viewModel.detailMovie = moviesRepositories.getDetailMovie(moviesId)
+
+        viewModel.isFavoriteMovie()
+        verify(moviesRepositories).insertFavMovie(dummyEntity.value?.data as MoviesEntity, true)
+
         viewModel.detailMovie.observeForever(moviesObserver)
         verify(moviesObserver).onChanged(dummyMovie)
     }
@@ -112,6 +116,9 @@ class DetailMoviesViewModelTest : TestCase() {
         dummyEntity.value = dummyTv
         Mockito.`when`(moviesRepositories.getDetailTv(tvshowId)).thenReturn(dummyEntity)
         viewModel.detailTvShow = moviesRepositories.getDetailTv(tvshowId)
+        viewModel.isFavoriteTv()
+
+        verify(moviesRepositories).insertFavTv(dummyEntity.value?.data as TvShowEntity, true)
         viewModel.detailTvShow.observeForever(tvshowObserver)
         verify(tvshowObserver).onChanged(dummyTv)
     }

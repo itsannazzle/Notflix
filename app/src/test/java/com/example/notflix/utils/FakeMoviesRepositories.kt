@@ -230,9 +230,7 @@ class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource,
     }
 
     fun insertFavMovie(movie: MoviesEntity, isFavorite : Boolean){
-        GlobalScope.launch(Dispatchers.IO){
             localDataSource.favoriteMovie(movie, isFavorite)
-        }
     }
 
     fun insertFavTv(tv: TvShowEntity, isFavorite: Boolean){

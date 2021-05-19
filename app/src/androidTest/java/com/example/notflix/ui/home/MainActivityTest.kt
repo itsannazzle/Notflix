@@ -16,12 +16,11 @@ import com.example.notflix.R
 import com.example.notflix.utils.DataMovies
 import com.example.notflix.utils.IdlingResource
 import junit.framework.TestCase
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
+@FixMethodOrder(MethodSorters.JVM)
 @RunWith(AndroidJUnit4ClassRunner::class)
 class MainActivityTest : TestCase(){
     private val dummyMovies = DataMovies.generateDataMovies()
@@ -58,11 +57,11 @@ class MainActivityTest : TestCase(){
 
         onView(withId(R.id.movies_desc)).check(matches(isDisplayed()))
 
+        onView(withId(R.id.movies_poster)).check(matches(isDisplayed()))
+        onView(withId(R.id.movies_poster)).perform(swipeUp())
+
         onView(withId(R.id.movies_genre)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.movies_poster)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.movies_poster)).perform(swipeUp())
         onView(withId(R.id.movie_rec)).check(matches(isDisplayed()))
         onView(withId(R.id.movie_rec)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
     }
@@ -88,14 +87,31 @@ class MainActivityTest : TestCase(){
         onView(withId(R.id.movies_duration)).check(matches(isDisplayed()))
 
         onView(withId(R.id.movies_desc)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.movies_genre)).check(matches(isDisplayed()))
-
         onView(withId(R.id.movies_poster)).check(matches(isDisplayed()))
 
         onView(withId(R.id.movies_poster)).perform(swipeUp())
+        onView(withId(R.id.movies_genre)).check(matches(isDisplayed()))
+
+
         onView(withId(R.id.rv_eps)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_eps)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
+    }
+
+    @Test
+    fun addMovieToFav(){
+        onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()
+        ))
+
+        onView(withId(R.id.heart)).perform(click())
+    }
+
+    @Test
+    fun addTvToFav(){
+        onView(withText("Tv Show")).perform(click())
+        onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()
+        ))
+
+        onView(withId(R.id.heart)).perform(click())
     }
 
     @Test

@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "moviesTable")
 @Parcelize
-class MoviesEntity(
+data class MoviesEntity(
     @PrimaryKey
     @NonNull
     var id_movies : Int =0,

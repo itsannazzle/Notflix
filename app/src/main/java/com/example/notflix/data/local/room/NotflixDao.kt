@@ -34,10 +34,10 @@ interface NotflixDao {
     fun getSelectedTvShow(tvshowId: Int) : LiveData<TvShowEntity>
 
     @Update
-    suspend fun insertFavotiteMovie(movie: MoviesEntity)
+    fun insertFavotiteMovie(movie: MoviesEntity)
 
     @Update
-    suspend fun insertFavoriteTv(tvshow: TvShowEntity)
+    fun insertFavoriteTv(tvshow: TvShowEntity)
 
     @Query("select count(id_movies) and count(favorite) from moviesTable where id_movies= :idMovie")
     fun checkFavorite(idMovie: Int) : Int

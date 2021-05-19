@@ -33,12 +33,12 @@ class LocalDataSource private constructor(private val dao: NotflixDao) {
     suspend fun insertTvShow(tvshow: List<TvShowEntity>) = dao.insertTvShow(tvshow)
 
 
-    suspend fun favoriteMovie(movie: MoviesEntity,isFavorite : Boolean) {
+    fun favoriteMovie(movie: MoviesEntity,isFavorite : Boolean) {
         movie.favorite = isFavorite
         dao.insertFavotiteMovie(movie)
     }
 
-    suspend fun favoriteTv(tvshow: TvShowEntity, isFavorite: Boolean) {
+    fun favoriteTv(tvshow: TvShowEntity, isFavorite: Boolean) {
         tvshow.favorite = isFavorite
         dao.insertFavoriteTv(tvshow)
     }

@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteDataSource {
+class RemoteDataSource() {
    private val handler = Handler(Looper.getMainLooper())
     companion object{
         @Volatile

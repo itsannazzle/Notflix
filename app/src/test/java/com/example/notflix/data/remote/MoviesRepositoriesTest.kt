@@ -9,6 +9,7 @@ import com.example.notflix.data.local.entity.TvShowEntity
 import com.example.notflix.utils.*
 import com.example.notflix.values.ResourceData
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -73,7 +74,7 @@ class MoviesRepositoriesTest : TestCase() {
         /*initial value is null? nothing? empty?*/
         val dummyEntity = MutableLiveData<MoviesEntity>()
         /*get value from dummy*/
-        dummyEntity.value = DataMovies.generateDataMovies()[0]
+        dummyEntity.value = DataMovies.generateLocalDetailMovie()
 
         `when`(local.getSelectedMovie(movieId)).thenReturn(dummyEntity)
         val detailMovie = LiveDataTest.getValue(fakeMoviesRepositories.getDetailMovie(movieId))
@@ -86,44 +87,30 @@ class MoviesRepositoriesTest : TestCase() {
     @Test
     fun testGetDetailTv() {
         val dummyEntity = MutableLiveData<TvShowEntity>()
-        dummyEntity.value = DataMovies.generateDataTvShow()[0]
+        dummyEntity.value = DataMovies.generateLocalDetailTvShow()
 
         `when`(local.getSelectedTvShow(tvshowId)).thenReturn(dummyEntity)
         val detailTvshow = LiveDataTest.getValue(fakeMoviesRepositories.getDetailTv(tvshowId))
         verify(local).getSelectedTvShow(tvshowId)
+        assertNotNull(dummyEntity)
         assertNotNull(detailTvshow.data)
         assertNotNull(detailTvshow.data?.id_tvshow)
         assertEquals(detailtvResponse.id,detailTvshow.data?.id_tvshow)
     }
 
+
     @Test
     fun testInsertFavMovie(){
-        val dummyEntity = MutableLiveData<MoviesEntity>()
-        val state = dummyEntity.value?.favorite
-        runBlocking {
-            if (state != null) {
-                fakeMoviesRepositories.insertFavMovie(DataMovies.generateDataMovies()[0],state)
-            }
-            if (state != null) {
-                verify(local).favoriteMovie(DataMovies.generateDataMovies()[0],state)
-            }
-
-        }
+        fakeMoviesRepositories.insertFavMovie(DataMovies.generateLocalDetailMovie(),isFavorite = true)
+        verify(local).favoriteMovie(DataMovies.generateLocalDetailMovie(),isFavorite = true)
+        verifyNoMoreInteractions(local)
     }
 
     @Test
     fun testInsertFavTv(){
-        val dummyEntity = MutableLiveData<TvShowEntity>()
-        val state = dummyEntity.value?.favorite
-
-        runBlocking {
-            if (state != null) {
-                fakeMoviesRepositories.insertFavTv(DataMovies.generateDataTvShow()[0],state)
-            }
-            if (state != null) {
-                verify(local).favoriteTv(DataMovies.generateDataTvShow()[0],state)
-            }
-        }
+        fakeMoviesRepositories.insertFavTv(DataMovies.generateLocalDetailTvShow(),isFavorite = true)
+        verify(local).favoriteTv(DataMovies.generateLocalDetailTvShow(),isFavorite = true)
+        verifyNoMoreInteractions(local)
     }
 
     @Test
