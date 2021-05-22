@@ -11,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
-import com.example.notflix.data.local.entity.TvShowEntity
+import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.values.Status
 

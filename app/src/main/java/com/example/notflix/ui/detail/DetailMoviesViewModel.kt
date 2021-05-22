@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.example.notflix.data.local.entity.EpisodesEntity
-import com.example.notflix.data.local.entity.MoviesEntity
-import com.example.notflix.data.local.entity.TvShowEntity
-import com.example.notflix.data.MoviesRepositories
+import com.example.notflix.core.data.local.entity.EpisodesEntity
+import com.example.notflix.core.data.local.entity.MoviesEntity
+import com.example.notflix.core.data.local.entity.TvShowEntity
+import com.example.notflix.core.data.MoviesRepositories
 import com.example.notflix.values.ResourceData
 
 class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {

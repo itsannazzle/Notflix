@@ -4,9 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.example.notflix.data.MoviesRepositories
-import com.example.notflix.data.local.entity.MoviesEntity
-import com.example.notflix.data.local.entity.TvShowEntity
+import com.example.notflix.core.data.MoviesRepositories
+import com.example.notflix.core.data.local.entity.MoviesEntity
+import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
 import org.junit.Before

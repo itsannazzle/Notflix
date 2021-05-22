@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
 import com.example.notflix.R
-import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.databinding.ActivityDetailBinding
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.favorite.UseableAdapter

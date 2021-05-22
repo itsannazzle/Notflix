@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.data.local.entity.MoviesEntity
+import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.databinding.FragmentFavMovieBinding
 import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.detail.DetailMoviesActivity

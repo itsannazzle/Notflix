@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
 import com.example.notflix.R
-import com.example.notflix.data.local.entity.MoviesEntity
-import com.example.notflix.data.local.entity.TvShowEntity
+import com.example.notflix.core.data.local.entity.MoviesEntity
+import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.example.notflix.databinding.ItemPosterBinding
 
 class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedListAdapter<T, UseableAdapter<T>.UseableViewHolder>(DiffCallback<T>()) {

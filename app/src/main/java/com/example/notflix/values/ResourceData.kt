@@ -1,11 +1,10 @@
 package com.example.notflix.values
 
-data class ResourceData<T>(val status: Status, val data: T?, val message: String?) {
-    companion object {
-        fun <T> success(data: T?): ResourceData<T> = ResourceData(Status.SUCCESS, data, null)
+sealed class ResourceData<T>(val data: T? = null, val message: String? = null) {
+        class success<T>(data: T): ResourceData<T>(data)
 
-        fun <T> error(msg: String?, data: T?): ResourceData<T> = ResourceData(Status.ERROR, data, msg)
+        class error<T>(msg: String, data: T? = null): ResourceData<T>(data,msg)
 
-        fun <T> loading(data: T?): ResourceData<T> = ResourceData(Status.LOADING, data, null)
-    }
+        class loading<T>(data: T? = null): ResourceData<T>(data)
+
 }
