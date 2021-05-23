@@ -6,20 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.core.data.local.entity.TvShowEntity
+import com.example.notflix.core.domain.model.TvShowModel
 import com.example.notflix.databinding.FragmentFavTvShowBinding
-import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.detail.DetailTvShowActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class FavTvShowFragment : Fragment() {
     private lateinit var binding: FragmentFavTvShowBinding
-    private lateinit var adapter: UseableAdapter<TvShowEntity>
-    private val viewModel : FavoriteViewModel by activityViewModels {
-        ViewModelFactory.getInstance(requireActivity())
-    }
+    private lateinit var adapter: UseableAdapter<TvShowModel>
+    private val viewModel : FavoriteViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

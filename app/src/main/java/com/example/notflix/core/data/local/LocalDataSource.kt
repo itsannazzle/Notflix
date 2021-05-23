@@ -1,20 +1,18 @@
 package com.example.notflix.core.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.example.notflix.core.data.local.room.NotflixDao
 import io.reactivex.Flowable
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class LocalDataSource(private val dao: NotflixDao) {
-    companion object{
+  /*  companion object{
         private val instance : LocalDataSource? = null
         fun getInstance(notflixDao: NotflixDao) : LocalDataSource = instance ?: LocalDataSource(notflixDao)
-    }
+    }*/
 
     fun getAllMovies() : DataSource.Factory<Int,MoviesEntity> = dao.getAllMovies()
 

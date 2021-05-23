@@ -4,25 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.BuildConfig
 import com.example.notflix.R
-import com.example.notflix.core.data.local.entity.MoviesEntity
+import com.example.notflix.core.domain.model.MoviesModel
 import com.example.notflix.databinding.ActivityDetailBinding
-import com.example.notflix.ui.ViewModelFactory
 import com.example.notflix.ui.favorite.UseableAdapter
-import com.example.notflix.values.Status
+import com.example.notflix.values.ResourceData
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var adapter: UseableAdapter<MoviesEntity>
-    private val viewModel : DetailMoviesViewModel by viewModels{
-        ViewModelFactory.getInstance(this)
-    }
+    private lateinit var adapter: UseableAdapter<MoviesModel>
+    private val viewModel : DetailMoviesViewModel by viewModel()
     private var state = false
     companion object{
         const val EXTRA_MOVIEID = "MOVIE_ID"
@@ -41,33 +38,32 @@ class DetailMoviesActivity : AppCompatActivity() {
         }
         viewModel.detailMovie.observe(this, {
             movies ->
-            when(movies.status){
-                Status.SUCCESS -> {
-                        movies.data?.let { showDetail(it)
-                        state = movies.data.favorite
+                when (movies) {
+                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.success -> {
+                        movies.data?.let { showDetail(it) }
+                        state = movies.data!!.favorite
                         isFavorited(state)
                     }
+                    is ResourceData.error -> {
+                        binding.progressCircular.visibility = View.GONE
+                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
                 }
-                Status.ERROR -> {
-                    binding.progressCircular.visibility = View.GONE
-                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                }
-                Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
-            }
         })
 
         showTrending()
         viewModel.showTrendingMovies().observe(this,{
             trending ->
-            when(trending.status){
-                Status.SUCCESS -> {
+            when(trending){
+                is ResourceData.success -> {
                     adapter.submitList(trending.data)
                     adapter.notifyDataSetChanged()
                     binding.movieRec.adapter = adapter
                     binding.progressCircular.visibility = View.GONE
                 }
-                Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
-                Status.ERROR -> {
+                is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
+                is ResourceData.error -> {
                     binding.progressCircular.visibility = View.GONE
                     Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                 }
@@ -81,7 +77,7 @@ class DetailMoviesActivity : AppCompatActivity() {
 
     }
 
-    private fun showDetail(movieId : MoviesEntity){
+    private fun showDetail(movieId : MoviesModel){
         binding.moviesTitle.text = movieId.title
         binding.moviesCountry.text = movieId.country
         binding.moviesDesc.text = movieId.overview

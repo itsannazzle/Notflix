@@ -10,6 +10,8 @@ import com.example.notflix.BuildConfig
 import com.example.notflix.R
 import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.core.data.local.entity.TvShowEntity
+import com.example.notflix.core.domain.model.MoviesModel
+import com.example.notflix.core.domain.model.TvShowModel
 import com.example.notflix.databinding.ItemPosterBinding
 
 class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedListAdapter<T, UseableAdapter<T>.UseableViewHolder>(DiffCallback<T>()) {
@@ -18,8 +20,8 @@ class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedList
         fun bind(watch: T?, onClickListener: (T) -> Unit){
             var poster : String? = null
             when(watch){
-                is MoviesEntity -> poster = watch.poster.toString()
-                is TvShowEntity -> poster = watch.poster.toString()
+                is MoviesModel -> poster = watch.poster.toString()
+                is TvShowModel -> poster = watch.poster.toString()
             }
             with(binding){
                 Glide.with(itemView.context)

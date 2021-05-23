@@ -20,7 +20,7 @@ import retrofit2.Response
 
 @SuppressLint("CheckResult")
 class RemoteDataSource(private val apiRequest: ApiRequest) {
-   private val handler = Handler(Looper.getMainLooper())
+   /*private val handler = Handler(Looper.getMainLooper())
     companion object{
         @Volatile
         private var instance : RemoteDataSource? = null
@@ -28,7 +28,7 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
             instance ?: synchronized(this){
                 instance ?: RemoteDataSource(apiRequest).apply { instance = this }
             }
-    }
+    }*/
 
 
     fun getTrendingMovies() : Flowable<ApiResponse<List<ResultsItem>>>{

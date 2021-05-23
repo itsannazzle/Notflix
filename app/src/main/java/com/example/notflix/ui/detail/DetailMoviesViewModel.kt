@@ -1,41 +1,37 @@
 package com.example.notflix.ui.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.example.notflix.core.data.local.entity.EpisodesEntity
 import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.example.notflix.core.data.MoviesRepositories
+import com.example.notflix.core.domain.usecase.NotflixUsecase
 import com.example.notflix.values.ResourceData
 
-class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) : ViewModel() {
+class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() {
 
-    private var movieId = MutableLiveData<Int>()
-    private var tvshowId = MutableLiveData<Int>()
+    private var movieId : Int = 0
+    private var tvshowId : Int = 0
 
 
     fun getSelectedMovie(movieId : Int){
-        this.movieId.value = movieId
+        this.movieId = movieId
     }
 
     fun getSelectedTvShow(tvshowId : Int){
-        this.tvshowId.value = tvshowId
+        this.tvshowId = tvshowId
     }
 
-    var detailMovie : LiveData<ResourceData<MoviesEntity>> = Transformations.switchMap(movieId){
-        mDetailMovie -> moviesRepositories.getDetailMovie(mDetailMovie)
-    }
+    var detailMovie = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getDetailMovie(movieId))
 
-    var detailTvShow : LiveData<ResourceData<TvShowEntity>> = Transformations.switchMap(tvshowId){
-      mTvShowId -> moviesRepositories.getDetailTv(mTvShowId)
-    }
 
-    fun showEpisodes() : LiveData<List<EpisodesEntity>> = moviesRepositories.getEpisodes()
 
-    fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
+    var detailTvShow = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getDetailTv(tvshowId))
+
+    fun showEpisodes() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getEpisodes())
+
+    fun showTrendingMovies() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllTrendingMovies())
 
     fun isFavoriteMovie(){
         val isFav =detailMovie.value
@@ -44,7 +40,7 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
             if (favorite != null){
                 val moviesEntity = isFav.data
                 val favState = !favorite.favorite
-                moviesRepositories.insertFavMovie(moviesEntity,favState)
+                notflixUsecase.insertFavMovie(moviesEntity,favState)
             }
         }
     }
@@ -56,7 +52,7 @@ class DetailMoviesViewModel(private val moviesRepositories: MoviesRepositories) 
             if (favorite != null){
                 val tvShowEntity = isFav.data
                 val favState = !favorite.favorite
-                moviesRepositories.insertFavTv(tvShowEntity,favState)
+                notflixUsecase.insertFavTv(tvShowEntity,favState)
             }
         }
     }

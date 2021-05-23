@@ -7,21 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.databinding.FragmentMoviesFragmentBinding
-import com.example.notflix.core.data.local.entity.MoviesEntity
-import com.example.notflix.ui.ViewModelFactory
+import com.example.notflix.core.domain.model.MoviesModel
 import com.example.notflix.ui.detail.DetailMoviesActivity
 import com.example.notflix.ui.favorite.UseableAdapter
-import com.example.notflix.values.Status
+import com.example.notflix.values.ResourceData
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MoviesFragment : Fragment() {
     private lateinit var binding: FragmentMoviesFragmentBinding
-    private lateinit var adapter : UseableAdapter<MoviesEntity>
-    private val viewModel : MoviesViewModel by activityViewModels {
-        ViewModelFactory.getInstance(requireActivity())
-    }
+    private lateinit var adapter : UseableAdapter<MoviesModel>
+    private val viewModel : MoviesViewModel by viewModel()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -31,8 +28,8 @@ class MoviesFragment : Fragment() {
             binding.progressCircular.visibility = View.VISIBLE
             viewModel.showTrendingMovies().observe(viewLifecycleOwner,{
                 trending ->
-                when(trending.status){
-                    Status.SUCCESS -> {
+                when(trending){
+                    is ResourceData.success -> {
                         binding.progressCircular.visibility = View.GONE
                         adapter.submitList(trending.data)
                         adapter.notifyDataSetChanged()
@@ -40,8 +37,8 @@ class MoviesFragment : Fragment() {
                         binding.rvMovies.layoutManager = GridLayoutManager(requireContext(),2)
                         binding.rvMovies.setHasFixedSize(true)
                     }
-                    Status.ERROR -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                    Status.LOADING -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
                 }
             })
         }

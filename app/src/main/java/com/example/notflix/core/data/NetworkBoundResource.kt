@@ -1,10 +1,6 @@
 package com.example.notflix.core.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.example.notflix.core.data.remote.config.ApiResponse
-import com.example.notflix.core.data.remote.config.StatusResponse
-import com.example.notflix.utils.AppExecutor
 import com.example.notflix.values.ResourceData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable

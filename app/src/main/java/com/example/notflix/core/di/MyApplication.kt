@@ -1,6 +1,8 @@
 package com.example.notflix.core.di
 
 import android.app.Application
+import com.example.notflix.di.usecaseModule
+import com.example.notflix.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +18,9 @@ class MyApplication : Application() {
                 listOf(
                     databaseModule,
                     networkModule,
-                    repositoryModule
+                    repositoryModule,
+                    usecaseModule,
+                    viewModelModule
                 )
             )
         }

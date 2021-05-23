@@ -5,8 +5,6 @@ import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
 import com.example.notflix.core.data.local.LocalDataSource
 import com.example.notflix.core.data.local.entity.EpisodesEntity
-import com.example.notflix.core.data.local.entity.MoviesEntity
-import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.example.notflix.core.data.remote.RemoteDataSource
 import com.example.notflix.core.data.remote.config.ApiResponse
 import com.example.notflix.core.data.remote.response.DetailMoviesResponse
@@ -25,21 +23,18 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
                          private val localDataSource: LocalDataSource,
                          private val appExecutor: AppExecutor) : NotflixImpl {
-    companion object{
+  /*  companion object{
         @Volatile
         private var instance : MoviesRepositories? = null
         fun getInstance(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource, appExecutor: AppExecutor) : MoviesRepositories =
                 instance ?: synchronized(this){
                     instance ?: MoviesRepositories(remoteDataSource,localDataSource,appExecutor).apply { instance = this }
                 }
-    }
+    }*/
 
     override fun getAllTrendingMovies(): Flowable<ResourceData<PagedList<MoviesModel>>> {
         return object : NetworkBoundResource<List<ResultsItem>, PagedList<MoviesModel>>() {
@@ -182,14 +177,14 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
         }.asFlowable()
     }
 
-    fun insertFavMovie(movie: MoviesModel, isFavorite : Boolean){
+    override fun insertFavMovie(movie: MoviesModel, isFavorite : Boolean){
         val favMovie = DataMapper.mapDomainMovieToEntity(movie)
             appExecutor.diskIO().execute {
                 localDataSource.favoriteMovie(favMovie, isFavorite)
             }
     }
 
-    fun insertFavTv(tv: TvShowModel, isFavorite: Boolean){
+    override fun insertFavTv(tv: TvShowModel, isFavorite: Boolean){
         val favTv = DataMapper.mapDomainTvToEntity(tv)
         appExecutor.diskIO().execute {
             localDataSource.favoriteTv(favTv,isFavorite)
