@@ -7,6 +7,7 @@ import com.example.notflix.core.data.local.entity.TvShowEntity
 import com.example.notflix.core.data.local.room.NotflixDao
 import io.reactivex.Flowable
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class LocalDataSource(private val dao: NotflixDao) {
@@ -23,17 +24,15 @@ class LocalDataSource(private val dao: NotflixDao) {
 
     fun getSelectedTvShow(tvshowId : Int) : Flowable<TvShowEntity> = dao.getSelectedTvShow(tvshowId)
 
-    suspend fun insertMovie(movie: List<MoviesEntity>) = dao.insertMovies(movie)
+    fun insertMovie(movie: List<MoviesEntity>) = dao.insertMovies(movie)
 
-    fun updateMovie(movieId: Int,genre : String,country : String, duration : Int) {
-        dao.updateMovie(movieId, genre, country, duration)
-    }
+    fun updateMovie(movieId: Int,genre : String,country : String, duration : Int) = dao.updateMovie(movieId, genre, country, duration)
 
-    fun updateTvShow(tvshowId: Int,genre : String,country : String, duration : Int) {
-        dao.updateTvShow(tvshowId, genre, country, duration)
-    }
+    fun updateTvShow(tvshowId: Int,genre : String,country : String, duration : Int) = dao.updateTvShow(tvshowId, genre, country, duration)
 
-    suspend fun insertTvShow(tvshow: List<TvShowEntity>) = dao.insertTvShow(tvshow)
+
+    fun insertTvShow(tvshow: List<TvShowEntity>) = dao.insertTvShow(tvshow)
+
 
 
     fun favoriteMovie(movie: MoviesEntity,isFavorite : Boolean) {

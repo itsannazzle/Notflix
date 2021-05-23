@@ -5,7 +5,9 @@ import androidx.paging.DataSource
 import androidx.room.*
 import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.core.data.local.entity.TvShowEntity
+import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 @Dao
 interface NotflixDao {
@@ -17,16 +19,16 @@ interface NotflixDao {
     fun getSelectedMovie(movieId : Int) : Flowable<MoviesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movie: List<MoviesEntity>)
+    fun insertMovies(movie: List<MoviesEntity>) : Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTvShow(tvshow: List<TvShowEntity>)
+    fun insertTvShow(tvshow: List<TvShowEntity>) : Completable
 
     @Query("update moviesTable set genre =:genre, country =:country, duration =:duration where id_movies =:movieId")
-    fun updateMovie(movieId: Int, genre : String,country : String, duration : Int)
+    fun updateMovie(movieId: Int, genre : String,country : String, duration : Int) : Completable
 
     @Query("update tvShowTable set genre =:genre, country =:country, duration =:duration where id_tvshow =:tvId")
-    fun updateTvShow(tvId: Int, genre : String,country : String, duration : Int)
+    fun updateTvShow(tvId: Int, genre : String,country : String, duration : Int) : Completable
 
     @Query("select * from tvShowTable")
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity>
