@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.core.domain.model.MoviesModel
 import com.example.notflix.databinding.FragmentFavMovieBinding
 import com.example.notflix.ui.detail.DetailMoviesActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.nextint.core.domain.model.MoviesModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class FavMovieFragment : Fragment() {
     private lateinit var binding: FragmentFavMovieBinding
     private lateinit var adapter: UseableAdapter<MoviesModel>
-    private val viewModel : FavoriteViewModel by viewModel()
+    private val viewModel by sharedViewModel<FavoriteViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.notflix.BuildConfig
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
-import com.example.notflix.core.domain.model.TvShowModel
-import com.example.notflix.values.ResourceData
+import com.nextint.core.BuildConfig
+import com.nextint.core.domain.model.TvShowModel
+import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailTvShowActivity : AppCompatActivity() {

@@ -4,12 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.example.notflix.core.data.MoviesRepositories
+import com.nextint.core.data.MoviesRepositories
 import com.example.notflix.core.data.local.entity.EpisodesEntity
 import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.core.data.local.entity.TvShowEntity
-import com.example.notflix.utils.DataMovies
-import com.example.notflix.values.ResourceData
+import com.example.notflix.core.utils.DataMovies
+import com.example.notflix.core.values.ResourceData
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase
 import org.junit.Before
@@ -47,7 +47,7 @@ class DetailMoviesViewModelTest : TestCase() {
     private lateinit var tvshowObserver: Observer<ResourceData<TvShowEntity>>
 
     @Mock
-    private lateinit var moviesRepositories: MoviesRepositories
+    private lateinit var moviesRepositories: _root_ide_package_.com.nextint.core.data.MoviesRepositories
 
     @Before
     fun setup() {

@@ -17,14 +17,17 @@ import com.example.notflix.core.data.remote.response.DetailMoviesResponse
 import com.example.notflix.core.data.remote.response.DetailTvResponse
 import com.example.notflix.core.data.remote.response.ResultsItem
 import com.example.notflix.core.data.remote.response.TVResultsItem
-import com.example.notflix.values.ResourceData
+import com.example.notflix.core.utils.AppExecutor
+import com.example.notflix.core.utils.DataMovies
+import com.example.notflix.core.values.ResourceData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class FakeMoviesRepositories (private val remoteDataSource: RemoteDataSource,
                                                  private val localDataSource: LocalDataSource,
-                                                 private val appExecutor: AppExecutor) : NotflixDataSource {
+                                                 private val appExecutor: AppExecutor
+) : NotflixDataSource {
 
 
     override fun getAllTrendingMovies(): LiveData<ResourceData<PagedList<MoviesEntity>>> {

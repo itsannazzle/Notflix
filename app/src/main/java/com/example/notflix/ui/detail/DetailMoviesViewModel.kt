@@ -1,13 +1,7 @@
 package com.example.notflix.ui.detail
 
 import androidx.lifecycle.*
-import androidx.paging.PagedList
-import com.example.notflix.core.data.local.entity.EpisodesEntity
-import com.example.notflix.core.data.local.entity.MoviesEntity
-import com.example.notflix.core.data.local.entity.TvShowEntity
-import com.example.notflix.core.data.MoviesRepositories
-import com.example.notflix.core.domain.usecase.NotflixUsecase
-import com.example.notflix.values.ResourceData
+import com.nextint.core.domain.usecase.NotflixUsecase
 
 class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() {
 

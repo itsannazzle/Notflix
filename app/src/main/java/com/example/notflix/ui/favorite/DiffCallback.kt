@@ -3,10 +3,8 @@ package com.example.notflix.ui.favorite
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
-import com.example.notflix.core.data.local.entity.MoviesEntity
-import com.example.notflix.core.data.local.entity.TvShowEntity
-import com.example.notflix.core.domain.model.MoviesModel
-import com.example.notflix.core.domain.model.TvShowModel
+import com.nextint.core.domain.model.MoviesModel
+import com.nextint.core.domain.model.TvShowModel
 import java.lang.IllegalArgumentException
 
 class DiffCallback<T> : DiffUtil.ItemCallback<T>() {

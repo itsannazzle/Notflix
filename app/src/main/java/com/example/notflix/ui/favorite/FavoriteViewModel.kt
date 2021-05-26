@@ -2,7 +2,7 @@ package com.example.notflix.ui.favorite
 
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
-import com.example.notflix.core.domain.usecase.NotflixUsecase
+import com.nextint.core.domain.usecase.NotflixUsecase
 
 class FavoriteViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() {
     fun showFavMovie() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllFavMovie())

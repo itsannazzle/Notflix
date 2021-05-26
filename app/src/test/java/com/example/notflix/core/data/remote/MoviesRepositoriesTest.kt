@@ -6,8 +6,10 @@ import androidx.paging.DataSource
 import com.example.notflix.core.data.local.LocalDataSource
 import com.example.notflix.core.data.local.entity.MoviesEntity
 import com.example.notflix.core.data.local.entity.TvShowEntity
+import com.example.notflix.core.utils.AppExecutor
+import com.example.notflix.core.utils.DataMovies
 import com.example.notflix.utils.*
-import com.example.notflix.values.ResourceData
+import com.example.notflix.core.values.ResourceData
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import junit.framework.TestCase

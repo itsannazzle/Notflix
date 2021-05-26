@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.core.domain.model.TvShowModel
 import com.example.notflix.databinding.FragmentTvShowBinding
 import com.example.notflix.ui.detail.DetailTvShowActivity
 import com.example.notflix.ui.favorite.UseableAdapter
-import com.example.notflix.values.ResourceData
+import com.nextint.core.domain.model.TvShowModel
+import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvShowFragment : Fragment() {

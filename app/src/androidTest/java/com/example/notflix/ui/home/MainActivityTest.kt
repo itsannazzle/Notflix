@@ -13,8 +13,8 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.notflix.R
-import com.example.notflix.utils.DataMovies
-import com.example.notflix.utils.IdlingResource
+import com.example.notflix.core.utils.DataMovies
+import com.example.notflix.core.utils.IdlingResource
 import junit.framework.TestCase
 import org.junit.*
 import org.junit.runner.RunWith

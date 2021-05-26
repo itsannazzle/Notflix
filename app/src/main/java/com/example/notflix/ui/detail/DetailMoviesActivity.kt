@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.notflix.BuildConfig
 import com.example.notflix.R
-import com.example.notflix.core.domain.model.MoviesModel
 import com.example.notflix.databinding.ActivityDetailBinding
 import com.example.notflix.ui.favorite.UseableAdapter
-import com.example.notflix.values.ResourceData
+import com.nextint.core.BuildConfig
+import com.nextint.core.domain.model.MoviesModel
+import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMoviesActivity : AppCompatActivity() {
