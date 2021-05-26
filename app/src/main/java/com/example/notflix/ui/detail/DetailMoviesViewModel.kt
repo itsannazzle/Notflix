@@ -34,7 +34,9 @@ class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewMo
             if (favorite != null){
                 val moviesEntity = isFav.data
                 val favState = !favorite.favorite
-                notflixUsecase.insertFavMovie(moviesEntity,favState)
+                if (moviesEntity != null) {
+                    notflixUsecase.insertFavMovie(moviesEntity,favState)
+                }
             }
         }
     }
@@ -46,7 +48,9 @@ class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewMo
             if (favorite != null){
                 val tvShowEntity = isFav.data
                 val favState = !favorite.favorite
-                notflixUsecase.insertFavTv(tvShowEntity,favState)
+                if (tvShowEntity != null) {
+                    notflixUsecase.insertFavTv(tvShowEntity,favState)
+                }
             }
         }
     }

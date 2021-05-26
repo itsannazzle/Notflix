@@ -111,7 +111,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
     }
 
     override fun getDetailMovie(movie_id: Int): Flowable<ResourceData<MoviesModel>> {
-        return object : _root_ide_package_.com.nextint.core.data.NetworkBoundResource<DetailMoviesResponse, MoviesModel>() {
+        return object : NetworkBoundResource<DetailMoviesResponse, MoviesModel>() {
             override fun loadFromDB(): Flowable<MoviesModel> {
                 return localDataSource.getSelectedMovie(movie_id).map { DataMapper.mapMoviesEntitiesToDomain(it) }
             }
@@ -145,7 +145,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
     }
 
     override fun getDetailTv(tv_id: Int): Flowable<ResourceData<TvShowModel>> {
-        return object : _root_ide_package_.com.nextint.core.data.NetworkBoundResource<DetailTvResponse, TvShowModel>() {
+        return object :NetworkBoundResource<DetailTvResponse, TvShowModel>() {
             override fun loadFromDB(): Flowable<TvShowModel> {
                 return localDataSource.getSelectedTvShow(tv_id).map { DataMapper.mapTvShowEntitiesToDomain(it) }
             }
