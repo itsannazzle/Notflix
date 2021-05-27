@@ -17,15 +17,6 @@ import io.reactivex.subjects.PublishSubject
 
 @SuppressLint("CheckResult")
 class RemoteDataSource(private val apiRequest: ApiRequest) {
-   /*private val handler = Handler(Looper.getMainLooper())
-    companion object{
-        @Volatile
-        private var instance : RemoteDataSource? = null
-        fun getInstance(apiRequest: ApiRequest) : RemoteDataSource =
-            instance ?: synchronized(this){
-                instance ?: RemoteDataSource(apiRequest).apply { instance = this }
-            }
-    }*/
 
 
     fun getTrendingMovies() : Flowable<ApiResponse<List<ResultsItem>>>{
@@ -79,6 +70,7 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
             .subscribe({
                 response ->
                 result.onNext(ApiResponse.success(response))
+                Log.e("Api", response.title.toString())
             }, {
                 error -> result.onNext(ApiResponse.error(error.message.toString()))
                 Log.e("RemoteDataSource", error.toString())

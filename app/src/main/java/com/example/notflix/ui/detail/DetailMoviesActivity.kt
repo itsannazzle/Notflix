@@ -2,6 +2,7 @@ package com.example.notflix.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,16 +32,43 @@ class DetailMoviesActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.progressCircular.visibility = View.VISIBLE
-        val intent = intent.extras
-        if (intent != null){
+
+        /*if (intent != null){
             val movieId = intent.getInt(EXTRA_MOVIEID)
             viewModel.getSelectedMovie(movieId)
         }
-        viewModel.detailMovie.observe(this, {
+*/
+        val intent = intent.extras
+        if (intent != null) {
+            Log.e("Anna","${intent.getInt(EXTRA_MOVIEID)}}")
+            viewModel.getDetailMovie(intent.getInt(EXTRA_MOVIEID)).observe(this,{
+                    movies ->
+                when (movies) {
+                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.success -> {
+                        movies.data?.let {
+                            showDetail(it)
+                            viewModel.moviesModel = it
+                            state = it.favorite
+                            isFavorited(state)
+                            Log.e("Anna1","${it.favorite}")
+                            Log.e("Anna2","${state}")
+                        }
+                    }
+                    is ResourceData.error -> {
+                        binding.progressCircular.visibility = View.GONE
+                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+        /*viewModel.detailMovie.observe(this, {
             movies ->
                 when (movies) {
                     is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
                     is ResourceData.success -> {
+
+                        Log.e("Anna","${movies.data?.title}")
                         movies.data?.let { showDetail(it) }
                         state = movies.data!!.favorite
                         isFavorited(state)
@@ -50,7 +78,7 @@ class DetailMoviesActivity : AppCompatActivity() {
                         Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }
                 }
-        })
+        })*/
 
         showTrending()
         viewModel.showTrendingMovies().observe(this,{
@@ -88,6 +116,8 @@ class DetailMoviesActivity : AppCompatActivity() {
                 .load(BuildConfig.POSTER_URL + movieId.backDrop)
                 .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                 .into(binding.moviesPoster)
+
+
     }
 
     private fun isFavorited(state : Boolean){
@@ -96,6 +126,7 @@ class DetailMoviesActivity : AppCompatActivity() {
         } else {
             binding.heart.setImageResource(R.drawable.ic_heart)
         }
+        Log.e("Anna3","${state}")
     }
 
     private fun showTrending(){

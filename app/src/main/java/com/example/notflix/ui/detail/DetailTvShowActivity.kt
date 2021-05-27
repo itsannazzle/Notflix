@@ -29,12 +29,38 @@ class DetailTvShowActivity : AppCompatActivity() {
 
         binding.progressCircular.visibility = View.VISIBLE
         val episodesAdapter = EpisodesAdapter()
-        val intent = intent.extras
-        if (intent != null){
+
+      /*  if (intent != null){
             val tvshowId = intent.getInt(EXTRA_TVSHOW)
             viewModel.getSelectedTvShow(tvshowId)
+        }*/
+        val intent = intent.extras
+
+        if (intent != null) {
+            viewModel.getDetailTvShow(intent.getInt(EXTRA_TVSHOW)).observe(this,{
+                    tvShow ->
+                when(tvShow){
+                    is ResourceData.success -> {
+                        tvShow.data?.let {
+                            showDetailShow(it)
+                            viewModel.tvShowModel = it
+                        }
+                        binding.progressCircular.visibility = View.GONE
+
+                        state = tvShow.data?.favorite ?: false
+                        isFavorited(state)
+                    }
+                    is ResourceData.error -> {
+                        binding.progressCircular.visibility = View.GONE
+                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
+                }
+            })
+
         }
-        viewModel.detailTvShow.observe(this,{
+
+        /*viewModel.detailTvShow.observe(this,{
                     tvShow ->
                     when(tvShow){
                         is ResourceData.success -> {
@@ -49,7 +75,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                         }
                         is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
                     }
-                })
+                })*/
 
         binding.heart.setOnClickListener {
             viewModel.isFavoriteTv()

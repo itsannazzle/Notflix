@@ -19,7 +19,6 @@ import com.nextint.core.utils.DataMapper
 import com.nextint.core.utils.DataMovies
 import com.nextint.core.values.ResourceData
 import io.reactivex.BackpressureStrategy
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -122,10 +121,12 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
             override fun saveCallResult(response: DetailMoviesResponse) {
                 val movieList = DataMapper.mapMoviesDetailResponseToEntity(response)
                     with(movieList){
+                        Log.i("MoviesRepository","$id_movies")
                         localDataSource.updateMovie(id_movies,genre.toString(),country.toString(),duration)
                     }  .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
+
             }
 
             override fun createCall(): Flowable<ApiResponse<DetailMoviesResponse>> {
