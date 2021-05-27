@@ -8,11 +8,6 @@ import com.nextint.core.values.ResourceData
 
 class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() {
 
-     var moviesModel = MoviesModel()
-     var tvShowModel = TvShowModel()
-
-
-
     fun getDetailMovie(movieId: Int) = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getDetailMovie(movieId))
 
     fun getDetailTvShow(tvshowId: Int) = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getDetailTv(tvshowId))
@@ -21,18 +16,13 @@ class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewMo
 
     fun showTrendingMovies() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllTrendingMovies())
 
-
-    fun isFavoriteMovie(){
-                val favState = !moviesModel.favorite
+    fun isFavoriteMovie(moviesModel: MoviesModel, favState : Boolean){
+              //  val favState = !moviesModel.favorite
                     notflixUsecase.insertFavMovie(moviesModel,favState)
-
             }
 
-
-
-    fun isFavoriteTv(){
-
-        val favState = !tvShowModel.favorite
+    fun isFavoriteTv(tvShowModel: TvShowModel, favState: Boolean){
+      //  val favState = !tvShowModel.favorite
         notflixUsecase.insertFavTv(tvShowModel,favState)
     }
 

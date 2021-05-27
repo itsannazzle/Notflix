@@ -43,12 +43,11 @@ class DetailTvShowActivity : AppCompatActivity() {
                     is ResourceData.success -> {
                         tvShow.data?.let {
                             showDetailShow(it)
-                            viewModel.tvShowModel = it
                         }
                         binding.progressCircular.visibility = View.GONE
 
                         state = tvShow.data?.favorite ?: false
-                        isFavorited(state)
+                        /*isFavorited(state)*/
                     }
                     is ResourceData.error -> {
                         binding.progressCircular.visibility = View.GONE
@@ -77,9 +76,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                     }
                 })*/
 
-        binding.heart.setOnClickListener {
-            viewModel.isFavoriteTv()
-        }
+
             viewModel.showEpisodes().observe(this,{
                 eps -> episodesAdapter.setEpisodes(eps)
                 binding.rvEps.adapter = episodesAdapter
@@ -99,6 +96,13 @@ class DetailTvShowActivity : AppCompatActivity() {
                 .load(BuildConfig.POSTER_URL + tvShowEntity.backDrop)
                 .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                 .into(binding.moviesPoster)
+        state = tvShowEntity.favorite
+        isFavorited(state)
+        binding.heart.setOnClickListener {
+            state = !state
+            viewModel.isFavoriteTv(tvShowEntity,state)
+            isFavorited(state)
+        }
     }
 
     private fun isFavorited(state : Boolean){

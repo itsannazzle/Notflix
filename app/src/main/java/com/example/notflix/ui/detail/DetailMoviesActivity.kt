@@ -33,11 +33,6 @@ class DetailMoviesActivity : AppCompatActivity() {
 
         binding.progressCircular.visibility = View.VISIBLE
 
-        /*if (intent != null){
-            val movieId = intent.getInt(EXTRA_MOVIEID)
-            viewModel.getSelectedMovie(movieId)
-        }
-*/
         val intent = intent.extras
         if (intent != null) {
             Log.e("Anna","${intent.getInt(EXTRA_MOVIEID)}}")
@@ -48,9 +43,9 @@ class DetailMoviesActivity : AppCompatActivity() {
                     is ResourceData.success -> {
                         movies.data?.let {
                             showDetail(it)
-                            viewModel.moviesModel = it
-                            state = it.favorite
+                           /* state = it.favorite
                             isFavorited(state)
+*/
                             Log.e("Anna1","${it.favorite}")
                             Log.e("Anna2","${state}")
                         }
@@ -62,24 +57,6 @@ class DetailMoviesActivity : AppCompatActivity() {
                 }
             })
         }
-        /*viewModel.detailMovie.observe(this, {
-            movies ->
-                when (movies) {
-                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
-                    is ResourceData.success -> {
-
-                        Log.e("Anna","${movies.data?.title}")
-                        movies.data?.let { showDetail(it) }
-                        state = movies.data!!.favorite
-                        isFavorited(state)
-                    }
-                    is ResourceData.error -> {
-                        binding.progressCircular.visibility = View.GONE
-                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                    }
-                }
-        })*/
-
         showTrending()
         viewModel.showTrendingMovies().observe(this,{
             trending ->
@@ -99,25 +76,28 @@ class DetailMoviesActivity : AppCompatActivity() {
 
         })
 
-        binding.heart.setOnClickListener {
-            viewModel.isFavoriteMovie()
-        }
+
 
     }
 
-    private fun showDetail(movieId : MoviesModel){
-        binding.moviesTitle.text = movieId.title
-        binding.moviesCountry.text = movieId.country
-        binding.moviesDesc.text = movieId.overview
-        binding.moviesDuration.text = StringBuilder("${movieId.duration}m")
-        binding.moviesGenre.text = movieId.genre
-        binding.moviesRating.text = movieId.rating.toString()
+    private fun showDetail(movie : MoviesModel){
+        binding.moviesTitle.text = movie.title
+        binding.moviesCountry.text = movie.country
+        binding.moviesDesc.text = movie.overview
+        binding.moviesDuration.text = StringBuilder("${movie.duration}m")
+        binding.moviesGenre.text = movie.genre
+        binding.moviesRating.text = movie.rating.toString()
         Glide.with(this)
-                .load(BuildConfig.POSTER_URL + movieId.backDrop)
+                .load(BuildConfig.POSTER_URL + movie.backDrop)
                 .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
                 .into(binding.moviesPoster)
-
-
+        state = movie.favorite
+        isFavorited(state)
+        binding.heart.setOnClickListener {
+            state = !state
+            viewModel.isFavoriteMovie(movie, state)
+            isFavorited(state)
+        }
     }
 
     private fun isFavorited(state : Boolean){
