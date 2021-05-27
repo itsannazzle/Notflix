@@ -1,6 +1,8 @@
 package com.nextint.core.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
 import com.nextint.core.data.local.LocalDataSource
@@ -22,13 +24,11 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 
 class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
                          private val localDataSource: LocalDataSource,
                          private val appExecutor: AppExecutor
 ) : NotflixImpl {
-
 
     override fun getAllTrendingMovies(): Flowable<ResourceData<PagedList<MoviesModel>>> {
         return object :NetworkBoundResource<List<ResultsItem>, PagedList<MoviesModel>>() {
@@ -210,10 +210,10 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
 
     }
 
-    override fun getEpisodes(): Flowable<List<EpisodesEntity>> {
-        val showEp = PublishSubject.create<List<EpisodesEntity>>()
-        showEp.onNext(DataMovies.generateEpisodes())
-        return showEp.toFlowable(BackpressureStrategy.BUFFER)
+    override fun getEpisodes(): LiveData<List<EpisodesEntity>> {
+        val showEp = MutableLiveData<List<EpisodesEntity>>()
+        showEp.postValue(DataMovies.generateEpisodes())
+        return showEp
     }
 
 }

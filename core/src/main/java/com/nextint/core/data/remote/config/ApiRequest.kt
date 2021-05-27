@@ -6,7 +6,6 @@ import com.nextint.core.data.remote.response.DetailTvResponse
 import com.nextint.core.data.remote.response.TrendingResponse
 import com.nextint.core.data.remote.response.TvShowResponse
 import io.reactivex.Flowable
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

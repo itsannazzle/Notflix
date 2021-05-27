@@ -18,7 +18,6 @@ import io.reactivex.subjects.PublishSubject
 @SuppressLint("CheckResult")
 class RemoteDataSource(private val apiRequest: ApiRequest) {
 
-
     fun getTrendingMovies() : Flowable<ApiResponse<List<ResultsItem>>>{
         val result = PublishSubject.create<ApiResponse<List<ResultsItem>>>()
         IdlingResource.increment()
@@ -75,22 +74,6 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
                 error -> result.onNext(ApiResponse.error(error.message.toString()))
                 Log.e("RemoteDataSource", error.toString())
             })
-        /*ApiConfig.getApiService().getDetailMovie(movie_id).enqueue(object : Callback<DetailMoviesResponse> {
-            override fun onResponse(call: Call<DetailMoviesResponse>, response: Response<DetailMoviesResponse>) {
-               handler.post {  result.value = ApiResponse.success(response.body() as DetailMoviesResponse)
-                   Log.d("Respon", response.code().toString())
-               if (!IdlingResource.getEspressoIdlingResource().isIdleNow){
-                   IdlingResource.decrement()
-               }
-               }
-            }
-
-            override fun onFailure(call: Call<DetailMoviesResponse>, t: Throwable) {
-                Log.d(RemoteDataSource::class.java.simpleName,"Failed getDetailMovie, cause : ${t.message}")
-            }
-
-        })*/
-
         return result.toFlowable(BackpressureStrategy.BUFFER)
     }
 

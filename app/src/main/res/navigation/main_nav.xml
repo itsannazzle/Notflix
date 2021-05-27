@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_coming_soon" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.notflix.ui.favorite.FavoriteFragment"
+        android:name="com.nextint.favoritefeature.favorite.FavoriteFragment"
         android:label="fg_fav"
         tools:layout="@layout/fragment_favorite" />
     <fragment

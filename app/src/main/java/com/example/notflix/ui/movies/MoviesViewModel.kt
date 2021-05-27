@@ -6,7 +6,6 @@ import com.nextint.core.domain.usecase.NotflixUsecase
 
 class MoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() {
 
-   // fun showTrendingMovies() : LiveData<ResourceData<PagedList<MoviesEntity>>> = moviesRepositories.getAllTrendingMovies()
     fun showTrendingMovies() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllTrendingMovies())
 
 }

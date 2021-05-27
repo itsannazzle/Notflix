@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class LocalDataSource(private val dao: NotflixDao) {
 
-
     fun getAllMovies() : DataSource.Factory<Int, MoviesEntity> = dao.getAllMovies()
 
     fun getAllTvShow() : DataSource.Factory<Int, TvShowEntity> = dao.getAllTvShow()
@@ -27,17 +26,13 @@ class LocalDataSource(private val dao: NotflixDao) {
 
     fun updateTvShow(tvshowId: Int, genre : String, country : String, duration : Int) = dao.updateTvShow(tvshowId, genre, country, duration)
 
-
     fun insertTvShow(tvshow: List<TvShowEntity>) = dao.insertTvShow(tvshow)
-
-
 
     fun favoriteMovie(movie: MoviesEntity,isFavorite : Boolean) {
         movie.favorite = isFavorite
         GlobalScope.launch {
             dao.insertFavotiteMovie(movie)
         }
-
     }
 
     fun favoriteTv(tvshow: TvShowEntity, isFavorite: Boolean) {

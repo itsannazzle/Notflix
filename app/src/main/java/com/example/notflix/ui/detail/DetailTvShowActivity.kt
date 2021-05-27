@@ -11,6 +11,7 @@ import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
 import com.nextint.core.BuildConfig
 import com.nextint.core.domain.model.TvShowModel
+import com.nextint.core.ui.EpisodesAdapter
 import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -29,11 +30,6 @@ class DetailTvShowActivity : AppCompatActivity() {
 
         binding.progressCircular.visibility = View.VISIBLE
         val episodesAdapter = EpisodesAdapter()
-
-      /*  if (intent != null){
-            val tvshowId = intent.getInt(EXTRA_TVSHOW)
-            viewModel.getSelectedTvShow(tvshowId)
-        }*/
         val intent = intent.extras
 
         if (intent != null) {
@@ -45,9 +41,6 @@ class DetailTvShowActivity : AppCompatActivity() {
                             showDetailShow(it)
                         }
                         binding.progressCircular.visibility = View.GONE
-
-                        state = tvShow.data?.favorite ?: false
-                        /*isFavorited(state)*/
                     }
                     is ResourceData.error -> {
                         binding.progressCircular.visibility = View.GONE
@@ -56,33 +49,12 @@ class DetailTvShowActivity : AppCompatActivity() {
                     is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
                 }
             })
-
         }
-
-        /*viewModel.detailTvShow.observe(this,{
-                    tvShow ->
-                    when(tvShow){
-                        is ResourceData.success -> {
-                            tvShow.data?.let { showDetailShow(it) }
-                            binding.progressCircular.visibility = View.GONE
-                            state = tvShow.data?.favorite ?: false
-                            isFavorited(state)
-                        }
-                        is ResourceData.error -> {
-                            binding.progressCircular.visibility = View.GONE
-                            Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                        }
-                        is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
-                    }
-                })*/
-
-
-            viewModel.showEpisodes().observe(this,{
+        viewModel.showEpisodes().observe(this,{
                 eps -> episodesAdapter.setEpisodes(eps)
-                binding.rvEps.adapter = episodesAdapter
-                binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
-            })
-
+            binding.rvEps.adapter = episodesAdapter
+            binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
+        })
     }
 
     private fun showDetailShow(tvShowEntity: TvShowModel){

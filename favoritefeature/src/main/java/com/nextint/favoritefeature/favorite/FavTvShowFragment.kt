@@ -1,4 +1,4 @@
-package com.example.notflix.ui.favorite
+package com.nextint.favoritefeature.favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.databinding.FragmentFavTvShowBinding
 import com.example.notflix.ui.detail.DetailTvShowActivity
 import com.nextint.core.domain.model.TvShowModel
+import com.nextint.core.ui.UseableAdapter
+import com.nextint.favoritefeature.databinding.FragmentFavTvShowBinding
+import com.nextint.favoritefeature.di.favoriteModule
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.core.context.loadKoinModules
 
 
 class FavTvShowFragment : Fragment() {
@@ -24,7 +27,7 @@ class FavTvShowFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFavTvShowBinding.inflate(inflater, container, false)
-
+        loadKoinModules(favoriteModule)
         viewModel.showFavTv().observe(viewLifecycleOwner,{
             favTvShow ->
             adapter.submitList(favTvShow)

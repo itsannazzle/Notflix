@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.databinding.FragmentMoviesFragmentBinding
 import com.example.notflix.ui.detail.DetailMoviesActivity
-import com.example.notflix.ui.favorite.UseableAdapter
+import com.nextint.core.ui.UseableAdapter
 import com.nextint.core.domain.model.MoviesModel
 import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -41,15 +41,12 @@ class MoviesFragment : Fragment() {
                         adapter.submitList(trending.data)
                         adapter.notifyDataSetChanged()
                         binding.rvMovies.adapter = adapter
-                        /*binding.rvMovies.layoutManager = GridLayoutManager(requireContext(),2)
-                        binding.rvMovies.setHasFixedSize(true)*/
                     }
                     is ResourceData.error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
                 }
             })
         }
-
         showTrending()
     }
 

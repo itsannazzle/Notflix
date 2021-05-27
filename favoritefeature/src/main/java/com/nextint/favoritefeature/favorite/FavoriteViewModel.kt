@@ -1,4 +1,4 @@
-package com.example.notflix.ui.favorite
+package com.nextint.favoritefeature.favorite
 
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel

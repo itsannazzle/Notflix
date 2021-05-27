@@ -2,7 +2,6 @@ package com.example.notflix.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailBinding
-import com.example.notflix.ui.favorite.UseableAdapter
 import com.nextint.core.BuildConfig
 import com.nextint.core.domain.model.MoviesModel
+import com.nextint.core.ui.UseableAdapter
 import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -35,7 +34,6 @@ class DetailMoviesActivity : AppCompatActivity() {
 
         val intent = intent.extras
         if (intent != null) {
-            Log.e("Anna","${intent.getInt(EXTRA_MOVIEID)}}")
             viewModel.getDetailMovie(intent.getInt(EXTRA_MOVIEID)).observe(this,{
                     movies ->
                 when (movies) {
@@ -43,11 +41,7 @@ class DetailMoviesActivity : AppCompatActivity() {
                     is ResourceData.success -> {
                         movies.data?.let {
                             showDetail(it)
-                           /* state = it.favorite
-                            isFavorited(state)
-*/
-                            Log.e("Anna1","${it.favorite}")
-                            Log.e("Anna2","${state}")
+                            binding.progressCircular.visibility = View.VISIBLE
                         }
                     }
                     is ResourceData.error -> {
@@ -75,9 +69,6 @@ class DetailMoviesActivity : AppCompatActivity() {
             }
 
         })
-
-
-
     }
 
     private fun showDetail(movie : MoviesModel){
@@ -106,13 +97,12 @@ class DetailMoviesActivity : AppCompatActivity() {
         } else {
             binding.heart.setImageResource(R.drawable.ic_heart)
         }
-        Log.e("Anna3","${state}")
     }
 
     private fun showTrending(){
         adapter = UseableAdapter{
             val intent = Intent(this, DetailMoviesActivity::class.java)
-            intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,it.id_movies)
+            intent.putExtra(EXTRA_MOVIEID,it.id_movies)
             startActivity(intent)
         }
         with(binding.movieRec){

@@ -1,11 +1,11 @@
-package com.example.notflix.ui.detail
+package com.nextint.core.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.notflix.databinding.ItemEpisodesBinding
 import com.nextint.core.data.local.entity.EpisodesEntity
+import com.nextint.core.databinding.ItemEpisodesBinding
 
 class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpsViewHolder>() {
     private val listEpisodes = ArrayList<EpisodesEntity>()

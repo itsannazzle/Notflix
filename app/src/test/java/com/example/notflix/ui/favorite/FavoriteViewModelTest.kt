@@ -20,7 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class FavoriteViewModelTest : TestCase() {
 
-    private lateinit var viewModel: FavoriteViewModel
+    private lateinit var viewModel: com.nextint.favoritefeature.favorite.FavoriteViewModel
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -42,7 +42,7 @@ class FavoriteViewModelTest : TestCase() {
 
     @Before
     public override fun setUp() {
-        viewModel = FavoriteViewModel(moviesRepositories)
+        viewModel = com.nextint.favoritefeature.favorite.FavoriteViewModel(moviesRepositories)
     }
 
     @Test

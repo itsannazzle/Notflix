@@ -1,5 +1,6 @@
 package com.nextint.core.domain.usecase
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.nextint.core.data.local.entity.EpisodesEntity
 import com.nextint.core.domain.model.MoviesModel
@@ -17,7 +18,7 @@ interface NotflixUsecase {
 
     fun getDetailTv(tv_id : Int) : Flowable<ResourceData<TvShowModel>>
 
-    fun getEpisodes() : Flowable<List<EpisodesEntity>>
+    fun getEpisodes() : LiveData<List<EpisodesEntity>>
 
     fun getAllFavMovie() : Flowable<PagedList<MoviesModel>>
 
@@ -45,7 +46,7 @@ class NotflixInteractor(private val notflixImpl: NotflixImpl) : NotflixUsecase{
         return notflixImpl.getDetailTv(tv_id)
     }
 
-    override fun getEpisodes(): Flowable<List<EpisodesEntity>> {
+    override fun getEpisodes(): LiveData<List<EpisodesEntity>> {
         return notflixImpl.getEpisodes()
     }
 

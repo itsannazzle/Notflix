@@ -1,7 +1,6 @@
 package com.example.notflix.di
 
 import com.example.notflix.ui.detail.DetailMoviesViewModel
-import com.example.notflix.ui.favorite.FavoriteViewModel
 import com.example.notflix.ui.movies.MoviesViewModel
 import com.example.notflix.ui.tvshow.TvShowViewModel
 import com.nextint.core.domain.usecase.NotflixInteractor
@@ -15,7 +14,6 @@ val usecaseModule = module {
 
 val viewModelModule = module {
     viewModel { DetailMoviesViewModel(get()) }
-    viewModel { FavoriteViewModel(get()) }
     viewModel { MoviesViewModel(get()) }
     viewModel { TvShowViewModel(get()) }
 

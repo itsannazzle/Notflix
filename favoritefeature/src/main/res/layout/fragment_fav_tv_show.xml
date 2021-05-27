@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/black"
-    tools:context=".ui.favorite.FavMovieFragment">
+    android:orientation="vertical"
+    tools:context="com.nextint.favoritefeature.favorite.FavTvShowFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_fav_movie"
+        android:id="@+id/rv_fav_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_poster"/>

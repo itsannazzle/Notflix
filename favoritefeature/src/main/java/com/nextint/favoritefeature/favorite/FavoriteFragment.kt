@@ -1,4 +1,4 @@
-package com.example.notflix.ui.favorite
+package com.nextint.favoritefeature.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.notflix.R
-import com.example.notflix.databinding.FragmentFavoriteBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.nextint.favoritefeature.databinding.FragmentFavoriteBinding
 
 
 class FavoriteFragment : Fragment() {

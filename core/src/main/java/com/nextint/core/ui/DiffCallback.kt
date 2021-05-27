@@ -1,4 +1,4 @@
-package com.example.notflix.ui.favorite
+package com.nextint.core.ui
 
 
 import android.annotation.SuppressLint
