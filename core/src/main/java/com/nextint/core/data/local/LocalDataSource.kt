@@ -9,10 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class LocalDataSource(private val dao: NotflixDao) {
-  /*  companion object{
-        private val instance : LocalDataSource? = null
-        fun getInstance(notflixDao: NotflixDao) : LocalDataSource = instance ?: LocalDataSource(notflixDao)
-    }*/
+
 
     fun getAllMovies() : DataSource.Factory<Int, MoviesEntity> = dao.getAllMovies()
 

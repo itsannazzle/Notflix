@@ -6,6 +6,7 @@ import com.nextint.core.data.local.entity.MoviesEntity
 import com.nextint.core.data.local.entity.TvShowEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface NotflixDao {
@@ -23,10 +24,10 @@ interface NotflixDao {
     fun insertTvShow(tvshow: List<TvShowEntity>) : Completable
 
     @Query("update moviesTable set genre =:genre, country =:country, duration =:duration where id_movies =:movieId")
-    fun updateMovie(movieId: Int, genre : String,country : String, duration : Int) : Completable
+    fun updateMovie(movieId: Int, genre : String,country : String, duration : Int) : Single<Int>
 
     @Query("update tvShowTable set genre =:genre, country =:country, duration =:duration where id_tvshow =:tvId")
-    fun updateTvShow(tvId: Int, genre : String,country : String, duration : Int) : Completable
+    fun updateTvShow(tvId: Int, genre : String,country : String, duration : Int) : Single<Int>
 
     @Query("select * from tvShowTable")
     fun getAllTvShow() : DataSource.Factory<Int,TvShowEntity>

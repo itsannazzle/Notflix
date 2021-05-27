@@ -19,6 +19,7 @@ import com.nextint.core.utils.DataMapper
 import com.nextint.core.utils.DataMovies
 import com.nextint.core.values.ResourceData
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,14 +29,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
                          private val localDataSource: LocalDataSource,
                          private val appExecutor: AppExecutor
 ) : NotflixImpl {
-  /*  companion object{
-        @Volatile
-        private var instance : MoviesRepositories? = null
-        fun getInstance(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource, appExecutor: AppExecutor) : MoviesRepositories =
-                instance ?: synchronized(this){
-                    instance ?: MoviesRepositories(remoteDataSource,localDataSource,appExecutor).apply { instance = this }
-                }
-    }*/
+
 
     override fun getAllTrendingMovies(): Flowable<ResourceData<PagedList<MoviesModel>>> {
         return object :NetworkBoundResource<List<ResultsItem>, PagedList<MoviesModel>>() {
@@ -45,7 +39,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
                         .setInitialLoadSizeHint(7)
                         .setPageSize(7)
                         .build()
-                return RxPagedListBuilder(localDataSource.getAllFavMovie()
+                return RxPagedListBuilder(localDataSource.getAllMovies()
                     .map { DataMapper.mapMoviesEntitiesToDomain(it)
                          },config)
                     .buildFlowable(BackpressureStrategy.BUFFER)
@@ -95,7 +89,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
             override fun saveCallResult(response: List<TVResultsItem>) {
                 val tvshowList = DataMapper.mapTvShowResponseToEntity(response)
                 localDataSource.insertTvShow(tvshowList)
-                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
             }
@@ -129,7 +123,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
                 val movieList = DataMapper.mapMoviesDetailResponseToEntity(response)
                     with(movieList){
                         localDataSource.updateMovie(id_movies,genre.toString(),country.toString(),duration)
-                    }  .subscribeOn(Schedulers.io())
+                    }  .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe()
             }
