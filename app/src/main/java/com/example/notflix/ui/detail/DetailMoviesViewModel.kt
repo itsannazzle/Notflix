@@ -14,8 +14,6 @@ class DetailMoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewMo
 
     fun getDetailTvShow(tvshowId: Int) = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getDetailTv(tvshowId))
 
-    fun showEpisodes() : LiveData<List<EpisodesEntity>> = notflixUsecase.getEpisodes()
-
     fun showTrendingMovies() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllTrendingMovies())
 
     fun isFavoriteMovie(moviesModel: MoviesModel, favState : Boolean){

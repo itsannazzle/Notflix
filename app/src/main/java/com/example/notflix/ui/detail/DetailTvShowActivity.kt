@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityDetailTvShowBinding
 import com.nextint.core.BuildConfig
 import com.nextint.core.domain.model.TvShowModel
-import com.nextint.core.ui.EpisodesAdapter
 import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -29,7 +27,6 @@ class DetailTvShowActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.progressCircular.visibility = View.VISIBLE
-        val episodesAdapter = EpisodesAdapter()
         val intent = intent.extras
 
         if (intent != null) {
@@ -50,11 +47,6 @@ class DetailTvShowActivity : AppCompatActivity() {
                 }
             })
         }
-        viewModel.showEpisodes().observe(this,{
-                eps -> episodesAdapter.setEpisodes(eps)
-            binding.rvEps.adapter = episodesAdapter
-            binding.rvEps.layoutManager = LinearLayoutManager(this@DetailTvShowActivity)
-        })
     }
 
     private fun showDetailShow(tvShowEntity: TvShowModel){

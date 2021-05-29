@@ -1,12 +1,9 @@
 package com.nextint.core.data
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
 import com.nextint.core.data.local.LocalDataSource
-import com.nextint.core.data.local.entity.EpisodesEntity
 import com.nextint.core.data.remote.RemoteDataSource
 import com.nextint.core.data.remote.config.ApiResponse
 import com.nextint.core.data.remote.response.DetailMoviesResponse
@@ -18,7 +15,6 @@ import com.nextint.core.domain.model.TvShowModel
 import com.nextint.core.domain.repository.NotflixImpl
 import com.nextint.core.utils.AppExecutor
 import com.nextint.core.utils.DataMapper
-import com.nextint.core.utils.DataMovies
 import com.nextint.core.values.ResourceData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -209,11 +205,4 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
             },config).buildFlowable(BackpressureStrategy.BUFFER)
 
     }
-
-    override fun getEpisodes(): LiveData<List<EpisodesEntity>> {
-        val showEp = MutableLiveData<List<EpisodesEntity>>()
-        showEp.postValue(DataMovies.generateEpisodes())
-        return showEp
-    }
-
 }
