@@ -1,3 +1,4 @@
+include ':featurefavorite'
 include ':favoritefeature'
 include ':core'
 include ':app'

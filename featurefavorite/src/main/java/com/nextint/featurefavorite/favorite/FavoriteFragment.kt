@@ -1,4 +1,4 @@
-package com.example.notflix.ui.home
+package com.nextint.featurefavorite.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,38 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.notflix.R
-import com.example.notflix.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.nextint.featurefavorite.databinding.FragmentFavoriteBinding
 
 
-class HomeFragment : Fragment() {
-    private var _binding : FragmentHomeBinding? = null
-    private var tabMediator : TabLayoutMediator? = null
+class FavoriteFragment : Fragment() {
+    private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private var root : View? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        root = binding.root
-        return root
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sectionAdapter = SectionAdapter(childFragmentManager,lifecycle)
-        binding.homepager.adapter = sectionAdapter
-        tabMediator = TabLayoutMediator(binding.tab,binding.homepager){ tab, position ->
+        val favSecAdapter = FavoriteSectionAdapter(childFragmentManager,lifecycle)
+        binding.homepagerFavorite.adapter = favSecAdapter
+        TabLayoutMediator(binding.tabFavorite,binding.homepagerFavorite){ tab, position ->
             tab.text = resources.getString(TAB_TITLE[position])
-        }
-            tabMediator!!.attach()
+        }.attach()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        root = null
     }
+
     companion object {
         private var TAB_TITLE = intArrayOf(
             R.string.movies,
