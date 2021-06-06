@@ -29,9 +29,9 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
                 response ->
                 val responResult = response.results
                 result.onNext(
-                    if (responResult.isNotEmpty()) ApiResponse.success(responResult) else ApiResponse.empty)
+                    if (responResult.isNotEmpty()) ApiResponse.Success(responResult) else ApiResponse.Empty)
                         },{
-                    error ->result.onNext(ApiResponse.error(error.message.toString()))
+                    error ->result.onNext(ApiResponse.Error(error.message.toString()))
                     Log.e("RemoteDataSource", error.toString())
             })
         return result.toFlowable(BackpressureStrategy.BUFFER)
@@ -48,10 +48,10 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
             .subscribe({
                 response ->
                 result.onNext(
-                    if (response.results.isNotEmpty()) ApiResponse.success(response.results) else ApiResponse.empty
+                    if (response.results.isNotEmpty()) ApiResponse.Success(response.results) else ApiResponse.Empty
                 )
             },{
-                error -> result.onNext(ApiResponse.error(error.message.toString()))
+                error -> result.onNext(ApiResponse.Error(error.message.toString()))
                 Log.e("RemoteDataSource", error.toString())
             })
 
@@ -68,10 +68,10 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
             .take(1)
             .subscribe({
                 response ->
-                result.onNext(ApiResponse.success(response))
+                result.onNext(ApiResponse.Success(response))
                 Log.e("Api", response.title.toString())
             }, {
-                error -> result.onNext(ApiResponse.error(error.message.toString()))
+                error -> result.onNext(ApiResponse.Error(error.message.toString()))
                 Log.e("RemoteDataSource", error.toString())
             })
         return result.toFlowable(BackpressureStrategy.BUFFER)
@@ -86,9 +86,9 @@ class RemoteDataSource(private val apiRequest: ApiRequest) {
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
             .subscribe ({
-                response -> result.onNext(ApiResponse.success(response))
+                response -> result.onNext(ApiResponse.Success(response))
             },{
-                error -> result.onNext(ApiResponse.error(error.message.toString()))
+                error -> result.onNext(ApiResponse.Error(error.message.toString()))
                 Log.e("RemoteDataSource", error.toString())
             })
         return result.toFlowable(BackpressureStrategy.BUFFER)

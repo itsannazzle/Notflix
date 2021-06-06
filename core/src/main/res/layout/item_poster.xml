@@ -6,7 +6,7 @@
     android:layout_height="260dp">
 
     <ImageView
-        android:id="@+id/preview_poster"
+        android:id="@+id/prview_poster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="matrix"

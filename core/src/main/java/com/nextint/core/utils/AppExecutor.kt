@@ -7,15 +7,12 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class AppExecutor @VisibleForTesting constructor(
-        private val diskIO: Executor,
-        private val mainThread: Executor
+    private val diskIO: Executor
 ) {
-    companion object{
-    }
+    companion object;
 
     constructor() : this(
-            Executors.newSingleThreadExecutor(),
-            MainThreadExecutor()
+        Executors.newSingleThreadExecutor()
     )
 
     fun diskIO(): Executor = diskIO

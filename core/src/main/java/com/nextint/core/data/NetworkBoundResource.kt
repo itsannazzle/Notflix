@@ -47,7 +47,7 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
             .subscribe {
                 responseResult ->
                 when(responseResult){
-                    is ApiResponse.success -> {
+                    is ApiResponse.Success -> {
                         saveCallResult(responseResult.data)
                         val dbSource = loadFromDB()
                         dbSource.subscribeOn(Schedulers.computation())
@@ -58,7 +58,7 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
                                 result.onNext(ResourceData.Success(it))
                             }
                     }
-                    is ApiResponse.empty -> {
+                    is ApiResponse.Empty -> {
                         val dbSource = loadFromDB()
                         dbSource.subscribeOn(Schedulers.computation())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -68,7 +68,7 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
                                 result.onNext(ResourceData.Success(it))
                             }
                     }
-                    is ApiResponse.error -> {
+                    is ApiResponse.Error -> {
                         onFetchFailed()
                         result.onNext(ResourceData.Error(responseResult.message,null))
                     }

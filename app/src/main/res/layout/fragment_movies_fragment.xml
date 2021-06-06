@@ -28,12 +28,12 @@
         android:text="@string/popular_movies"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMovies"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titlemovie"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="16dp"
-        android:id="@+id/rv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_poster"/>

@@ -60,7 +60,6 @@
             app:layout_constraintTop_toBottomOf="@id/heart" />
 
         <ImageView
-            android:id="@+id/watch"
             android:contentDescription="@string/watch_on_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

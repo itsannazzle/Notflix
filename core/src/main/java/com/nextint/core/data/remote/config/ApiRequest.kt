@@ -1,5 +1,6 @@
 package com.nextint.core.data.remote.config
 
+
 import com.nextint.core.BuildConfig
 import com.nextint.core.data.remote.response.DetailMoviesResponse
 import com.nextint.core.data.remote.response.DetailTvResponse
@@ -13,7 +14,7 @@ import retrofit2.http.Query
 interface ApiRequest {
 
     @GET("trending/movie/day")
-    fun getTrendingMovies(@Query("api_key") api_key : String=BuildConfig.API_KEY) : Flowable<TrendingResponse>
+    fun getTrendingMovies(@Query("api_key") api_key : String= BuildConfig.API_KEY) : Flowable<TrendingResponse>
 
     @GET("tv/popular")
     fun getPopularTvShow(@Query("api_key") api_key: String=BuildConfig.API_KEY) : Flowable<TvShowResponse>

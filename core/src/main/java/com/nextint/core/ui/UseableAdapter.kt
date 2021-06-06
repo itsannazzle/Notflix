@@ -28,7 +28,7 @@ class UseableAdapter<T>(private val onClickListener : ((T) -> Unit)) : PagedList
                     .load(BuildConfig.POSTER_URL+poster)
                     .error(R.drawable.ic_baseline_info_24)
                     .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
-                    .into(previewPoster)
+                    .into(prviewPoster)
             }
             itemView.setOnClickListener {
                 if (watch != null) {

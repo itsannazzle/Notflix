@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/black"
-    tools:context="com.nextint.favoritefeature.favorite.FavMovieFragment">
+    tools:context="com.nextint.favoritefeature.favorite.FavMovieFragment"
+    tools:ignore="Overdraw">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_fav_movie"
+        android:id="@+id/rvFavMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_poster"/>
