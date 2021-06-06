@@ -1,9 +1,7 @@
 package com.example.notflix.ui.detail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
-import com.nextint.core.data.local.entity.EpisodesEntity
 import com.nextint.core.domain.model.MoviesModel
 import com.nextint.core.domain.model.TvShowModel
 import com.nextint.core.domain.usecase.NotflixUsecase

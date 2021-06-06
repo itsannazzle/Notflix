@@ -13,7 +13,7 @@
         android:padding="8dp"
         android:layout_height="wrap_content">
 
-         <ProgressBar
+        <ProgressBar
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,18 +23,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
 
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
         <ImageView
             android:id="@+id/movies_poster"
             android:scaleType="matrix"
             android:contentDescription="@string/poster"
             android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="500dp"/>
 
         <com.google.android.material.button.MaterialButton
@@ -43,9 +39,13 @@
             style="@style/sub_title"
             android:layout_gravity="center"
             android:backgroundTint="@color/red"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"
             android:text="@string/watch_now"
             android:textAllCaps="false"/>
-    </FrameLayout>
 
     <ImageView
         android:id="@+id/heart"
@@ -55,7 +55,7 @@
         android:contentDescription="@string/your_favorite"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_heart"/>
 
@@ -78,7 +78,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_ondemand_video_24"/>
 
@@ -101,7 +101,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_info_24"/>
 
@@ -121,7 +121,7 @@
         style="@style/body_copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/app_name"
         android:layout_marginStart="8dp"
@@ -131,7 +131,7 @@
         style="@style/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="1"
         android:layout_marginEnd="16dp"
@@ -211,7 +211,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_poster"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </ScrollView>

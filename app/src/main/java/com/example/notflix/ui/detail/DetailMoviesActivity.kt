@@ -17,16 +17,15 @@ import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMoviesActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBinding
+    private var _binding : ActivityDetailBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: UseableAdapter<MoviesModel>
     private val viewModel : DetailMoviesViewModel by viewModel()
     private var state = false
-    companion object{
-        const val EXTRA_MOVIEID = "MOVIE_ID"
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
+        _binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
@@ -37,14 +36,14 @@ class DetailMoviesActivity : AppCompatActivity() {
             viewModel.getDetailMovie(intent.getInt(EXTRA_MOVIEID)).observe(this,{
                     movies ->
                 when (movies) {
-                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
-                    is ResourceData.success -> {
+                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Success -> {
                         movies.data?.let {
                             showDetail(it)
                             binding.progressCircular.visibility = View.VISIBLE
                         }
                     }
-                    is ResourceData.error -> {
+                    is ResourceData.Error -> {
                         binding.progressCircular.visibility = View.GONE
                         Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }
@@ -55,14 +54,14 @@ class DetailMoviesActivity : AppCompatActivity() {
         viewModel.showTrendingMovies().observe(this,{
             trending ->
             when(trending){
-                is ResourceData.success -> {
+                is ResourceData.Success -> {
                     adapter.submitList(trending.data)
                     adapter.notifyDataSetChanged()
                     binding.movieRec.adapter = adapter
                     binding.progressCircular.visibility = View.GONE
                 }
-                is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
-                is ResourceData.error -> {
+                is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                is ResourceData.Error -> {
                     binding.progressCircular.visibility = View.GONE
                     Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                 }
@@ -111,4 +110,11 @@ class DetailMoviesActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+    companion object{
+        const val EXTRA_MOVIEID = "MOVIE_ID"
+    }
 }

@@ -31,8 +31,8 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
             override fun loadFromDB(): Flowable<PagedList<MoviesModel>> {
                 val config =PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
-                        .setInitialLoadSizeHint(7)
-                        .setPageSize(7)
+                        .setInitialLoadSizeHint(10)
+                        .setPageSize(10)
                         .build()
                 return RxPagedListBuilder(localDataSource.getAllMovies()
                     .map { DataMapper.mapMoviesEntitiesToDomain(it)
@@ -69,8 +69,8 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
             override fun loadFromDB(): Flowable<PagedList<TvShowModel>> {
                 val config =PagedList.Config.Builder()
                         .setEnablePlaceholders(false)
-                        .setInitialLoadSizeHint(7)
-                        .setPageSize(7)
+                        .setInitialLoadSizeHint(10)
+                        .setPageSize(10)
                         .build()
                 return RxPagedListBuilder(localDataSource.getAllTvShow()
                     .map { DataMapper.mapTvShowEntitiesToDomain(it)

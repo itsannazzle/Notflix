@@ -14,10 +14,12 @@ import com.nextint.favoritefeature.databinding.FragmentFavMovieBinding
 import com.nextint.favoritefeature.di.favoriteModule
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 
 
 class FavMovieFragment : Fragment() {
-    private lateinit var binding: FragmentFavMovieBinding
+    private var _binding: FragmentFavMovieBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: UseableAdapter<MoviesModel>
     private val viewModel by sharedViewModel<FavoriteViewModel>()
 
@@ -26,16 +28,20 @@ class FavMovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentFavMovieBinding.inflate (inflater, container, false)
+        _binding = FragmentFavMovieBinding.inflate (inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         loadKoinModules(favoriteModule)
         viewModel.showFavMovie().observe(viewLifecycleOwner,{
-            favMovie ->
+                favMovie ->
             adapter.submitList(favMovie)
             binding.rvFavMovie.adapter = adapter
         })
 
         showFavMovie()
-        return binding.root
     }
 
     private fun showFavMovie(){
@@ -50,7 +56,12 @@ class FavMovieFragment : Fragment() {
             setHasFixedSize(true)
 
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        unloadKoinModules(favoriteModule)
     }
 
 }

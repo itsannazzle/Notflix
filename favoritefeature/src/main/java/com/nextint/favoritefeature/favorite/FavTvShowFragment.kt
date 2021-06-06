@@ -14,10 +14,12 @@ import com.nextint.favoritefeature.databinding.FragmentFavTvShowBinding
 import com.nextint.favoritefeature.di.favoriteModule
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 
 
 class FavTvShowFragment : Fragment() {
-    private lateinit var binding: FragmentFavTvShowBinding
+    private var _binding: FragmentFavTvShowBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: UseableAdapter<TvShowModel>
     private val viewModel by sharedViewModel<FavoriteViewModel>()
 
@@ -26,18 +28,20 @@ class FavTvShowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentFavTvShowBinding.inflate(inflater, container, false)
+        _binding = FragmentFavTvShowBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         loadKoinModules(favoriteModule)
         viewModel.showFavTv().observe(viewLifecycleOwner,{
-            favTvShow ->
+                favTvShow ->
             adapter.submitList(favTvShow)
             adapter.notifyDataSetChanged()
             binding.rvFavTv.adapter = adapter
         })
-
         showFavTv()
-
-        return binding.root
     }
 
     private fun showFavTv(){
@@ -53,6 +57,9 @@ class FavTvShowFragment : Fragment() {
         }
     }
 
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        unloadKoinModules(favoriteModule)
+    }
 }

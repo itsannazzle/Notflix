@@ -10,40 +10,37 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.databinding.FragmentMoviesFragmentBinding
 import com.example.notflix.ui.detail.DetailMoviesActivity
-import com.nextint.core.ui.UseableAdapter
 import com.nextint.core.domain.model.MoviesModel
+import com.nextint.core.ui.UseableAdapter
 import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MoviesFragment : Fragment() {
-    private lateinit var binding: FragmentMoviesFragmentBinding
+    private var _binding: FragmentMoviesFragmentBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter : UseableAdapter<MoviesModel>
     private val viewModel : MoviesViewModel by viewModel()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
-        binding = FragmentMoviesFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentMoviesFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         if (activity != null){
             binding.progressCircular.visibility = View.VISIBLE
             viewModel.showTrendingMovies().observe(viewLifecycleOwner,{
                     trending ->
                 when(trending){
-                    is ResourceData.success -> {
+                    is ResourceData.Success -> {
                         binding.progressCircular.visibility = View.GONE
                         adapter.submitList(trending.data)
                         adapter.notifyDataSetChanged()
                         binding.rvMovies.adapter = adapter
                     }
-                    is ResourceData.error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
                 }
             })
         }
@@ -60,6 +57,10 @@ class MoviesFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(),2)
             setHasFixedSize(true)
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -10,13 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notflix.databinding.FragmentTvShowBinding
 import com.example.notflix.ui.detail.DetailTvShowActivity
-import com.nextint.core.ui.UseableAdapter
 import com.nextint.core.domain.model.TvShowModel
+import com.nextint.core.ui.UseableAdapter
 import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvShowFragment : Fragment() {
-    private lateinit var binding: FragmentTvShowBinding
+    private var _binding: FragmentTvShowBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: UseableAdapter<TvShowModel>
     private val viewModel : TvShowViewModel by viewModel()
     override fun onCreateView(
@@ -24,27 +25,29 @@ class TvShowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentTvShowBinding.inflate(inflater, container, false)
+        _binding = FragmentTvShowBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             binding.progressCircular.visibility = View.VISIBLE
             viewModel.showTvShow().observe(viewLifecycleOwner, { tvShow ->
                 when (tvShow) {
-                    is ResourceData.success -> {
+                    is ResourceData.Success -> {
                         binding.progressCircular.visibility = View.GONE
                         adapter.submitList(tvShow.data)
                         adapter.notifyDataSetChanged()
                         binding.rvTvshow.adapter = adapter
                     }
-                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
-                    is ResourceData.error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                 }
 
             })
         }
-
         showPopularTvShow()
-        return binding.root
     }
 
     private fun showPopularTvShow(){
@@ -59,4 +62,8 @@ class TvShowFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

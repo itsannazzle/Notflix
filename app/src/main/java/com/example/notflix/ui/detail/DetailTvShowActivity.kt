@@ -14,15 +14,15 @@ import com.nextint.core.values.ResourceData
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailTvShowActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailTvShowBinding
+
+    private var _binding : ActivityDetailTvShowBinding? = null
+    private val binding get() =  _binding!!
     private val viewModel : DetailMoviesViewModel by viewModel()
     private var state = false
-    companion object{
-        const val EXTRA_TVSHOW = "TV"
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailTvShowBinding.inflate(layoutInflater)
+        _binding = ActivityDetailTvShowBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
@@ -33,17 +33,17 @@ class DetailTvShowActivity : AppCompatActivity() {
             viewModel.getDetailTvShow(intent.getInt(EXTRA_TVSHOW)).observe(this,{
                     tvShow ->
                 when(tvShow){
-                    is ResourceData.success -> {
+                    is ResourceData.Success -> {
                         tvShow.data?.let {
                             showDetailShow(it)
                         }
                         binding.progressCircular.visibility = View.GONE
                     }
-                    is ResourceData.error -> {
+                    is ResourceData.Error -> {
                         binding.progressCircular.visibility = View.GONE
                         Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }
-                    is ResourceData.loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
                 }
             })
         }
@@ -75,5 +75,13 @@ class DetailTvShowActivity : AppCompatActivity() {
         } else {
             binding.heart.setImageResource(R.drawable.ic_heart)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+    companion object{
+        const val EXTRA_TVSHOW = "TV"
     }
 }

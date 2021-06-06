@@ -11,7 +11,6 @@ class AppExecutor @VisibleForTesting constructor(
         private val mainThread: Executor
 ) {
     companion object{
-        private const val THREAD_COUNT = 3
     }
 
     constructor() : this(
@@ -20,8 +19,6 @@ class AppExecutor @VisibleForTesting constructor(
     )
 
     fun diskIO(): Executor = diskIO
-
-    fun mainThread(): Executor = mainThread
 
     private class MainThreadExecutor : Executor {
         val mainThreadHandlerThread = Handler(Looper.getMainLooper())

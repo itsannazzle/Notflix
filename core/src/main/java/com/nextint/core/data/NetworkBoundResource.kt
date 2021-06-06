@@ -27,7 +27,7 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
                 if (shouldFetch(dbValue)) {
                     fetchFromNetwork()
                 } else {
-                    result.onNext(ResourceData.success(dbValue))
+                    result.onNext(ResourceData.Success(dbValue))
                 }
             }
         compositeDisposable.add(db)
@@ -36,7 +36,7 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
     private fun fetchFromNetwork(){
         val apiResponse = createCall()
 
-        result.onNext(ResourceData.loading(null))
+        result.onNext(ResourceData.Loading(null))
         val response = apiResponse
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -55,7 +55,7 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
                             .take(1)
                             .subscribe {
                                 dbSource.unsubscribeOn(Schedulers.io())
-                                result.onNext(ResourceData.success(it))
+                                result.onNext(ResourceData.Success(it))
                             }
                     }
                     is ApiResponse.empty -> {
@@ -65,12 +65,12 @@ abstract class NetworkBoundResource<RequestType,ResultType>{
                             .take(1)
                             .subscribe {
                                 dbSource.unsubscribeOn(Schedulers.io())
-                                result.onNext(ResourceData.success(it))
+                                result.onNext(ResourceData.Success(it))
                             }
                     }
                     is ApiResponse.error -> {
                         onFetchFailed()
-                        result.onNext(ResourceData.error(responseResult.message,null))
+                        result.onNext(ResourceData.Error(responseResult.message,null))
                     }
                 }
             }

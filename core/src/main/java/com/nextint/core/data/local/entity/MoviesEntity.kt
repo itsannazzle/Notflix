@@ -1,14 +1,11 @@
 package com.nextint.core.data.local.entity
 
-import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 
 
 @Entity(tableName = "moviesTable")
-@Parcelize
 data class MoviesEntity(
     @PrimaryKey
     @NonNull
@@ -22,4 +19,4 @@ data class MoviesEntity(
     var overview : String? = null,
     var duration: Int = 0,
     var favorite :Boolean = false
-) : Parcelable
+)
