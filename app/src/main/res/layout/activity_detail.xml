@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
     android:layout_width="match_parent"
-    android:padding="8dp"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     tools:context=".ui.detail.DetailMoviesActivity">
 
-    <FrameLayout
-        android:id="@+id/framelayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/black"
         android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintVertical_bias="0.2" />
+
         <ImageView
             android:id="@+id/movies_poster"
             android:scaleType="matrix"
             android:contentDescription="@string/poster"
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="500dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
@@ -28,33 +39,105 @@
             style="@style/sub_title"
             android:layout_gravity="center"
             android:backgroundTint="@color/red"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"
             android:text="@string/watch_now"
             android:textAllCaps="false"/>
-    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/your_favorite"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_heart"/>
+
+    <TextView
+        style="@style/body_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/watch_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heart" />
+
+    <ImageView
+        android:contentDescription="@string/watch_on_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_ondemand_video_24"/>
+
+    <TextView
+        style="@style/body_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/watch_on_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heart" />
+
+    <ImageView
+        android:id="@+id/info"
+        android:contentDescription="@string/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_info_24"/>
+
+    <TextView
+        style="@style/body_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/info"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heart" />
 
     <TextView
         android:id="@+id/movies_country"
         style="@style/body_copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/app_name"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="80dp"/>
     <TextView
         android:id="@+id/movies_rating"
         style="@style/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/framelayout"
+        app:layout_constraintTop_toBottomOf="@id/movies_poster"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="1"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/app_name"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="80dp"/>
     <TextView
         android:id="@+id/movies_title"
         style="@style/title"
@@ -81,7 +164,9 @@
     <TextView
         android:id="@+id/movies_desc"
         style="@style/body_copy"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginTop="16dp"
@@ -124,6 +209,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_poster"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

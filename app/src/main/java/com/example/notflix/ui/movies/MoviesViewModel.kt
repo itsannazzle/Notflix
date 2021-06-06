@@ -1,11 +1,11 @@
 package com.example.notflix.ui.movies
 
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
-import com.example.notflix.entity.MoviesEntity
-import com.example.notflix.utils.DataMovies
+import com.nextint.core.domain.usecase.NotflixUsecase
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() {
 
-    fun getMovies() : List<MoviesEntity> = DataMovies.generateDataMovies()
+    fun showTrendingMovies() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllTrendingMovies())
 
 }

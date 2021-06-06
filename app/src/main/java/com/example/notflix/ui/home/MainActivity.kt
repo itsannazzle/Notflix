@@ -1,31 +1,32 @@
 package com.example.notflix.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.notflix.R
 import com.example.notflix.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    companion object {
-        private var TAB_TITLE = intArrayOf(
-                R.string.movies,
-                R.string.tv_shoe
-        )
-    }
+    private var _binding: ActivityMainBinding?= null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        binding.bottomNav.setupWithNavController(navController.navController)
 
-        val sectionAdapter = SectionAdapter(supportFragmentManager,lifecycle)
-        binding.homepager.adapter = sectionAdapter
-        TabLayoutMediator(binding.tab,binding.homepager){ tab, position ->
-            tab.text = resources.getString(TAB_TITLE[position])
-        }.attach()
+    }
 
+    override fun onBackPressed() {
+        finishAfterTransition()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -1,38 +1,69 @@
 package com.example.notflix.ui.tvshow
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.notflix.R
 import com.example.notflix.databinding.FragmentTvShowBinding
+import com.example.notflix.ui.detail.DetailTvShowActivity
+import com.nextint.core.domain.model.TvShowModel
+import com.nextint.core.ui.UseableAdapter
+import com.nextint.core.values.ResourceData
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvShowFragment : Fragment() {
-    private lateinit var binding: FragmentTvShowBinding
-    private lateinit var tvShowAdapter: TvShowAdapter
-    private val viewModel : TvShowViewModel by activityViewModels()
+    private var _binding: FragmentTvShowBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: UseableAdapter<TvShowModel>
+    private val viewModel : TvShowViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentTvShowBinding.inflate(inflater, container, false)
-        showTvShow()
-
+        _binding = FragmentTvShowBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun showTvShow(){
-        tvShowAdapter = TvShowAdapter()
-        tvShowAdapter.addTvShow(viewModel.getTvShow())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity != null) {
+            binding.progressCircular.visibility = View.VISIBLE
+            viewModel.showTvShow().observe(viewLifecycleOwner, { tvShow ->
+                when (tvShow) {
+                    is ResourceData.Success -> {
+                        binding.progressCircular.visibility = View.GONE
+                        adapter.submitList(tvShow.data)
+                        adapter.notifyDataSetChanged()
+                        binding.rvTvshow.adapter = adapter
+                    }
+                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+        }
+        showPopularTvShow()
+    }
+
+    private fun showPopularTvShow(){
+        adapter = UseableAdapter{
+            val intent = Intent(activity, DetailTvShowActivity::class.java)
+            intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW,it.id_tvshow)
+            startActivity(intent)
+        }
         with(binding.rvTvshow){
-            adapter = tvShowAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
+            setHasFixedSize(true)
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

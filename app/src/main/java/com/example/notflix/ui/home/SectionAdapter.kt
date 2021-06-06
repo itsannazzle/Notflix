@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.notflix.entity.TvShowEntity
 import com.example.notflix.ui.movies.MoviesFragment
 import com.example.notflix.ui.tvshow.TvShowFragment
 
