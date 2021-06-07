@@ -19,17 +19,19 @@ import org.koin.core.context.unloadKoinModules
 
 class FavMovieFragment : Fragment() {
     private var _binding: FragmentFavMovieBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
+    private var root : View? = null
     private lateinit var adapter: UseableAdapter<MoviesModel>
     private val viewModel by sharedViewModel<FavoriteViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFavMovieBinding.inflate (inflater, container, false)
-        return binding.root
+        root = binding?.root
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,7 +40,7 @@ class FavMovieFragment : Fragment() {
         viewModel.showFavMovie().observe(viewLifecycleOwner,{
                 favMovie ->
             adapter.submitList(favMovie)
-            binding.rvFavMovie.adapter = adapter
+            binding?.rvFavMovie?.adapter = adapter
         })
 
         showFavMovie()
@@ -50,10 +52,10 @@ class FavMovieFragment : Fragment() {
             intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,it.id_movies)
             startActivity(intent)
         }
-        with(binding.rvFavMovie){
-            adapter?.notifyDataSetChanged()
-            layoutManager = GridLayoutManager(requireContext(),2)
-            setHasFixedSize(true)
+        with(binding?.rvFavMovie){
+            adapter.notifyDataSetChanged()
+            this?.layoutManager = GridLayoutManager(requireContext(),2)
+            this?.setHasFixedSize(true)
 
         }
     }

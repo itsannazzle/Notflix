@@ -19,17 +19,19 @@ import org.koin.core.context.unloadKoinModules
 
 class FavTvShowFragment : Fragment() {
     private var _binding: FragmentFavTvShowBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
+    private var root : View? = null
     private lateinit var adapter: UseableAdapter<TvShowModel>
     private val viewModel by sharedViewModel<FavoriteViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFavTvShowBinding.inflate(inflater, container, false)
-        return binding.root
+        root = binding?.root
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +41,7 @@ class FavTvShowFragment : Fragment() {
                 favTvShow ->
             adapter.submitList(favTvShow)
             adapter.notifyDataSetChanged()
-            binding.rvFavTv.adapter = adapter
+            binding?.rvFavTv?.adapter = adapter
         })
         showFavTv()
     }
@@ -50,10 +52,10 @@ class FavTvShowFragment : Fragment() {
             intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW,it.id_tvshow)
             startActivity(intent)
         }
-        with(binding.rvFavTv){
-            adapter?.notifyDataSetChanged()
-            layoutManager = GridLayoutManager(requireContext(),2)
-            setHasFixedSize(true)
+        with(binding?.rvFavTv){
+            adapter.notifyDataSetChanged()
+            this?.layoutManager = GridLayoutManager(requireContext(),2)
+            this?.setHasFixedSize(true)
         }
     }
 

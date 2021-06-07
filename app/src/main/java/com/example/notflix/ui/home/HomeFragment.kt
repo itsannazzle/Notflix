@@ -13,22 +13,26 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
     private var tabMediator : TabLayoutMediator? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private var root : View? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        root = binding.root
+        root = binding?.root
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sectionAdapter = SectionAdapter(childFragmentManager,lifecycle)
-        binding.homepager.adapter = sectionAdapter
-        tabMediator = TabLayoutMediator(binding.tab,binding.homepager){ tab, position ->
-            tab.text = resources.getString(TAB_TITLE[position])
+        binding?.homepager?.adapter = sectionAdapter
+        tabMediator = binding?.tab?.let {
+            binding?.homepager?.let { it1 ->
+                TabLayoutMediator(it, it1){ tab, position ->
+                    tab.text = resources.getString(TAB_TITLE[position])
+                }
+            }
         }
             tabMediator!!.attach()
     }

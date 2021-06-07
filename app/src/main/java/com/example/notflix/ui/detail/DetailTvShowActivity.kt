@@ -16,17 +16,19 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class DetailTvShowActivity : AppCompatActivity() {
 
     private var _binding : ActivityDetailTvShowBinding? = null
-    private val binding get() =  _binding!!
+    private val binding get() =  _binding
+    private var root : View? = null
     private val viewModel : DetailMoviesViewModel by viewModel()
     private var state = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailTvShowBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        root = binding?.root
+        setContentView(root)
         supportActionBar?.hide()
 
-        binding.progressCircular.visibility = View.VISIBLE
+        binding?.progressCircular?.visibility = View.VISIBLE
         val intent = intent.extras
 
         if (intent != null) {
@@ -37,32 +39,35 @@ class DetailTvShowActivity : AppCompatActivity() {
                         tvShow.data?.let {
                             showDetailShow(it)
                         }
-                        binding.progressCircular.visibility = View.GONE
+                        binding?.progressCircular?.visibility = View.GONE
                     }
                     is ResourceData.Error -> {
-                        binding.progressCircular.visibility = View.GONE
+                        binding?.progressCircular?.visibility = View.GONE
                         Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }
-                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Loading -> binding?.progressCircular?.visibility = View.VISIBLE
                 }
             })
         }
+
     }
 
     private fun showDetailShow(tvShowEntity: TvShowModel){
-        binding.moviesTitle.text = tvShowEntity.title
-        binding.moviesCountry.text = tvShowEntity.country
-        binding.moviesDesc.text = tvShowEntity.overview
-        binding.moviesDuration.text = StringBuilder("${tvShowEntity.duration}m")
-        binding.moviesGenre.text = tvShowEntity.genre
-        binding.moviesRating.text = tvShowEntity.rating.toString()
-        Glide.with(this)
+        binding?.moviesTitle?.text = tvShowEntity.title
+        binding?.moviesCountry?.text = tvShowEntity.country
+        binding?.moviesDesc?.text = tvShowEntity.overview
+        binding?.moviesDuration?.text = StringBuilder("${tvShowEntity.duration}m")
+        binding?.moviesGenre?.text = tvShowEntity.genre
+        binding?.moviesRating?.text = tvShowEntity.rating.toString()
+        binding?.moviesPoster?.let {
+            Glide.with(this)
                 .load(BuildConfig.POSTER_URL + tvShowEntity.backDrop)
                 .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
-                .into(binding.moviesPoster)
+                .into(it)
+        }
         state = tvShowEntity.favorite
         isFavorited(state)
-        binding.heart.setOnClickListener {
+        binding?.heart?.setOnClickListener {
             state = !state
             viewModel.isFavoriteTv(tvShowEntity,state)
             isFavorited(state)
@@ -71,9 +76,9 @@ class DetailTvShowActivity : AppCompatActivity() {
 
     private fun isFavorited(state : Boolean){
         if (state){
-            binding.heart.setImageResource(R.drawable.ic_heart_filled)
+            binding?.heart?.setImageResource(R.drawable.ic_heart_filled)
         } else {
-            binding.heart.setImageResource(R.drawable.ic_heart)
+            binding?.heart?.setImageResource(R.drawable.ic_heart)
         }
     }
 

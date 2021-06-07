@@ -18,7 +18,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMoviesActivity : AppCompatActivity() {
     private var _binding : ActivityDetailBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
+    private var root : View? = null
     private lateinit var adapter: UseableAdapter<MoviesModel>
     private val viewModel : DetailMoviesViewModel by viewModel()
     private var state = false
@@ -26,25 +27,25 @@ class DetailMoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        root = binding?.root
+        setContentView(root)
         supportActionBar?.hide()
 
-        binding.progressCircular.visibility = View.VISIBLE
-
+        binding?.progressCircular?.visibility = View.VISIBLE
         val intent = intent.extras
         if (intent != null) {
             viewModel.getDetailMovie(intent.getInt(EXTRA_MOVIEID)).observe(this,{
                     movies ->
                 when (movies) {
-                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Loading -> binding?.progressCircular?.visibility = View.VISIBLE
                     is ResourceData.Success -> {
                         movies.data?.let {
                             showDetail(it)
-                            binding.progressCircular.visibility = View.VISIBLE
+                            binding?.progressCircular?.visibility = View.VISIBLE
                         }
                     }
                     is ResourceData.Error -> {
-                        binding.progressCircular.visibility = View.GONE
+                        binding?.progressCircular?.visibility = View.GONE
                         Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -52,17 +53,17 @@ class DetailMoviesActivity : AppCompatActivity() {
         }
         showTrending()
         viewModel.showTrendingMovies().observe(this,{
-            trending ->
+                trending ->
             when(trending){
                 is ResourceData.Success -> {
                     adapter.submitList(trending.data)
                     adapter.notifyDataSetChanged()
-                    binding.movieRec.adapter = adapter
-                    binding.progressCircular.visibility = View.GONE
+                    binding?.movieRec?.adapter = adapter
+                    binding?.progressCircular?.visibility = View.GONE
                 }
-                is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                is ResourceData.Loading -> binding?.progressCircular?.visibility = View.VISIBLE
                 is ResourceData.Error -> {
-                    binding.progressCircular.visibility = View.GONE
+                    binding?.progressCircular?.visibility = View.GONE
                     Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -70,20 +71,23 @@ class DetailMoviesActivity : AppCompatActivity() {
         })
     }
 
+
     private fun showDetail(movie : MoviesModel){
-        binding.moviesTitle.text = movie.title
-        binding.moviesCountry.text = movie.country
-        binding.moviesDesc.text = movie.overview
-        binding.moviesDuration.text = StringBuilder("${movie.duration}m")
-        binding.moviesGenre.text = movie.genre
-        binding.moviesRating.text = movie.rating.toString()
-        Glide.with(this)
+        binding?.moviesTitle?.text = movie.title
+        binding?.moviesCountry?.text = movie.country
+        binding?.moviesDesc?.text = movie.overview
+        binding?.moviesDuration?.text = StringBuilder("${movie.duration}m")
+        binding?.moviesGenre?.text = movie.genre
+        binding?.moviesRating?.text = movie.rating.toString()
+        binding?.moviesPoster?.let {
+            Glide.with(this)
                 .load(BuildConfig.POSTER_URL + movie.backDrop)
                 .apply(RequestOptions.placeholderOf(R.drawable.pic_nopic))
-                .into(binding.moviesPoster)
+                .into(it)
+        }
         state = movie.favorite
         isFavorited(state)
-        binding.heart.setOnClickListener {
+        binding?.heart?.setOnClickListener {
             state = !state
             viewModel.isFavoriteMovie(movie, state)
             isFavorited(state)
@@ -92,9 +96,9 @@ class DetailMoviesActivity : AppCompatActivity() {
 
     private fun isFavorited(state : Boolean){
         if (state){
-            binding.heart.setImageResource(R.drawable.ic_heart_filled)
+            binding?.heart?.setImageResource(R.drawable.ic_heart_filled)
         } else {
-            binding.heart.setImageResource(R.drawable.ic_heart)
+            binding?.heart?.setImageResource(R.drawable.ic_heart)
         }
     }
 
@@ -104,9 +108,9 @@ class DetailMoviesActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_MOVIEID,it.id_movies)
             startActivity(intent)
         }
-        with(binding.movieRec){
-            layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
-            setHasFixedSize(true)
+        with(binding?.movieRec){
+            this?.layoutManager = LinearLayoutManager(this@DetailMoviesActivity,LinearLayoutManager.HORIZONTAL,false)
+            this?.setHasFixedSize(true)
         }
     }
 

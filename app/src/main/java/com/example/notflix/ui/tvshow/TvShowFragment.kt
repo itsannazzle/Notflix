@@ -17,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvShowFragment : Fragment() {
     private var _binding: FragmentTvShowBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private var root : View? = null
     private lateinit var adapter: UseableAdapter<TvShowModel>
     private val viewModel : TvShowViewModel by viewModel()
@@ -27,23 +27,23 @@ class TvShowFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentTvShowBinding.inflate(inflater, container, false)
-        root = binding.root
+        root = binding?.root
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            binding.progressCircular.visibility = View.VISIBLE
+            binding?.progressCircular?.visibility = View.VISIBLE
             viewModel.showTvShow().observe(viewLifecycleOwner, { tvShow ->
                 when (tvShow) {
                     is ResourceData.Success -> {
-                        binding.progressCircular.visibility = View.GONE
+                        binding?.progressCircular?.visibility = View.GONE
                         adapter.submitList(tvShow.data)
                         adapter.notifyDataSetChanged()
-                        binding.rvTvshow.adapter = adapter
+                        binding?.rvTvshow?.adapter = adapter
                     }
-                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Loading -> binding?.progressCircular?.visibility = View.VISIBLE
                     is ResourceData.Error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                 }
 
@@ -58,9 +58,9 @@ class TvShowFragment : Fragment() {
             intent.putExtra(DetailTvShowActivity.EXTRA_TVSHOW,it.id_tvshow)
             startActivity(intent)
         }
-        with(binding.rvTvshow){
-            layoutManager = GridLayoutManager(requireContext(),2)
-            setHasFixedSize(true)
+        with(binding?.rvTvshow){
+            this?.layoutManager = GridLayoutManager(requireContext(),2)
+            this?.setHasFixedSize(true)
         }
     }
 

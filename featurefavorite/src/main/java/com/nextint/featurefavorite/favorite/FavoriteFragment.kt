@@ -12,22 +12,27 @@ import com.nextint.featurefavorite.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
-
+    private val binding get() = _binding
+    private var root : View? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        return binding.root
+        root = binding?.root
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val favSecAdapter = FavoriteSectionAdapter(childFragmentManager,lifecycle)
-        binding.homepagerFavorite.adapter = favSecAdapter
-        TabLayoutMediator(binding.tabFavorite,binding.homepagerFavorite){ tab, position ->
-            tab.text = resources.getString(TAB_TITLE[position])
-        }.attach()
+        binding?.homepagerFavorite?.adapter = favSecAdapter
+        binding?.tabFavorite?.let {
+            binding?.homepagerFavorite?.let { it1 ->
+                TabLayoutMediator(it, it1){ tab, position ->
+                    tab.text = resources.getString(TAB_TITLE[position])
+                }.attach()
+            }
+        }
     }
 
     override fun onDestroy() {

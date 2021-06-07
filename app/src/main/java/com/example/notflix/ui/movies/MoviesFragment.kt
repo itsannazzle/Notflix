@@ -17,32 +17,32 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MoviesFragment : Fragment() {
     private var _binding: FragmentMoviesFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private var root : View? = null
     private lateinit var adapter : UseableAdapter<MoviesModel>
     private val viewModel : MoviesViewModel by viewModel()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentMoviesFragmentBinding.inflate(inflater, container, false)
-        root = binding.root
+        root = binding?.root
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null){
-            binding.progressCircular.visibility = View.VISIBLE
+            binding?.progressCircular?.visibility = View.VISIBLE
             viewModel.showTrendingMovies().observe(viewLifecycleOwner,{
                     trending ->
                 when(trending){
                     is ResourceData.Success -> {
-                        binding.progressCircular.visibility = View.GONE
+                        binding?.progressCircular?.visibility = View.GONE
                         adapter.submitList(trending.data)
                         adapter.notifyDataSetChanged()
-                        binding.rvMovies.adapter = adapter
+                        binding?.rvMovies?.adapter = adapter
                     }
                     is ResourceData.Error -> Toast.makeText(activity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                    is ResourceData.Loading -> binding.progressCircular.visibility = View.VISIBLE
+                    is ResourceData.Loading -> binding?.progressCircular?.visibility = View.VISIBLE
                 }
             })
         }
@@ -55,9 +55,9 @@ class MoviesFragment : Fragment() {
             intent.putExtra(DetailMoviesActivity.EXTRA_MOVIEID,it.id_movies)
             startActivity(intent)
         }
-        with(binding.rvMovies){
-            layoutManager = GridLayoutManager(requireContext(),2)
-            setHasFixedSize(true)
+        with(binding?.rvMovies){
+            this?.layoutManager = GridLayoutManager(requireContext(),2)
+            this?.setHasFixedSize(true)
         }
     }
 
