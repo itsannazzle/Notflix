@@ -41,6 +41,9 @@ class FavMovieFragment : Fragment() {
                 favMovie ->
             adapter.submitList(favMovie)
             binding?.rvFavMovie?.adapter = adapter
+
+            binding?.emptyState?.root?.visibility = if (favMovie.isNotEmpty()) View.GONE else View.VISIBLE
+
         })
 
         showFavMovie()

@@ -1,16 +1,16 @@
 package com.example.notflix.ui.home
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.notflix.R
 import com.example.notflix.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : androidx.fragment.app.Fragment() {
     private var _binding : FragmentHomeBinding? = null
     private var tabMediator : TabLayoutMediator? = null
     private val binding get() = _binding
@@ -36,6 +36,8 @@ class HomeFragment : Fragment() {
         }
             tabMediator!!.attach()
     }
+
+    
 
     override fun onDestroy() {
         super.onDestroy()

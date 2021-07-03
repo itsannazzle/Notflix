@@ -14,4 +14,12 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_poster"/>
 
+    <include
+        android:id="@+id/emptyState"
+        layout="@layout/view_empty"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
+
 </LinearLayout>

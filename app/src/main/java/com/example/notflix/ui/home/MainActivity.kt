@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         binding.bottomNav.setupWithNavController(navController.navController)
-
     }
 
     override fun onBackPressed() {
