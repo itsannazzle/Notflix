@@ -8,4 +8,5 @@ class MoviesViewModel(private val notflixUsecase: NotflixUsecase) : ViewModel() 
 
     fun showTrendingMovies() = LiveDataReactiveStreams.fromPublisher(notflixUsecase.getAllTrendingMovies())
 
+
 }
