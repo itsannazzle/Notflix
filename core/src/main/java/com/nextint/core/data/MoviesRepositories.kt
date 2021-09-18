@@ -102,7 +102,9 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
     override fun getDetailMovie(movie_id: Int): Flowable<ResourceData<MoviesModel>> {
         return object : NetworkBoundResource<DetailMoviesResponse, MoviesModel>() {
             override fun loadFromDB(): Flowable<MoviesModel> {
-                return localDataSource.getSelectedMovie(movie_id).map { DataMapper.mapMoviesEntitiesToDomain(it) }
+                Log.d("Anna","call load")
+                val testData = localDataSource.getSelectedMovie(movie_id).map { DataMapper.mapMoviesEntitiesToDomain(it) }
+                return testData
             }
 
             override fun shouldFetch(data: MoviesModel?): Boolean {
@@ -111,10 +113,12 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
                         data.genre.isNullOrEmpty() && data.country.isNullOrEmpty() -> return true
                     }
                 }*/
+                Log.d("Anna","call fetch")
                 return true
             }
 
             override fun saveCallResult(response: DetailMoviesResponse) {
+                Log.d("Anna","call save")
                 val movieList = DataMapper.mapMoviesDetailResponseToEntity(response)
                     with(movieList){
                         Log.i("MoviesRepository","$id_movies")
@@ -126,6 +130,7 @@ class MoviesRepositories(private val remoteDataSource: RemoteDataSource,
             }
 
             override fun createCall(): Flowable<ApiResponse<DetailMoviesResponse>> {
+                Log.d("Anna","call create")
                 return remoteDataSource.getDetailMovie(movie_id)
             }
 
